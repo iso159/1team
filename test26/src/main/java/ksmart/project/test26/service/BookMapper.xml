@@ -3,5 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.BookMapper">
+  <select id="selectBookList"
+  			resultType="ksmart.project.test26.service.Book">
+  			
+  	 	SELECT
+			book_id as bookId,
+			book_name as bookName
+		FROM test.book
+ 	
   
+  </select>
 </mapper>
