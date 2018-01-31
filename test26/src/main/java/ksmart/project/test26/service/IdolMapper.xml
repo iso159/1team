@@ -3,5 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.IdolMapper">
-  
+
+	<!-- idol 전체 리스트를 띄움 -->
+	<select id="selectIdol" resultType="ksmart.project.test26.service.Idol">
+	SELECT idol_id as idolId,idol_name as idolName FROM test.idol
+	</select>
+	
 </mapper>
