@@ -5,11 +5,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
+<div class="container">
 	<h2>국가 리스트</h2>
-	<table border=1>
+	<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>국가 코드</th>
@@ -25,8 +27,7 @@
 		</c:forEach>
 	</tbody>
 	</table>
-	국가 개수 : ${CountryList.size()}
-	<a href="${pageContext.request.contextPath}/">홈으로</a><br>
-	
+	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
+</div>
 </body>
 </html>
