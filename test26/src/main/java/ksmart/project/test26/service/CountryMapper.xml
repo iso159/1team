@@ -3,5 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.CountryMapper">
-  
+	<select id="selectCountryList" resultType="ksmart.project.test26.service.Country">
+		SELECT
+			country_id as countryId
+			,country_name as countryName
+		FROM test.country
+	</select>
 </mapper>

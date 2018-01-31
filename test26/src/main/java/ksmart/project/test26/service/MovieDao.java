@@ -12,9 +12,9 @@ public class MovieDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	// 쿼리 경로를 상수로 입력 
-	private final String sql = "ksmart.project.test26.service.MovieMapper.";
+	private final String str = "ksmart.project.test26.service.MovieMapper.";
 	public List<Movie> selectMovieList(){
 		// 아이디가 selectMovieList인 쿼리를 실행해 List<Movie>형태로 받은후 리턴
-		return sqlSessionTemplate.selectList(sql + "selectMovieList");
+		return sqlSessionTemplate.selectList(str + "selectMovieList");
 	}
 }
