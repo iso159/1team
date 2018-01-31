@@ -12,6 +12,7 @@
 	<div class="container">
 		<h2>아이돌 리스트</h2>
 		<table class="table table-striped">
+			<thead>
 			<tr>
 				<td>아이돌아이디</td>
 				<td>아이돌이름</td>
@@ -30,6 +31,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<div>
+			<h4>아이돌 수 : ${list.size()}</h4>
+		</div>
 		<div>
 			<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
 		</div>
