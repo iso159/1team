@@ -19,7 +19,7 @@ public class BookController {
 	public String BookList(Model model) {
 		List<Book> list = bookDao.selectBookList();
 		model.addAttribute("list", list);
-		return "book/BookList";
+		return "book/bookList";
 		
 	}
 }
