@@ -3,5 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.MovieMapper">
-  
+	<select id="selectMovieList" resultType="ksmart.project.test26.service.Movie">
+		SELECT
+			movie_id as movieId
+			,movie_name as movieName
+		FROM test.movie;
+	</select>
 </mapper>
