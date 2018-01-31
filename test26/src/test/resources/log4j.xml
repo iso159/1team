@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="ksmart.project.test26">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
