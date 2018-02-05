@@ -10,28 +10,29 @@
 </head>
 <body>
 <div class="container">
-	<h2>Book List</h2>
-	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-success active">추가</button></a>
+	<h2>Book 수정화면</h2>
+	<form action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>
 				<th>책이름</th>
-				<th>수정</th>
-				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="book" items="${list}">
 			<tr>
-				<td>${book.bookId }</td>
-				<td>${book.bookName }</td>
-				<td><a href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
+				<td>
+					<input type="text" name="bookId" readonly="readonly" value="${book.bookId }">
+				</td>
+				<td>
+					<input type="text" name="bookName" value="${book.bookName }">
+				</td>
 			</tr>
 			</c:forEach>
 		</tbody>
-		</table>
+	</table>
+	</form>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
 </div>
 </body>

@@ -45,4 +45,16 @@ public class BookController {
 		bookDao.deleteBook(bookId);
 		return "redirect:/book/bookList";
 	}
+	
+	// 수정페이지 요청, 수정할 한 권조회
+	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
+	public String bookOneSelect(Model model,@RequestParam(value="bookId", required=true) int bookId ) {
+		System.out.println("수정페이지요청 확인");
+		List<Book> list = bookDao.selectOneBook(bookId);
+		model.addAttribute("list", list);
+		return "/book/bookUpdate";
+	}
+	
+	// 수정요청
+	
 }

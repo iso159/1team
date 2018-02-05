@@ -28,4 +28,10 @@ public class BookDao {
 		System.out.println("delete메소드 확인");
 		sqlSessionTemplate.delete(NS+"deleteBook", bookId);
 	}
+	
+	// Book 한 권 조회 메서드
+	public List<Book> selectOneBook(int bookId){
+		System.out.println("selectOneBook메소드 확인");
+		return sqlSessionTemplate.selectList(NS+"selectOneBook", bookId);
+	}
 }

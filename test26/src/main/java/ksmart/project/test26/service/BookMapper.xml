@@ -14,6 +14,19 @@
  	
   </select>
   
+  <!-- Book 한 권 조회하는 쿼리문 -->
+  <select id="selectOneBook"
+  			resultType="ksmart.project.test26.service.Book"
+  			parameterType="int">
+	SELECT
+		book_id as bookId,
+		book_name as bookName
+	FROM book
+	WHERE book_id=#{bookId}
+ 	
+  
+  </select>
+  
   <!-- Book 입력하기 위한 쿼리문 -->
   <insert id="insertBook"
   			parameterType="ksmart.project.test26.service.Book">
@@ -27,4 +40,5 @@
  	 DELETE FROM book 
  	 WHERE  book_id = #{bookId}
   </delete>
+  
 </mapper>
