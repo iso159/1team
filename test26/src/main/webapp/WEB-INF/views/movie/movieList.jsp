@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<c:url value="/resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="../module/top.jsp"/>
+	<jsp:include page="../module/left.jsp"/>
 	<div class="container">
 		<h2>영화 리스트</h2>
 		<table class="table table-striped">
@@ -18,6 +18,7 @@
 					<th>영화 코드</th>
 					<th>영화 이름</th>
 					<th>수정</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -45,5 +46,7 @@
 			<button type="button" class="btn btn-success">홈으로</button>
 		</a>
 	</div>
+	<jsp:include page="../module/foot.jsp"/>
+	<jsp:include page="../module/hadan.jsp"/>
 </body>
 </html>
