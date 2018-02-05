@@ -11,6 +11,7 @@
 <body>
 <div class="container">
 	<h2>Book List</h2>
+	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-success active">추가</button></a>
 	<table class="table table-striped">
 		<thead>
 			<tr>
