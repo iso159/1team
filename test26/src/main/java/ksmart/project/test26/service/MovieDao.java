@@ -12,9 +12,17 @@ public class MovieDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	// 쿼리 경로를 상수로 입력 
-	private final String str = "ksmart.project.test26.service.MovieMapper.";
+	private final String ns = "ksmart.project.test26.service.MovieMapper.";
+	
+	// movie 테이블 전체 리스트 조회
 	public List<Movie> selectMovieList(){
 		// 아이디가 selectMovieList인 쿼리를 실행해 List<Movie>형태로 받은후 리턴
-		return sqlSessionTemplate.selectList(str + "selectMovieList");
+		return sqlSessionTemplate.selectList(ns + "selectMovieList");
+	}
+	
+	// movie 테이블 컬럼 입력
+	public void insertMovie(Movie movie) {
+		// 아이디가 insertMovie인 쿼리를 실행해 매개변수 movie의 필드를 입력
+		sqlSessionTemplate.insert(ns + "insertMovie",movie);
 	}
 }
