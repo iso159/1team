@@ -39,7 +39,7 @@
 	<!-- idol delete 아이돌 삭제 -->
 	<delete id="deleteidol" parameterType="int">
 		delete from idol 
-		where 
-		idol_id=#{idelId}
+			where 
+			idol_id=#{idelId}
 	</delete>
 </mapper>

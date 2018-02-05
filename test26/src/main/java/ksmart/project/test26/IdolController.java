@@ -55,4 +55,11 @@ public class IdolController {
 		idolDao.addIdol(idol);
 		return "redirect:/idol/idolList";
 	}
+	
+	/*idol 삭제 부분*/
+	@RequestMapping(value="/idol/idolDelete", method = RequestMethod.GET)
+	public String idolDelete(@RequestParam(value="idolId", required=true) int idolId) {
+		idolDao.deleteIdol(idolId);
+		return "redirect:/idol/idolList";
+	}
 }

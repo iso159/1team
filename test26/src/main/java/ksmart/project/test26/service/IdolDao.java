@@ -32,4 +32,9 @@ public class IdolDao {
 	public void addIdol(Idol idol) {
 		sqlSessionTemplate.insert("ksmart.project.test26.service.IdolMapper.insertIdol", idol);
 	}
+	
+	/*아이돌 삭제부분*/
+	public void deleteIdol(int idolId) {
+		sqlSessionTemplate.delete("ksmart.project.test26.service.IdolMapper.deleteidol", idolId);
+	}
 }

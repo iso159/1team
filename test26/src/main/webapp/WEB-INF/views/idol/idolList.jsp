@@ -24,7 +24,7 @@
 						<td>${i.idolId}</td>
 						<td>${i.idolName}</td>
 						<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${i.idolId}">수정</a></td>
-						<td><a href="#">삭제</a></td>
+						<td><a href="${pageContext.request.contextPath}/idol/idolDelete?idolId=${i.idolId}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
