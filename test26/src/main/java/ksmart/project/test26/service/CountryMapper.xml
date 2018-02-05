@@ -5,30 +5,43 @@
 <mapper namespace="ksmart.project.test26.service.CountryMapper">
 	<!-- 셀렉트 쿼리 -->
 	<select id="selectCountryList" resultType="ksmart.project.test26.service.Country">
-		SELECT
-		country_id as countryId
+		select country_id as
+		countryId
 		,country_name as countryName
-		FROM test.country
+		from test.country
 	</select>
-	
-	<!-- 인설트 쿼리 -->
+
+	<!-- update 쿼리 -->
+	<update id="updateCountry" parameterType="ksmart.project.test26.service.Country">
+		UPDATE country
+		SET
+		country_name = #{countryName}
+		where country_id = #{countryId}
+
+	</update>
+
+	<!-- country one select -->
+	<select id="selectOneCountry" resultType="ksmart.project.test26.service.Country"
+		parameterType="int">
+		select
+		country_id as countryId,
+		country_name as
+		countryName
+		from country
+		where country_id=#{countryId}
+
+	</select>
+
+	<!-- insert -->
 	<insert id="insertCountry" parameterType="ksmart.project.test26.service.Country">
-	   	INSERT INTO test.contry ()country_name)
-        VALUES (#{countryId})       
-    </insert>
-    
-	<!-- 업데이트 쿼리 -->
-	<!-- <update id="updateCountry" parameterType="ksmart.project.test26.service.Country">
-		UPDATE set
-			country_name= #{countryName}
-			from test.country
-			where country_id = #{countryId}
-	</update> -->
-	
-	<!-- 딜레이트 쿼리 -->
-	<!-- <delete id="deleteCountry" parameterType="cafe.jjdev.board.service.Board">
-        DELETE FROM test.country
-        	WHERE country_id = #{countryId} 
-        AND country_name = #{countryName}
-    </delete> -->
+		insert into country
+		(country_name)
+		values (#{countryName})
+	</insert>
+
+	<!-- delete -->
+	<delete id="deleteCountry" parameterType="ksmart.project.test26.service.Country">
+		delete from country
+		where country_id = #{countryId}
+	</delete>
 </mapper>
