@@ -3,7 +3,19 @@
 <html>
 <head>
 <title>하면 된다</title>
+<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#idolButton').click(function(){
+          if($('#inputidolName').val()==''){
+        	  alert('내용을 입력해주세요.');
+          }else {
+              $('#addForm').submit();
+          }
+        });
+    });
+</script>
 <body>
 	<!-- top 부분 -->
 	<jsp:include page="../module/top.jsp"/>
@@ -13,13 +25,17 @@
 	<!-- 네비게이션 끝-->
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
-		<h2>아이돌 입력 화면</h2>
-		<form class="form-group" action="${pageContext.request.contextPath}/idol/idolAdd" method="post">
-		<div>
-			아이돌 이름 : <input class="form-control"  type="text" name="idolName">
-			<button type="submit">입력</button>
-		</div>
-	</form>
+	<div class="container">
+		<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/idol/idolAdd" method="post">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="title">아이돌 이름:</label>
+					<input class="form-control" type="text" name="idolName" id="inputidolName">
+					<button type="button" id="idolButton" class="btn btn-info">입력</button>
+				</div>
+			</div>
+		</form>
+	</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->
 	<jsp:include page="../module/foot.jsp"/>
