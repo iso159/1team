@@ -16,11 +16,11 @@
 		<!-- 첫번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="info-box blue-bg">
-				<!-- 이미지는 세로 90 에 가로 120으로 -->
-				<!-- <span class="photo"><img alt="avatar" 
-				src="resources/img/sis.mini.jpg"></span> -->
-				<div class="count">첫번째</div>
-				<div class="title">할말</div>
+				
+				<span class="photo"><img alt="avatar" 
+				src="resources/img/02.jpg"></span>
+				<div class="count">진 영</div>
+				<div class="title">배고팡</div>
 			</div>
 		</div>
 		<!-- 첫번째 정보 끝 -->
