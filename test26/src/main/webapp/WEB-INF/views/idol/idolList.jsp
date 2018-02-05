@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <title>Home</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<c:url value="/resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />"rel="stylesheet">
 </head>
 <body>
 	<div class="container">
@@ -25,7 +23,7 @@
 					<tr>
 						<td>${i.idolId}</td>
 						<td>${i.idolName}</td>
-						<td><a href="#">수정</a></td>
+						<td><a href="${pageContext.request.contextPath}/idol/idolUpdate?idolId=${i.idolId}">수정</a></td>
 						<td><a href="#">삭제</a></td>
 					</tr>
 				</c:forEach>

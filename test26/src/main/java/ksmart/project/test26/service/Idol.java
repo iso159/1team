@@ -1,5 +1,8 @@
 package ksmart.project.test26.service;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class Idol {
 	private int idolId;
 	private String idolName;
