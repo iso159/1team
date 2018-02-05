@@ -20,16 +20,15 @@
 	<select id="selectMovie" parameterType="ksmart.project.test26.service.Movie" 
 		resultType="ksmart.project.test26.service.Movie">
 		SELECT 
-			movie_id
-			,movie_name
+			movie_id as movieId
+			,movie_name as movieName
 		FROM test.movie	
 		WHERE movie_id = #{movieId}
 	</select>
 	<!-- 조건에 맞는 movie 테이블의 컬럼 수정을 위한 쿼리문 -->
 	<update id="updateMovie" parameterType="ksmart.project.test26.service.Movie">
-		UPDATE SET
+		UPDATE test.movie SET
 			movie_name = #{movieName}
-		FROM test.movie
 		WHERE movie_id = #{movieId}
 	</update>
 	<!-- 조건에 맞는 movie 테이블의 컬럼 삭제를 위한 쿼리문 -->

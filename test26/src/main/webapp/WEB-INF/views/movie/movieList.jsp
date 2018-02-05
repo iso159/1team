@@ -17,6 +17,7 @@
 				<tr>
 					<th>영화 코드</th>
 					<th>영화 이름</th>
+					<th>수정</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +25,9 @@
 					<tr>
 						<td>${m.movieId}</td>
 						<td>${m.movieName}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/movie/movieModify?movieId=${m.movieId}">수정</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

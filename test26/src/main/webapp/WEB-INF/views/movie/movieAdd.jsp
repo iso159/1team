@@ -13,7 +13,6 @@
 			영화 제목 : <input class="form-control"  type="text" name="movieName">
 			<button type="submit">입력 완료</button>
 		</div>
-		
 	</form>
 </body>
 </html>
