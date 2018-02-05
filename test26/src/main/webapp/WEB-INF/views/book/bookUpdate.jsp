@@ -32,6 +32,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<button type="submit">수정완료</button>
 	</form>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
 </div>

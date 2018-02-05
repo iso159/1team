@@ -56,5 +56,11 @@ public class BookController {
 	}
 	
 	// 수정요청
+	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
+	public String bookUpdate(Book book) {
+		System.out.println(book+" : book 확인,수정요청 확인");
+		bookDao.updateBook(book);
+		return "redirect:/book/bookList";
+	}
 	
 }

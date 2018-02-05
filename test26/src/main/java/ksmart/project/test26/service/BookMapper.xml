@@ -7,12 +7,21 @@
   <select id="selectBookList"
   			resultType="ksmart.project.test26.service.Book">
   			
-  	 	SELECT
-			book_id as bookId,
-			book_name as bookName
-		FROM book
+	SELECT
+		book_id as bookId,
+		book_name as bookName
+	FROM book
  	
   </select>
+  
+  <!-- Book 한 권 수정하는 쿼리문 -->
+  <update id="updateBook"
+ 			parameterType="ksmart.project.test26.service.Book">
+ 	UPDATE	book 
+ 	SET		book_name = #{bookName} 
+	WHERE 	book_id = #{bookId}
+
+ </update>
   
   <!-- Book 한 권 조회하는 쿼리문 -->
   <select id="selectOneBook"
@@ -23,8 +32,7 @@
 		book_name as bookName
 	FROM book
 	WHERE book_id=#{bookId}
- 	
-  
+
   </select>
   
   <!-- Book 입력하기 위한 쿼리문 -->
