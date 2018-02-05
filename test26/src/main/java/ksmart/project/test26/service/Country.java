@@ -3,6 +3,7 @@ package ksmart.project.test26.service;
 public class Country {
 	private int countryId;
 	private String countryName;
+	
 	public int getCountryId() {
 		return countryId;
 	}
