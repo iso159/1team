@@ -10,14 +10,21 @@
   	 	SELECT
 			book_id as bookId,
 			book_name as bookName
-		FROM test.book
+		FROM book
  	
   </select>
   
   <!-- Book 입력하기 위한 쿼리문 -->
   <insert id="insertBook"
   			parameterType="ksmart.project.test26.service.Book">
- 	 INSERT INTO test.book (book_name) 
-		VALUES (#{bookName})
+ 	INSERT INTO book (book_name) 
+	VALUES (#{bookName})
   </insert>
+  
+  <!-- Book 삭제 쿼리문 -->
+  <delete id="deleteBook"
+  			parameterType="ksmart.project.test26.service.Book">
+ 	 DELETE FROM book 
+ 	 WHERE  book_id = #{bookId}
+  </delete>
 </mapper>

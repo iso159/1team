@@ -22,4 +22,10 @@ public class BookDao {
 		System.out.println("insert메소드 확인");
 		sqlSessionTemplate.insert(NS+"insertBook", book);
 	}
+	
+	// Book 삭제 메소드
+	public void deleteBook(int bookId) {
+		System.out.println("delete메소드 확인");
+		sqlSessionTemplate.delete(NS+"deleteBook", bookId);
+	}
 }

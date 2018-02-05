@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Book;
 import ksmart.project.test26.service.BookDao;
@@ -35,5 +36,13 @@ public class BookController {
 	public String bookInsert() {
 		System.out.println("입력페이지요청 확인");
 		return "/book/bookInsert";
+	}
+	
+	// 삭제요청
+	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
+	public String bookDelete(@RequestParam(value="bookId", required=true) int bookId) {
+		System.out.println("삭제 요청 확인");
+		bookDao.deleteBook(bookId);
+		return "redirect:/book/bookList";
 	}
 }
