@@ -37,4 +37,10 @@ public class MovieDao {
 		// 아이디가 updateMovie인 쿼리를 실행해 movie필드의 movie_name컬럼을 매개변수 movie의 movieName필드값으로 수정
 		sqlSessionTemplate.update(ns + "updateMovie", movie);
 	}
+	
+	// movie 테이블 컬럼 삭제
+	public void deleteMovie(Movie movie) {
+		// 아이디가 updateMovie인 쿼리를 실행해 movie필드의 id와 같은 컬럼 삭제
+		sqlSessionTemplate.delete(ns + "deleteMovie", movie);
+	}
 }

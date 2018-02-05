@@ -54,9 +54,16 @@ public class MovieController {
 	}
 	
 	// /movie/movieModify get방식으로 요청시 movieModify(Model model) 메소드 호출됨
-		@RequestMapping(value="/movie/movieModify", method = RequestMethod.POST)
-		public String movieModify(Movie movie) {
-			movieDao.updateMovie(movie);
-			return "redirect:/movie/movieList";
-		}
+	@RequestMapping(value="/movie/movieModify", method = RequestMethod.POST)
+	public String movieModify(Movie movie) {
+		movieDao.updateMovie(movie);
+		return "redirect:/movie/movieList";
+	}
+	
+	// /movie/movieRemove get방식으로 요청시 movieRemove(Movie movie) 메소드 호출됨
+	@RequestMapping(value="/movie/movieRemove", method = RequestMethod.GET)
+	public String movieRemove(Movie movie) {
+		movieDao.deleteMovie(movie);
+		return "redirect:/movie/movieList";
+	}
 }

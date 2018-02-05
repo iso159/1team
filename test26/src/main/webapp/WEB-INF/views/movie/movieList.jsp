@@ -28,6 +28,9 @@
 						<td>
 							<a href="${pageContext.request.contextPath}/movie/movieModify?movieId=${m.movieId}">수정</a>
 						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/movie/movieRemove?movieId=${m.movieId}">삭제</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
