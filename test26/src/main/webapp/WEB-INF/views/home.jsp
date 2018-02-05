@@ -9,22 +9,21 @@
 <title>Home</title>
 </head>
 <body>
-	<ul class="list-group">
-		<li class="list-group-item list-group-item-success">
-			<a href="${pageContext.request.contextPath}/idol/idolList">아이돌 리스트</a>
-		</li>
-		<li class="list-group-item list-group-item-info">
-			<a href="${pageContext.request.contextPath}/book/bookList">책 리스트</a>
-		</li>
-		<li class="list-group-item list-group-item-warning">
-			<a href="${pageContext.request.contextPath}/city/cityList">도시 리스트</a>
-		</li>
-		<li class="list-group-item list-group-item-danger">
-			<a href="${pageContext.request.contextPath}/country/countryList">국가 리스트</a>
-		</li>
-		<li class="list-group-item list-group-item-primary">
-			<a href="${pageContext.request.contextPath}/movie/movieList">영화 리스트</a>
-		</li>
-	</ul>
+	<h2>리스트 목록</h2>
+	<a href="${pageContext.request.contextPath}/idol/idolList">
+		<button type="button" class="btn btn-info btn-block">아이돌 리스트</button>
+	</a><br>
+	<a href="${pageContext.request.contextPath}/book/bookList">
+		<button type="button" class="btn btn-success btn-block">책 리스트</button>
+	</a><br>
+	<a href="${pageContext.request.contextPath}/city/cityList">
+		<button type="button" class="btn btn-primary btn-block">도시 리스트</button>
+	</a><br>
+	<a href="${pageContext.request.contextPath}/country/countryList">
+		<button type="button" class="btn btn-danger btn-block">국가 리스트</button>
+	</a><br>
+	<a href="${pageContext.request.contextPath}/movie/movieList">
+		<button type="button" class="btn btn-warning btn-block">영화 리스트</button>
+	</a>
 </body>
 </html>
