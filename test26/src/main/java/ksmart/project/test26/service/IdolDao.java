@@ -27,4 +27,9 @@ public class IdolDao {
 	public void updateIdol(Idol idol) {
 		sqlSessionTemplate.update("ksmart.project.test26.service.IdolMapper.updateIdol", idol);
 	}
+	
+	/*아이돌 추가*/
+	public void addIdol(Idol idol) {
+		sqlSessionTemplate.insert("ksmart.project.test26.service.IdolMapper.insertIdol", idol);
+	}
 }

@@ -33,6 +33,7 @@
 			<h4>아이돌 수 : ${list.size()}</h4>
 		</div>
 		<div>
+			<a href="${pageContext.request.contextPath}/idol/idolAdd"><button type="button" class="btn btn-info">추가</button></a>
 			<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
 		</div>
 	</div>

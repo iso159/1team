@@ -42,4 +42,17 @@ public class IdolController {
 		idolDao.updateIdol(idol);
 		return "redirect:/idol/idolList";
 	}
+	
+	/*idol 추가 입력 부분*/
+	@RequestMapping(value="/idol/idolAdd", method = RequestMethod.GET)
+	public String idolAdd() {
+		return "/idol/idolAdd";
+	}
+	
+	/*idol 추가 부분*/
+	@RequestMapping(value="/idol/idolAdd", method = RequestMethod.POST)
+	public String idolAdd(Idol idol) {
+		idolDao.addIdol(idol);
+		return "redirect:/idol/idolList";
+	}
 }
