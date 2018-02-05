@@ -8,9 +8,15 @@
 <script>
 	$(document).ready(function(){
 		$('#insertBtn').click(function(){
-			if($('#movieTitle').val()===""){
+			// 공백 제거
+			let movieTitle = $.trim($('#movieTitle').val());
+			if(movieTitle===""){
+				// 공백일경우 경고창
 				alert('공백은 입력할 수 없습니다.');
+				// 텍스트 비움
+				$('#movieTitle').val('');
 			}else{
+				// 공백이 아닐경우 서브밋
 				$('#insertForm').submit();
 			}
 		});
