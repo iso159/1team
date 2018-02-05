@@ -16,5 +16,22 @@ public class CityDao {
 	public List<City> selectCityList(){
 		return sqlSessionTemplate.selectList(str + "selectCityList");
 	}
-
+	
+	public void deleteCityList(int i) {
+		sqlSessionTemplate.delete(str + "deleteCityList", i);
+	}
+	
+	public void updateCityList(City city) {
+		sqlSessionTemplate.update(str+"updateCityList", city);
+	}
+	
+	public int insertCityList(City city) {
+		
+		return sqlSessionTemplate.insert(str+"insertCityList", city);
+	}
+	
+	public List<City> selectOneCityList(int i) {
+		System.out.println("도시하나조회 메서드 확인");
+		return sqlSessionTemplate.selectList(str+"selectOneCityList", i);
+	}
 }

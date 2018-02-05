@@ -3,10 +3,40 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.CityMapper">
+	<!-- 도시리스트 조회 -->
 	<select id="selectCityList" resultType="ksmart.project.test26.service.City">
 		SELECT
 			city_id as cityId
 			,city_name as cityName
 		FROM test.city
-	</select>  
+	</select> 
+	
+	<!-- 도시추가 쿼리문 -->
+	<insert id="insertCityList" parameterType="ksmart.project.test26.service.City">
+		INSERT INTO 
+			test.city(city_name) VALUES (#{cityName})	
+	</insert>
+	
+	<!-- 도시 수정쿼리문 -->
+	<update id="updateCityList" parameterType="ksmart.project.test26.service.City">
+		UPDATE test.city SET 
+			city_name= #{cityName}
+		WHERE city_id = #{cityId}	
+	</update>
+	
+	<!-- 도시하나 조회하는 select쿼리문 -->
+	<select id="selectOneCityList" parameterType="int" resultType="ksmart.project.test26.service.City">
+		SELECT
+		city_id as cityId,
+		city_name as cityName
+	FROM test.city
+	WHERE city_id=#{cityId}
+	</select>
+	<!-- 도시 삭제쿼리문 -->
+	<delete id="deleteCityList" parameterType="int">
+		UPDATE test.city SET 
+			city_name= #{cityName}
+		WHERE city_id = #{cityId}	
+	</delete>  
 </mapper>
+

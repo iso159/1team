@@ -16,6 +16,8 @@
 			<tr>
 				<th>ID</th>
 				<th>시티이름</th>
+				<th>수정</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,11 +25,13 @@
 			<tr>
 				<td>${i.cityId}</td>
 				<td>${i.cityName}</td>
+				<td><a href="${pageContext.request.contextPath}/city/cityUpdate?cityId=${i.cityId}">수정</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 		<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
+		<a href="${pageContext.request.contextPath}/city/cityAdd"><button type="button" class="btn btn-success active">추가버튼</button></a>
 		</div>
 </body>
 </html>
