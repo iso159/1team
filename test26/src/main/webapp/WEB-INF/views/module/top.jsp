@@ -2,19 +2,19 @@
 <html>
 <head>
 <!-- 부트스트랩 CSS -->
-<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 <!-- 부트스트랩 theme -->
-<link href="resources/css/bootstrap-theme.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/bootstrap-theme.css" rel="stylesheet">
 <!-- 폰트 아이콘 -->
-<link href="resources/css/elegant-icons-style.css" rel="stylesheet" />
-<link href="resources/css/font-awesome.min.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/css/elegant-icons-style.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css" rel="stylesheet" />
 <!-- 자체 css -->
-<link rel="stylesheet" href="resources/css/fullcalendar.css">
-<link href="resources/css/widgets.css" rel="stylesheet">
-<link href="resources/css/style.css" rel="stylesheet">
-<link href="resources/css/style-responsive.css" rel="stylesheet" />
-<link href="resources/css/xcharts.min.css" rel=" stylesheet">
-<link href="resources/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}resources/css/fullcalendar.css">
+<link href="${pageContext.request.contextPath}/resources/css/widgets.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/style-responsive.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/resources/css/xcharts.min.css" rel=" stylesheet">
+<link href="${pageContext.request.contextPath}/resources/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
 </head>
 <body>
 	<!-- top 부분 -->
