@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.service.Book;
 import ksmart.project.test26.service.Country;
 import ksmart.project.test26.service.CountryDao;
 
@@ -31,13 +32,10 @@ public class CountryController {
 	}
 
 	// insert post방식 요청
-	@RequestMapping(value = "/country/countryInsert", method = RequestMethod.POST)
-	public String insert(Country country) {
-		System.out.println(country); // 값이 들어가는지 안들어가는지 확인
-		// 호출허기
+	@RequestMapping(value="/country/countryInsert", method = RequestMethod.POST)
+	public String countryInsert(Country country) {
 		countryDao.insertCountry(country);
-		// 리다이렉트로 이동.
-		return "redirect:/country/countryList";
+		return "redirect:/country/countryList";	
 	}
 
 	// 삭제요청

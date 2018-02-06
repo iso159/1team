@@ -10,16 +10,13 @@
 		,country_name as countryName
 		from test.country
 	</select>
-
 	<!-- update 쿼리 -->
 	<update id="updateCountry" parameterType="ksmart.project.test26.service.Country">
 		UPDATE country
 		SET
 		country_name = #{countryName}
 		where country_id = #{countryId}
-
 	</update>
-
 	<!-- country one select -->
 	<select id="selectOneCountry" resultType="ksmart.project.test26.service.Country"
 		parameterType="int">
@@ -29,19 +26,16 @@
 		countryName
 		from country
 		where country_id=#{countryId}
-
 	</select>
-
-	<!-- insert -->
-	<insert id="insertCountry" parameterType="ksmart.project.test26.service.Country">
-		insert into country
-		(country_name)
-		values (#{countryName})
-	</insert>
-
 	<!-- delete -->
 	<delete id="deleteCountry" parameterType="ksmart.project.test26.service.Country">
 		delete from country
 		where country_id = #{countryId}
 	</delete>
+	<!-- insert -->
+	<insert id="insertCountry" parameterType="ksmart.project.test26.service.Country">
+		insert into
+		country(country_name)
+		values (#{countryName})
+	</insert>
 </mapper>
