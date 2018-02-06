@@ -26,7 +26,7 @@
 	</div>
 
 	<!-- top 로고 끝 --> <a href="${pageContext.request.contextPath}/"
-		class="logo">하면 <span class="lite">된다</span></a> 
+		class="logo">드림 <span class="lite">팀</span></a> 
 	<!-- top 로고 끝-->
 
 	<div class="nav search-row" id="top_menu">

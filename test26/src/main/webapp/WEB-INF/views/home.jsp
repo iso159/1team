@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-<title>하면 된다</title>
+<title>메인 화면</title>
 </head>
 <body>
 	<!-- top 부분 -->
@@ -15,10 +15,9 @@
 	<!-- 메인 화면 내용 부분 -->
 		<!-- 첫번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-			<div class="info-box blue-bg">
-				
+			<div class="info-box pink-bg">
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/02.jpg"></span>
+				src="resources/img/jin-young.gif"></span>
 				<div class="count">진 영</div>
 				<div class="title">배고팡</div>
 			</div>
@@ -29,7 +28,7 @@
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="info-box brown-bg">
 				<span class="photo"><img alt="avatar"
-					src="resources/img/sis.mini.jpg"></span>
+					src="resources/img/insuC.gif"></span>
 				<div class="count">송 인석</div>
 				<div class="title">조장 오른손 손톱때</div>
 			</div>
@@ -38,35 +37,35 @@
 
 		<!-- 세번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-			<div class="info-box dark-bg">
+			<div class="info-box purple-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
-				<!-- <span class="photo"><img alt="avatar" 
-				src="resources/img/sis.mini.jpg"></span> -->
-				<div class="count">리오넬 메기</div>
-				<div class="title">호날두 짱</div>
+				<span class="photo"><img alt="avatar" 
+				src="resources/img/JangSung.gif"></span>
+				<div class="count">김장성</div>
+				<div class="title">팀장</div>
 			</div>
 		</div>
 		<!-- 세번째 정보 끝 -->
 
 		<!-- 네번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-			<div class="info-box green-bg">
+			<div class="info-box orange-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/dd.jpg"></span>
+				src="resources/img/HangSoo.gif"></span>
 				<div class="count">김항수</div>
-				<div class="title">hala ~ madrid</div>
+				<div class="title">그럼요ㅎ </div>
 			</div>
 		</div>
 		<!-- 네번째 정보 끝 -->
 
 		<!-- 다섯번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-			<div class="info-box green-bg">
+			<div class="info-box red-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
-				<!-- <span class="photo"><img alt="avatar" 
-				src="resources/img/sis.mini.jpg"></sp -->
-				<div class="count">다섯번째</div>
+				<span class="photo"><img alt="avatar" 
+				src="resources/img/SunYoung.gif"></span>
+				<div class="count">차선영</div>
 				<div class="title">할말</div>
 			</div>
 		</div>
