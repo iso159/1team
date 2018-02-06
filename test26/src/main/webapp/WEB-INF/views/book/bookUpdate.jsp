@@ -36,30 +36,16 @@
 	<!-- 메인 화면 내용 부분 -->
 <div class="container">
 	<h2>Book 수정화면</h2>
-	<form id="updateForm" action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>책이름</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="book" items="${list}">
-			<tr>
-				<td>
-					<input type="text" name="bookId" readonly="readonly" value="${book.bookId }">
-				</td>
-				<td>
-					<input type="text" id="bookName" name="bookName" value="${book.bookName }">
-				</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<button type="button" id="updateButton">수정완료</button>
+	<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
+	<div class="col-md-4">
+				<label for="code">책코드</label>
+				<input class="form-control" type="text" name="bookId" value="${book.bookId }" readonly>
+				<label for="title">책 이름</label>
+				<input id="bookName" class="form-control" type="text" name="bookName" value="${book.bookName }">
+				<button type="button" id="updateForm" class="btn btn-info">수정 완료</button>
+	</div>
 	</form>
-	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
+	
 </div>
 <!-- 부분 -->
 <jsp:include page="/WEB-INF/views/module/foot.jsp"/>

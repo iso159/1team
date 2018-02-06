@@ -35,25 +35,23 @@
 	<!-- 메인 화면 내용 부분 -->
 		<div class="container">
 			<h2>Book 입력 화면</h2>
-				<form class="form-group" id="addForm" action="${pageContext.request.contextPath}/book/bookInsert" method="post">
-					<table border=1>
-						<tr>
-							<td>책이름</td>
-							<td>
-								<input id="bookName" type="text" name="bookName" >
-							</td>
-						</tr>
-					</table>
-				<button type="button" id="addButton">입력완료</button>
+				<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/book/bookInsert" method="post">
+					<div class ="row">
+						<div class="col-md-4">
+							<label for="title">책이름</label>
+							<input id="bookName" class="form-control" type="text" name="bookName" >
+							<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
+						</div>
+					</div>
 				</form>
 			
 		</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->
-	<jsp:include page="../module/foot.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
 	<!-- 부트스트랩 가져온곳 삭제x -->
 	<!-- 메인 화면 끝 -->
 	<!-- 컨테이너 부분 -->
-	<jsp:include page="../module/hadan.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>

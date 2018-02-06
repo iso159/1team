@@ -21,7 +21,6 @@
 <div class="container">
 
 	<h2>Book List</h2>
-	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-success active">추가</button></a>
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -42,7 +41,8 @@
 			</c:forEach>
 		</tbody>
 		</table>
-	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
+	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-info">추가</button></a>
+	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success">홈으로</button></a>
 </div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->
