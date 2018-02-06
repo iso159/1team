@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <!-- 부트스트랩 CSS -->
@@ -53,24 +54,35 @@
 					<li>
 						<p class="blue">로그인 관리</p>
 					</li>
-					<li>
-						<a href="${pageContext.request.contextPath}/login1team/login"><div class="desc">로그인</div></a>
-					</li>
+					<c:set var="login" value="${loginMember}"></c:set>
+					<c:choose>
+						<c:when test="${empty login}">
+							<li>
+								<a href="${pageContext.request.contextPath}/login1team/login"><div class="desc">로그인</div></a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<a href="${pageContext.request.contextPath}/login1team/logout"><div class="desc">로그아웃</div></a>
+							</li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</li>
 			<!-- top 오른쪽 로그인 부분 끝 -->
 			<!-- top 오른쪽 회원정보 부분 -->
-			<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="profile-ava">
-				<img alt="" src="resources/img/sis.small.jpg">
-				</span> <span class="username">${loginMember.memberId }</span> <b class="caret"></b>
-			</a>
-				<ul class="dropdown-menu extended logout">
-					<div class="log-arrow-up"></div>
-					<li class="eborder-top"><a href="#"><i class="icon_profile"></i> 내 정보</a></li>
-					<li><a href="${pageContext.request.contextPath}/login1team/logout"><i class="icon_key_alt"></i> 로그아웃</a></li>
-					<li><a href="documentation.html"><i class="icon_key_alt"></i>Documentation</a></li>
-				</ul>
-			</li>
+			<c:if test="${!empty login}">
+				<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="profile-ava">
+					<img alt="" src="resources/img/sis.small.jpg">
+					</span> <span class="username">${loginMember.memberId }</span> <b class="caret"></b>
+				</a>
+					<ul class="dropdown-menu extended logout">
+						<div class="log-arrow-up"></div>
+						<li class="eborder-top"><a href="#"><i class="icon_profile"></i> 내 정보</a></li>
+						<li><a href="${pageContext.request.contextPath}/login1team/logout"><i class="icon_key_alt"></i> 로그아웃</a></li>
+					</ul>
+				</li>
+			</c:if>
 			<!-- top 오른쪽 회원정보 부분 끝 -->
 		</ul>
 	</div>
