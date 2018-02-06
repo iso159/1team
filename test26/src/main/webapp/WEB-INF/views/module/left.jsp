@@ -4,7 +4,7 @@
 		<!-- sidebar menu start-->
 		<ul class="sidebar-menu">
 			<li class="active">
-				<a class="" href="index.html"> <i class="fa fa-user"></i><span>MANAGER</span></a>
+				<a class="" href="${pageContext.request.contextPath}/"> <i class="fa fa-user"></i><span>MANAGER</span></a>
 			</li>
 			<li class="sub-menu">
 				<a href="javascript:;" class=""> <i class="icon_document_alt"></i> <span>리스트</span> <span class="menu-arrow arrow_carrot-right"></span>
