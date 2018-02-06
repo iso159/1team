@@ -28,9 +28,10 @@ public class LoginController {
 	@RequestMapping(value="/login1team/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session) {
 		member = loginDao.loginCheck(member);
+		// 회원정보가 입력되지 않았으면 로그인화면으로 리다이렉트
 		if(member == null) {
 			return "redirect:/login1team/login";
-		}
+		}	// 회원정보 입력되면 세션속성"loginMember"에 member값 넣은후 홈으로 리다이렉트
 		session.setAttribute("loginMember", member);
 		return "redirect:/";
 	}
@@ -45,6 +46,7 @@ public class LoginController {
 	@RequestMapping(value="/login1team/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		logger.debug("로그아웃 확인");
+		// 세션속성 제거 후에 홈으로 리다이렉트 
 		session.removeAttribute("loginMember");
 		return "redirect:/";
 	}

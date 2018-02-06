@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.service.LoginMapper">
 
-	<!-- 로그인시 id와 pw 조회하는  -->
+	<!-- 로그인시 id와 pw로 회원정보 조회하는 select 쿼리문 -->
 	<select id="selectCheckMember"
 			parameterType="ksmart.project.test26.service.Member"
 			resultType="ksmart.project.test26.service.Member">

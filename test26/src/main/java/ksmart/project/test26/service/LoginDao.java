@@ -15,9 +15,9 @@ public class LoginDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String NS = "ksmart.project.test26.service.LoginMapper."; // namespace
 	
+	// 로그인 확인하는 메소드
 	public Member loginCheck(Member member) {
 		logger.debug("loginCheck 메소드확인{}",member);
-		
 		return sqlSessionTemplate.selectOne(NS+"selectCheckMember", member);
 	}
 	
