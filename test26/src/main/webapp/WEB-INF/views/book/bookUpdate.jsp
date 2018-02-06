@@ -25,6 +25,15 @@
 </script>
 </head>
 <body>
+<!-- top 부분 -->
+	<jsp:include page="../module/top.jsp"/>
+	<!-- top 부분 끝-->
+	<!-- 네비게이션 -->
+	<jsp:include page="../module/left.jsp"/>
+	<!-- 네비게이션 끝-->
+	
+	<!-- 메인 화면  -->
+	<!-- 메인 화면 내용 부분 -->
 <div class="container">
 	<h2>Book 수정화면</h2>
 	<form id="updateForm" action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
@@ -52,5 +61,8 @@
 	</form>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
 </div>
+<!-- 부분 -->
+<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
+<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>
