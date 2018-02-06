@@ -9,7 +9,7 @@
 			city_id as cityId
 			,city_name as cityName
 		FROM test.city
-	</select> 
+	</select>
 	
 	<!-- 도시추가 쿼리문 -->
 	<insert id="insertCityList" parameterType="ksmart.project.test26.service.City">
@@ -27,16 +27,17 @@
 	<!-- 도시하나 조회하는 select쿼리문 -->
 	<select id="selectOneCityList" parameterType="int" resultType="ksmart.project.test26.service.City">
 		SELECT
-		city_id as cityId,
-		city_name as cityName
-	FROM test.city
-	WHERE city_id=#{cityId}
+			city_id as cityId,
+			city_name as cityName
+		FROM test.city
+		WHERE city_id=#{cityId}
 	</select>
+	
 	<!-- 도시 삭제쿼리문 -->
 	<delete id="deleteCityList" parameterType="int">
-		UPDATE test.city SET 
-			city_name= #{cityName}
-		WHERE city_id = #{cityId}	
-	</delete>  
+		DELETE 
+		FROM test.city 
+		WHERE city_id = #{cityId}
+	</delete>
 </mapper>
 

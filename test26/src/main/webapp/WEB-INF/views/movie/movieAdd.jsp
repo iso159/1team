@@ -25,19 +25,33 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- top 부분 -->
 	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
+	<!-- top 부분 끝-->
+	<!-- 네비게이션 -->
 	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
-	<h2>영화 입력 화면</h2>
-	<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/movie/movieAdd" method="post">
-		<div class="row">
-			<div class="col-md-4">
-				<label for="title">영화 제목:</label>
-				<input id="movieTitle" class="form-control"  type="text" name="movieName">
-				<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
+	<!-- 네비게이션 끝-->
+	<!-- 메인 화면  -->
+	<!-- 메인 화면 내용 부분 -->
+	<div class="container">
+		<h2>영화 입력 화면</h2>
+		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/movie/movieAdd" method="post">
+			<div class="row">
+				<div class="col-md-4">
+					<label for="title">영화 제목:</label>
+					<input id="movieTitle" class="form-control"  type="text" name="movieName">
+					<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
+				</div>
 			</div>
-		</div>
-	</form>
+		</form>
+	</div>
+	<!-- 메인 화면 내용 끝 -->
+	<!-- 부트스트랩 가져온곳 삭제x -->
 	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
+	<!-- 부트스트랩 가져온곳 삭제x -->
+	<!-- 메인 화면 끝 -->
+	<!-- 컨테이너 부분 시작 -->
 	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
+	<!-- 컨테이너 부분 끝 -->	
 </body>
 </html>

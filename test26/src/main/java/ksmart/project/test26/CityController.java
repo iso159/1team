@@ -28,17 +28,29 @@ public class CityController {
 		return "city/cityinsert";
 	}
 	
-	@RequestMapping(value="/city/cityInsert", method = RequestMethod.POST)
-	public String cityInsert(City city) {		
+	@RequestMapping(value="/city/cityAdd", method = RequestMethod.POST)
+	public String cityAdd(City city) {		
 		cityDao.insertCityList(city);		
 		return "redirect:/city/cityList";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.GET)
 	public String seletOneList(Model model, @RequestParam(value="cityId", required=true) int cityId) {
-		System.out.println("도시하나조회 확인");
-		List<City> list = cityDao.selectOneCityList(cityId);
-		model.addAttribute("list", list);
+		City city = cityDao.selectOneCityList(cityId);
+		model.addAttribute("city", city);
 		return "city/cityUpdate";
+	}
+	
+	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.POST)
+	public String seletOneList(Model model, City city) {
+		cityDao.updateCityList(city);
+		return "redirect:/city/cityList";
+	}
+	
+	@RequestMapping(value="/city/cityRemove", method = RequestMethod.GET)
+	public String cityRemove(@RequestParam(value="cityId", required=true) int cityId) {
+		System.out.println(cityId + "<--cityId");
+		cityDao.deleteCityList(cityId);
+		return "redirect:/city/cityList";
 	}
 }
