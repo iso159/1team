@@ -1,50 +1,47 @@
 package ksmart.project.test26.service;
 
 public class Member {
-	private String member_no;
-	private String member_id;
-	private String member_pw;
-	private String member_level;
+	private String memberNo;
+	private String memberId;
+	private String memberPw;
+	private String memberLevel;
 
-	public String getMember_no() {
-		return member_no;
+	public String getMemberNo() {
+		return memberNo;
 	}
 
-	public void setMember_no(String member_no) {
-		this.member_no = member_no;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
 
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
-	public String getMember_pw() {
-		return member_pw;
+	public String getMemberPw() {
+		return memberPw;
 	}
 
-	public void setMember_pw(String member_pw) {
-		this.member_pw = member_pw;
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 
-	public String getMember_level() {
-		return member_level;
+	public String getMemberLevel() {
+		return memberLevel;
 	}
 
-	public void setMember_level(String member_level) {
-		this.member_level = member_level;
+	public void setMemberLevel(String memberLevel) {
+		this.memberLevel = memberLevel;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [member_no=" + member_no + ", member_id=" + member_id + ", member_pw=" + member_pw
-				+ ", member_level=" + member_level + ", getMember_no()=" + getMember_no() + ", getMember_id()="
-				+ getMember_id() + ", getMember_pw()=" + getMember_pw() + ", getMember_level()=" + getMember_level()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+		return "Member [memberNo=" + memberNo + ", memberId=" + memberId + ", memberPw=" + memberPw + ", memberLevel="
+				+ memberLevel + "]";
 	}
 
 }
