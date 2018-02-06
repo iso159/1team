@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import ksmart.project.test26.service.IdolDao;
 
 @Controller
 public class IdolController {
+	private static final Logger logger = LoggerFactory.getLogger(IdolController.class);
 	
 	@Autowired
 	private IdolDao idolDao;
@@ -52,7 +55,7 @@ public class IdolController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/login1team/login";
 		}
-		//System.out.println(idol);
+		logger.info("입력요청확인 :{}", idol);
 		idolDao.updateIdol(idol);
 		return "redirect:/idol/idolList";
 	}
@@ -74,6 +77,7 @@ public class IdolController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/login1team/login";
 		}
+		logger.info("입력요청확인 :{}", idol);
 		idolDao.addIdol(idol);
 		return "redirect:/idol/idolList";
 	}
@@ -85,6 +89,7 @@ public class IdolController {
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/login1team/login";
 		}
+		logger.info("입력요청확인 :{}", idolId);
 		idolDao.deleteIdol(idolId);
 		return "redirect:/idol/idolList";
 	}

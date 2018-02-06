@@ -2,6 +2,8 @@ package ksmart.project.test26;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,38 +19,62 @@ public class CityController {
 	private CityDao cityDao;
 	
 	@RequestMapping(value="/city/cityList")
-	public String cityList(Model model) {
+	public String cityList(Model model,HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		List <City> list = cityDao.selectCityList();
 		model.addAttribute("CityList", list);
 		return "city/cityList";
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.GET)
-	public String cityAdd() {
+	public String cityAdd(HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		return "city/cityinsert";
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.POST)
-	public String cityAdd(City city) {		
+	public String cityAdd(City city,HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		cityDao.insertCityList(city);		
 		return "redirect:/city/cityList";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.GET)
-	public String seletOneList(Model model, @RequestParam(value="cityId", required=true) int cityId) {
+	public String seletOneList(Model model, @RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		City city = cityDao.selectOneCityList(cityId);
 		model.addAttribute("city", city);
 		return "city/cityUpdate";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.POST)
-	public String seletOneList(Model model, City city) {
+	public String seletOneList(Model model, City city,HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		cityDao.updateCityList(city);
 		return "redirect:/city/cityList";
 	}
 	
 	@RequestMapping(value="/city/cityRemove", method = RequestMethod.GET)
-	public String cityRemove(@RequestParam(value="cityId", required=true) int cityId) {
+	public String cityRemove(@RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect://login1team/login";
+		}
 		System.out.println(cityId + "<--cityId");
 		cityDao.deleteCityList(cityId);
 		return "redirect:/city/cityList";
