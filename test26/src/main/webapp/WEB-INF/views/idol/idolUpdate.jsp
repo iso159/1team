@@ -31,17 +31,12 @@
 			<div class="row">
 				<div class="col-md-4">
 					<c:forEach var="i" items="${list}">
-					<div>
-						아이돌 번호 : <input type="text" name="idolId" readonly="readonly" value="${i.idolId}">
-					</div>
-					<div>
-						아이돌 이름 : <input id="inputidolName" type="text" name="idolName" value="${i.idolName}">
-					</div>
+						<label for="code">영화 코드:</label>
+						<input class="form-control" type="text" name="idolId" readonly="readonly" value="${i.idolId}">
+						<label for="title">영화 제목:</label>
+						<input class="form-control" id="inputidolName" type="text" name="idolName" value="${i.idolName}">
 					</c:forEach>
-					<div>
-					<button type="button" id="idolButton" class="btn btn-info">수정</button>
-					<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
-					</div>
+					<button type="button" id="updateBtn" class="btn btn-info">수정 완료</button>
 				</div>
 			</div>
 		</form>
