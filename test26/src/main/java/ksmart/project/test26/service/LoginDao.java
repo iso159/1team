@@ -10,7 +10,7 @@ import ksmart.project.test26.BookController;
 
 @Repository
 public class LoginDao {
-	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginDao.class);
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private final String NS = "ksmart.project.test26.service.LoginMapper."; // namespace
