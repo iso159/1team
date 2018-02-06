@@ -55,18 +55,14 @@
 						<p class="blue">로그인 관리</p>
 					</li>
 					<c:set var="login" value="${loginMember}"></c:set>
-					<c:choose>
-						<c:when test="${empty login}">
-							<li>
-								<a href="${pageContext.request.contextPath}/login1team/login"><div class="desc">로그인</div></a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li>
-								<a href="${pageContext.request.contextPath}/login1team/logout"><div class="desc">로그아웃</div></a>
-							</li>
-						</c:otherwise>
-					</c:choose>
+					<c:if test="${empty login}">
+						<li>
+							<a href="${pageContext.request.contextPath}/login1team/login"><div class="desc">로그인</div></a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/member/memberInsert"><div class="desc">회원 가입</div></a>
+						</li>
+					</c:if>						
 				</ul>
 			</li>
 			<!-- top 오른쪽 로그인 부분 끝 -->
