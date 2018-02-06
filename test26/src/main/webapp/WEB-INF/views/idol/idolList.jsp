@@ -6,10 +6,10 @@
 </head>
 <body>
 	<!-- top 부분 -->
-	<jsp:include page="../module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
 	<!-- top 부분 끝-->
 	<!-- 네비게이션 -->
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<!-- 네비게이션 끝-->
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
@@ -39,16 +39,20 @@
 			<h4>아이돌 수 : ${list.size()}</h4>
 		</div>
 		<div>
-			<a href="${pageContext.request.contextPath}/idol/idolAdd"><button type="button" class="btn btn-info">추가</button></a>
-			<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success active">홈으로</button></a>
+			<a href="${pageContext.request.contextPath}/idol/idolAdd">
+				<button type="button" class="btn btn-info">추가</button>
+			</a>
+			<a href="${pageContext.request.contextPath}/">
+				<button type="button" class="btn btn-success">홈으로</button>
+			</a>
 		</div>
 	</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->
-	<jsp:include page="../module/foot.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
 	<!-- 부트스트랩 가져온곳 삭제x -->
 	<!-- 메인 화면 끝 -->
 	<!-- 컨테이너 부분 -->
-	<jsp:include page="../module/hadan.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>
