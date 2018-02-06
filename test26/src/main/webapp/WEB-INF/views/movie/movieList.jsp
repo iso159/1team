@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../module/top.jsp"/>
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<div class="container">
 		<h2>영화 리스트</h2>
 		<table class="table table-striped">
@@ -46,7 +46,7 @@
 			<button type="button" class="btn btn-success">홈으로</button>
 		</a>
 	</div>
-	<jsp:include page="../module/foot.jsp"/>
-	<jsp:include page="../module/hadan.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>

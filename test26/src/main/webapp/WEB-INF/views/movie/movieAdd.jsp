@@ -25,8 +25,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../module/top.jsp"/>
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<h2>영화 입력 화면</h2>
 	<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/movie/movieAdd" method="post">
 		<div class="row">
@@ -37,7 +37,7 @@
 			</div>
 		</div>
 	</form>
-	<jsp:include page="../module/foot.jsp"/>
-	<jsp:include page="../module/hadan.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>

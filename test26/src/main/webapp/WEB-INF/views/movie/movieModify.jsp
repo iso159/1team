@@ -26,8 +26,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../module/top.jsp"/>
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<h2>영화 수정 화면</h2>
 	<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/movie/movieModify" method="post">
 		<div class="row">
