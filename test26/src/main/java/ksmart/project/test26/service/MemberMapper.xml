@@ -5,12 +5,9 @@
 <mapper namespace="ksmart.project.test26.service.MemberMapper">
 	<!-- insert 쿼리 -->
 	<insert id="insertMember" parameterType="ksmart.project.test26.service.Member">
-		insert into
-		member(member_id)
-		member(member_pw)
-		member(member_level)
-		values
-		(#{memberNo})
+		INSERT 
+		INTO member (member_id, member_pw) 
+		VALUES (#{memberId},#{memberPw});
 	</insert>
 
 	<!-- update 쿼리 -->
@@ -18,11 +15,8 @@
 		UPDATE member
 		SET
 		member_id = #{memberId}
-		member_pw = #{memberPw}
-		member_level =
-		#{memberLevel}
-		where member_no =
-		#{memberNo}
+		,member_pw = #{memberPw}
+		where member_no = #{memberNo}
 	</update>
 	<!-- delete 쿼리 -->
 	<delete id="deleteMember" parameterType="ksmart.project.test26.service.Member">
@@ -35,12 +29,11 @@
 	</delete>
 
 	<!-- select 쿼리 -->
-	<select id="selectMember" parameterType="ksmart.project.test26.service.Member">
+	<select id="selectMember" parameterType="int" resultType="ksmart.project.test26.service.Member">		
 		select
 		member_no as memberNo,
 		member_id as memberId,
-		member_pw as memberPw,
-		member_level as memberLevel,
+		member_pw as memberPw
 		from member
 		where
 		member_no=#{memberNo}

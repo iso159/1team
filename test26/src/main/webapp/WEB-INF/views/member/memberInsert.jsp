@@ -31,11 +31,11 @@
 
 	<div id="container">
 		<div id="content" style="min-height: 800px;">
-			<div id="url-navi">회원수정화면</div>
+			<div id="url-navi">회원가입</div>
 
 			<!-- 본문 시작 -->
-			<h1>회원수정</h1>
-			<form id="signUpForm" action="${pageContext.request.contextPath}/member/memberUpdate" method="post"
+			<h1>회원가입</h1>
+			<form id="signUpForm" action="${pageContext.request.contextPath}/member/memberInsert" method="post"
 				onsubmit="return check()">
 				<table>
 					<tr>
