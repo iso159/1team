@@ -13,7 +13,7 @@
 					<li><a class="" href="${pageContext.request.contextPath}/idol/idolList">아이돌 리스트</a></li>
 					<li><a class="" href="${pageContext.request.contextPath}/book/bookList"><span>책 리스트</span></a></li>
 					<li><a class="" href="${pageContext.request.contextPath}/city/cityList">도시 리스트</a></li>
-					<li><a class="" href="${pageContext.request.contextPath}/country/countryList">나라 리스트</a></li>
+					<li><a class="" href="${pageContext.request.contextPath}/country/countryList">국가 리스트</a></li>
 					<li><a class="" href="${pageContext.request.contextPath}/movie/movieList">영화 리스트</a></li>
 				</ul>
 			</li>
