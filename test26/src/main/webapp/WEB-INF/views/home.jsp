@@ -42,8 +42,8 @@
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
 				<!-- <span class="photo"><img alt="avatar" 
 				src="resources/img/sis.mini.jpg"></span> -->
-				<div class="count">세번째</div>
-				<div class="title">할말</div>
+				<div class="count">리오넬 메기</div>
+				<div class="title">호날두 짱</div>
 			</div>
 		</div>
 		<!-- 세번째 정보 끝 -->
@@ -52,13 +52,13 @@
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="info-box green-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
-				<!-- <span class="photo"><img alt="avatar" 
-				src="resources/img/sis.mini.jpg"></span> -->
-				<div class="count">네번째</div>
-				<div class="title">할말</div>
+				<span class="photo"><img alt="avatar" 
+				src="resources/img/dd.jpg"></span>
+				<div class="count">김항수</div>
+				<div class="title">hala ~ madrid</div>
 			</div>
 		</div>
-		<!-- 네번째 정보 -->
+		<!-- 네번째 정보 끝 -->
 
 		<!-- 다섯번째 정보 -->
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
