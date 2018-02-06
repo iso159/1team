@@ -50,8 +50,8 @@ public class BookController {
 	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
 	public String bookOneSelect(Model model,@RequestParam(value="bookId", required=true) int bookId ) {
 		System.out.println("수정페이지요청 확인");
-		List<Book> list = bookDao.selectOneBook(bookId);
-		model.addAttribute("list", list);
+		Book book = bookDao.selectOneBook(bookId);
+		model.addAttribute("book", book);
 		return "/book/bookUpdate";
 	}
 	

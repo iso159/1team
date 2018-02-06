@@ -30,9 +30,9 @@ public class BookDao {
 	}
 	
 	// Book 한 권 조회 메소드
-	public List<Book> selectOneBook(int bookId){
+	public Book selectOneBook(int bookId){
 		System.out.println("selectOneBook메소드 확인");
-		return sqlSessionTemplate.selectList(NS+"selectOneBook", bookId);
+		return sqlSessionTemplate.selectOne(NS+"selectOneBook", bookId);
 	}
 	
 	// Book 한 권 조회 후 수정 처리 메소드

@@ -10,9 +10,7 @@
 <title>Insert title here</title>
 <script>
     $(document).ready(function(){
-    	
  // 공백들어갈시 팝업창으로 알려줌
- 
         $('#updateButton').click(function(){
           if($('#bookName').val()==''){
         	  alert('수정할 책 이름을 입력하세요');
@@ -37,13 +35,15 @@
 <div class="container">
 	<h2>Book 수정화면</h2>
 	<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
-	<div class="col-md-4">
+		<div class="row">
+			<div class="col-md-4">
 				<label for="code">책코드</label>
 				<input class="form-control" type="text" name="bookId" value="${book.bookId }" readonly>
 				<label for="title">책 이름</label>
 				<input id="bookName" class="form-control" type="text" name="bookName" value="${book.bookName }">
-				<button type="button" id="updateForm" class="btn btn-info">수정 완료</button>
-	</div>
+				<button type="updateButton" id="updateForm" class="btn btn-info">수정 완료</button>
+			</div>
+		</div>
 	</form>
 	
 </div>
