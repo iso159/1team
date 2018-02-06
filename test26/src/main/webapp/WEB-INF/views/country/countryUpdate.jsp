@@ -12,14 +12,16 @@
 <title>Insert title here</title>
 <script>
 	$(document).ready(function() {
-
-		// 공백들어갈시 팝업창으로 알려줌
-
-		$('#updateButton').click(function() {
-			if ($('#bookName').val() == '') {
-				alert('수정할 국가 이름를 입력하세요');
-				$('#countryName').focus();
+		$('#updateBtn').click(function() {
+			// 공백 제거
+			let countryTitle = $.trim($('#countryTitle').val());
+			if (countryTitle === "") {
+				// 공백일경우 경고창
+				alert('공백은 입력할 수 없습니다.');
+				// 텍스트 비움
+				$('#countryTitle').val('');
 			} else {
+				// 공백이 아닐경우 서브밋
 				$('#updateForm').submit();
 			}
 		});
@@ -28,46 +30,36 @@
 </head>
 <body>
 	<!-- top 부분 -->
-	<jsp:include page="../module/top.jsp" />
+	<jsp:include page="/WEB-INF/views/module/top.jsp" />
 	<!-- top 부분 끝-->
 	<!-- 네비게이션 -->
-	<jsp:include page="../module/left.jsp" />
+	<jsp:include page="/WEB-INF/views/module/left.jsp" />
 	<!-- 네비게이션 끝-->
-
-	<!-- 메인 화면  -->
-	<!-- 메인 화면 내용 부분 -->
 	<div class="container">
-		<h2>국가 수정화면</h2>
-		<form id="updateForm"
+		<h2>국가 수정 화면</h2>
+		<form id="updateForm" class="form-inline"
 			action="${pageContext.request.contextPath}/country/countryUpdate"
 			method="post">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>국가코드</th>
-						<th>국가이름</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="country" items="${list}">
-						<tr>
-							<td><input type="text" name="countryId" readonly="readonly"
-								value="${country.countryId }"></td>
-							<td><input type="text" id="countryName" name="countryName"
-								value="${country.countryName }"></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<button type="button" id="updateButton">수정완료</button>
+			<div class="row">
+				<div class="col-md-4">
+					<label for="code">국가 코드:</label> <input class="form-control"
+						type="text" name="countryId" value="${Country.countryId}" readonly>
+					<label for="title">국가 제목:</label> <input id="countryTitle"
+						class="form-control" type="text" name="countryName"
+						value="${Country.countryName}">
+					<button type="button" id="updateBtn" class="btn btn-info">수정
+						완료</button>
+				</div>
+			</div>
 		</form>
-				<%-- 		<a href="${pageContext.request.contextPath}/"><button
-				type="button" class="btn btn-success active">홈으로</button></a> --%>
-				<a href="${pageContext.request.contextPath}/"><button
-				type="button" >홈으로</button></a>
 	</div>
-	<!-- 부분 -->
+	<!-- 메인 화면 내용 끝 -->
+	<!-- 부트스트랩 가져온곳 삭제x -->
 	<jsp:include page="/WEB-INF/views/module/foot.jsp" />
+	<!-- 부트스트랩 가져온곳 삭제x -->
+	<!-- 메인 화면 끝 -->
+	<!-- 컨테이너 부분 시작 -->
 	<jsp:include page="/WEB-INF/views/module/hadan.jsp" />
+	<!-- 컨테이너 부분 끝 -->
 </body>
 </html>

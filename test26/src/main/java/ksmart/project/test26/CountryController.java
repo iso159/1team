@@ -48,8 +48,8 @@ public class CountryController {
 	// 수정페이지 요청, 수정할 한 권조회
 	@RequestMapping(value = "/country/countryUpdate", method = RequestMethod.GET)
 	public String countryOneSelect(Model model, @RequestParam(value = "countryId", required = true) int country) {
-		List<Country> list = countryDao.selectOneCountry(country);
-		model.addAttribute("list", list);
+		Country countrySelect = countryDao.selectOneCountry(country);
+		model.addAttribute("Country", countrySelect);
 		return "/country/countryUpdate";
 	}
 

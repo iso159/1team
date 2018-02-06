@@ -30,8 +30,8 @@ public class CountryDao {
 	}
 
 	// country update
-	public List<Country> selectOneCountry(int country) {
-		return sqlSessionTemplate.selectList(namespace + "selectOneCountry", country);
+	public Country selectOneCountry(int country) {
+		return sqlSessionTemplate.selectOne(namespace + "selectOneCountry", country);
 	}
 
 	// country one update
