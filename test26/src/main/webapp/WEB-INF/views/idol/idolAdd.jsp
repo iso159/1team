@@ -6,15 +6,21 @@
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#idolButton').click(function(){
-          if($('#inputidolName').val()==''){
-        	  alert('내용을 입력해주세요.');
-          }else {
-              $('#addForm').submit();
-          }
-        });
-    });
+	$(document).ready(function(){
+		$('#idolButton').click(function(){
+			// 공백 제거
+			let movieTitle = $.trim($('#inputidolName').val());
+			if(movieTitle===""){
+				// 공백일경우 경고창
+				alert('공백은 입력할 수 없습니다.');
+				// 텍스트 비움
+				$('#inputidolName').val('');
+			}else{
+				// 공백이 아닐경우 서브밋
+				$('#addForm').submit();
+			}
+		});
+	});
 </script>
 <body>
 	<!-- top 부분 -->

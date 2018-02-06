@@ -6,15 +6,21 @@
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#idolButton').click(function(){
-          if($('#inputidolName').val()==''){
-        	  alert('공백은 불가능합니다.');
-          }else {
-              $('#updateForm').submit();
-          }
-        });
-    });
+$(document).ready(function(){
+	$('#updateBtn').click(function(){
+		// 공백 제거
+		let movieTitle = $.trim($('#inputidolName').val());
+		if(movieTitle===""){
+			// 공백일경우 경고창
+			alert('공백은 입력할 수 없습니다.');
+			// 텍스트 비움
+			$('#inputidolName').val('');
+		}else{
+			// 공백이 아닐경우 서브밋
+			$('#updateForm').submit();
+		}
+	});
+});
 </script>
 <body>
 	<!-- top 부분 -->
@@ -31,9 +37,9 @@
 			<div class="row">
 				<div class="col-md-4">
 					<c:forEach var="i" items="${list}">
-						<label for="code">영화 코드:</label>
+						<label for="code">아이돌 코드:</label>
 						<input class="form-control" type="text" name="idolId" readonly="readonly" value="${i.idolId}">
-						<label for="title">영화 제목:</label>
+						<label for="title">아이돌 이름:</label>
 						<input class="form-control" id="inputidolName" type="text" name="idolName" value="${i.idolName}">
 					</c:forEach>
 					<button type="button" id="updateBtn" class="btn btn-info">수정 완료</button>
