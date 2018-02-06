@@ -47,6 +47,7 @@
 				<value>classpath:ksmart/project/test26/service/CountryMapper.xml</value>
 				<value>classpath:ksmart/project/test26/service/IdolMapper.xml</value>
 				<value>classpath:ksmart/project/test26/service/MemberMapper.xml</value>
+				<value>classpath:ksmart/project/test26/service/LoginMapper.xml</value>
 			</list>
 		</property>
 	</bean>

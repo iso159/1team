@@ -19,33 +19,19 @@
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
 <div class="container">
-
-	<h2>Book List</h2>
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>책이름</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="book" items="${list}">
-			<tr>
-				<td>${book.bookId }</td>
-				<td>${book.bookName }</td>
-				<td><a href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
-				<td><a href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
-			</tr>
-			</c:forEach>
-		</tbody>
-		</table>
-		<div>
-			<h4>책 개수 : ${list.size()}</h4>
+<h2>로그인 화면</h2>
+	<form id="" class="form-inline" action="${pageContext.request.contextPath}/login1team/login" method="post">
+		<div class="row">
+			<div class="col-md-4">
+				<label for="code">아이디</label>
+				<input class="form-control" type="text"  name="memberId" value="guest" >
+				<label for="title">비밀번호</label>
+				<input id="" class="form-control" type="text"  name="memberPw" value="1234">
+				<button type="submit" id="" class="btn btn-info">로그인</button>
+			</div>
 		</div>
-	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-info">추가</button></a>
-	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success">홈으로</button></a>
+	</form>
+
 </div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->

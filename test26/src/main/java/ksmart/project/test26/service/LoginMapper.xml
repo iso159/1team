@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ksmart.project.test26.service.LoginMapper">
+
+	<!-- 로그인시 id와 pw 조회하는  -->
+	<select id="selectCheckMember"
+			parameterType="ksmart.project.test26.service.Member"
+			resultType="ksmart.project.test26.service.Member">
+			
+	SELECT 	member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw			
+	FROM 	member 
+	WHERE 	member_id = #{memberId} 
+	AND 	member_pw = #{memberPw}
+	
+	</select>
+
+
+
+
+
+</mapper>
