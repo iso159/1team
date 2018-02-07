@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ksmart.project.test26.idol.service.Idol;
 import ksmart.project.test26.movie.service.MovieService;
 
-@Repository
 @Service
 @Transactional
 public class IdolService {
