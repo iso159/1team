@@ -49,10 +49,10 @@
 </div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->
-	<jsp:include page="../module/foot.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/foot.jsp"/>
 	<!-- 부트스트랩 가져온곳 삭제x -->
 	<!-- 메인 화면 끝 -->
 	<!-- 컨테이너 부분 -->
-	<jsp:include page="../module/hadan.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/hadan.jsp"/>
 </body>
 </html>
