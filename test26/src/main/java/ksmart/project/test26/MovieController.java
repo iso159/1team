@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Movie;
-import ksmart.project.test26.service.MovieDao;
-import ksmart.project.test26.service.MovieService;
+import ksmart.project.test26.movie.service.Movie;
+import ksmart.project.test26.movie.service.MovieDao;
+import ksmart.project.test26.movie.service.MovieService;
 
 @Controller
 public class MovieController {

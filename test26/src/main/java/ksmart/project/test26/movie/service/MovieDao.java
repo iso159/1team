@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.movie.service;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class MovieDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(MovieDao.class);
 	// 쿼리 경로를 상수로 입력 
-	private final String ns = "ksmart.project.test26.service.MovieMapper.";
+	private final String ns = "ksmart.project.test26.movie.service.MovieMapper.";
 	
 	// movie 테이블 전체 리스트 조회
 	public List<Movie> selectMovieList(){

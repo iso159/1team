@@ -52,7 +52,7 @@
 		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
 		<property name="mapperLocations">
 			<list>
-				<value>classpath:ksmart/project/test26/service/MovieMapper.xml</value>
+				<value>classpath:ksmart/project/test26/movie/service/MovieMapper.xml</value>
 				<value>classpath:ksmart/project/test26/service/CityMapper.xml</value>
 				<value>classpath:ksmart/project/test26/service/BookMapper.xml</value>
 				<value>classpath:ksmart/project/test26/service/CountryMapper.xml</value>

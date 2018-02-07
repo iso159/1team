@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.movie.service;
 
 public class Movie {
 	private int movieId;

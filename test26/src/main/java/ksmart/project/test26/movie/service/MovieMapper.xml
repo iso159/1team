@@ -2,23 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.project.test26.service.MovieMapper">
+<mapper namespace="ksmart.project.test26.movie.service.MovieMapper">
 	<!-- movie 테이블 전체 컬럼 리스트 출력을 위한 쿼리문 -->
-	<select id="selectMovieList" resultType="ksmart.project.test26.service.Movie">
+	<select id="selectMovieList" resultType="ksmart.project.test26.movie.service.Movie">
 		SELECT
 			movie_id as movieId
 			,movie_name as movieName
 		FROM test.movie
 	</select>
 	<!-- movie 테이블 컬럼 입력을 위한 쿼리문 -->
-	<insert id="insertMovie" parameterType="ksmart.project.test26.service.Movie">
+	<insert id="insertMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		INSERT 
 			INTO test.movie (movie_name) 
 		VALUES (#{movieName})
 	</insert>
 	<!-- 조건에 맞는 movie 테이블 컬럼 하나를 가져오기 위한 쿼리문 -->
-	<select id="selectMovieOne" parameterType="ksmart.project.test26.service.Movie" 
-		resultType="ksmart.project.test26.service.Movie">
+	<select id="selectMovieOne" parameterType="ksmart.project.test26.movie.service.Movie" 
+		resultType="ksmart.project.test26.movie.service.Movie">
 		SELECT 
 			movie_id as movieId
 			,movie_name as movieName
@@ -26,13 +26,13 @@
 		WHERE movie_id = #{movieId}
 	</select>
 	<!-- 조건에 맞는 movie 테이블의 컬럼 수정을 위한 쿼리문 -->
-	<update id="updateMovie" parameterType="ksmart.project.test26.service.Movie">
+	<update id="updateMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		UPDATE test.movie SET
 			movie_name = #{movieName}
 		WHERE movie_id = #{movieId}
 	</update>
 	<!-- 조건에 맞는 movie 테이블의 컬럼 삭제를 위한 쿼리문 -->
-	<delete id="deleteMovie" parameterType="ksmart.project.test26.service.Movie">
+	<delete id="deleteMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		DELETE 
 		FROM test.movie
 		WHERE movie_id = #{movieId}	
