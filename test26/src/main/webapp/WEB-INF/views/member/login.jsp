@@ -26,7 +26,7 @@
 				<label for="code">아이디</label>
 				<input class="form-control" type="text"  name="memberId" value="guest" >
 				<label for="title">비밀번호</label>
-				<input id="" class="form-control" type="text"  name="memberPw" value="1234">
+				<input id="" class="form-control" type="password"  name="memberPw" value="1234">
 				<button type="submit" id="" class="btn btn-info">로그인</button>
 			</div>
 		</div>
