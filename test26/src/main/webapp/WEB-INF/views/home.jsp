@@ -17,7 +17,7 @@
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="info-box pink-bg">
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/jin-young.gif"></span>
+				src="${pageContext.request.contextPath}/resources/img/jin-young.gif"></span>
 				<div class="count">진 영</div>
 				<div class="title">배고팡</div>
 			</div>
@@ -28,7 +28,7 @@
 		<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 			<div class="info-box brown-bg">
 				<span class="photo"><img alt="avatar"
-					src="resources/img/insuC.gif"></span>
+					src="${pageContext.request.contextPath}/resources/img/insuC.gif"></span>
 				<div class="count">송 인석</div>
 				<div class="title">조장 오른손 손톱때</div>
 			</div>
@@ -40,7 +40,7 @@
 			<div class="info-box purple-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/JangSung.gif"></span>
+				src="${pageContext.request.contextPath}/resources/img/JangSung.gif"></span>
 				<div class="count">김장성</div>
 				<div class="title">팀장</div>
 			</div>
@@ -52,7 +52,7 @@
 			<div class="info-box orange-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/HangSoo.gif"></span>
+				src="${pageContext.request.contextPath}/resources/img/HangSoo.gif"></span>
 				<div class="count">김항수</div>
 				<div class="title">그럼요ㅎ </div>
 			</div>
@@ -64,7 +64,7 @@
 			<div class="info-box red-bg">
 				<!-- 이미지는 세로 90 에 가로 120으로 -->
 				<span class="photo"><img alt="avatar" 
-				src="resources/img/SunYoung.gif"></span>
+				src="${pageContext.request.contextPath}/resources/img/SunYoung.gif"></span>
 				<div class="count">차선영</div>
 				<div class="title">할말</div>
 			</div>
