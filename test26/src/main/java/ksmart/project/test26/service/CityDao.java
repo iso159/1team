@@ -3,34 +3,51 @@ package ksmart.project.test26.service;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import ksmart.project.test26.movie.service.Movie;
+import ksmart.project.test26.movie.service.MovieDao;
 
 @Repository
 public class CityDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
+	private static final Logger logger = LoggerFactory.getLogger(CityDao.class);
 	
 	private final String ns = "ksmart.project.test26.service.CityMapper.";
 	
 	public List<City> selectCityList(){
-		return sqlSessionTemplate.selectList(ns + "selectCityList");
+		List<City> list = sqlSessionTemplate.selectList(ns + "selectCityList");
+		//콘솔창에서 list에 들어있는값 확인
+		logger.debug("selectCityList() 메서드 list is {}",list);
+		return list;
 	}
 	
-	public void deleteCityList(int i) {
-		sqlSessionTemplate.delete(ns + "deleteCityList", i);
+	public void deleteCity(int i) {
+		//int값 받아오는지 확인
+		logger.debug("deleteCityList(int i) 메서드 i is {}",i);
+		sqlSessionTemplate.delete(ns + "deleteCity", i);
 	}
 	
-	public void updateCityList(City city) {
-		sqlSessionTemplate.update(ns + "updateCityList", city);
+	public void updateCity(City city) {
+		// 매개변수 city값 확인
+		logger.debug("updateCity(City city) 메서드 city is {}",city);
+		sqlSessionTemplate.update(ns + "updateCity", city);
 	}
 	
-	public int insertCityList(City city) {
+	public int insertCity(City city) {
 		
-		return sqlSessionTemplate.insert(ns + "insertCityList", city);
+		logger.debug("insertCity(City city) 메서드 movie is {}",city);
+		
+		return sqlSessionTemplate.insert(ns + "insertCity", city);
 	}
 	
-	public City selectOneCityList(int i) {
-		return sqlSessionTemplate.selectOne(ns + "selectOneCityList", i);
+	public City selectCityOne(int i) {
+		//int i 값 콘솔창에서 확인
+		logger.debug("selectCityOne(int i) 메서드 i is {}",i);
+		return sqlSessionTemplate.selectOne(ns + "selectCityOne", i);
 	}
 }

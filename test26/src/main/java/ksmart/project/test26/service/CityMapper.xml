@@ -12,20 +12,20 @@
 	</select>
 	
 	<!-- 도시추가 쿼리문 -->
-	<insert id="insertCityList" parameterType="ksmart.project.test26.service.City">
+	<insert id="insertCity" parameterType="ksmart.project.test26.service.City">
 		INSERT INTO 
 			test.city(city_name) VALUES (#{cityName})	
 	</insert>
 	
 	<!-- 도시 수정쿼리문 -->
-	<update id="updateCityList" parameterType="ksmart.project.test26.service.City">
+	<update id="updateCity" parameterType="ksmart.project.test26.service.City">
 		UPDATE test.city SET 
 			city_name= #{cityName}
 		WHERE city_id = #{cityId}	
 	</update>
 	
 	<!-- 도시하나 조회하는 select쿼리문 -->
-	<select id="selectOneCityList" parameterType="int" resultType="ksmart.project.test26.service.City">
+	<select id="selectCityOne" parameterType="int" resultType="ksmart.project.test26.service.City">
 		SELECT
 			city_id as cityId,
 			city_name as cityName
@@ -34,7 +34,7 @@
 	</select>
 	
 	<!-- 도시 삭제쿼리문 -->
-	<delete id="deleteCityList" parameterType="int">
+	<delete id="deleteCity" parameterType="int">
 		DELETE 
 		FROM test.city 
 		WHERE city_id = #{cityId}

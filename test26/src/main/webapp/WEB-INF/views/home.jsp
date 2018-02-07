@@ -66,7 +66,7 @@
 				<span class="photo"><img alt="avatar" 
 				src="${pageContext.request.contextPath}/resources/img/SunYoung.gif"></span>
 				<div class="count">차선영</div>
-				<div class="title">할말</div>
+				<div class="title">hihi</div>
 			</div>
 		</div>
 		<!-- 다섯번째 정보 끝 -->

@@ -16,15 +16,15 @@ import ksmart.project.test26.service.*;
 @Controller
 public class CityController {
 	@Autowired
-	private CityDao cityDao;
+	private CityService cityservice;
 	
 	@RequestMapping(value="/city/cityList")
-	public String cityList(Model model,HttpSession session) {
+	public String city(Model model,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		List <City> list = cityDao.selectCityList();
+		List <City> list = cityservice.checkCityList();
 		model.addAttribute("CityList", list);
 		return "city/cityList";
 	}
@@ -44,28 +44,28 @@ public class CityController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		cityDao.insertCityList(city);		
+		cityservice.addCity(city);
 		return "redirect:/city/cityList";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.GET)
-	public String seletOneList(Model model, @RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
+	public String cityModify(Model model, @RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		City city = cityDao.selectOneCityList(cityId);
+		City city = cityservice.checkCityOne(cityId);
 		model.addAttribute("city", city);
 		return "city/cityUpdate";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.POST)
-	public String seletOneList(Model model, City city,HttpSession session) {
+	public String cityModify(Model model, City city,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		cityDao.updateCityList(city);
+		cityservice.modifyCity(city);
 		return "redirect:/city/cityList";
 	}
 	
@@ -76,7 +76,7 @@ public class CityController {
 			return "redirect:/member/login";
 		}
 		System.out.println(cityId + "<--cityId");
-		cityDao.deleteCityList(cityId);
+		cityservice.removeCity(cityId);
 		return "redirect:/city/cityList";
 	}
 }
