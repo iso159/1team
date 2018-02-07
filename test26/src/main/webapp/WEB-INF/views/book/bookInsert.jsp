@@ -8,16 +8,16 @@
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 <script>
     $(document).ready(function(){
-    	
- // 공백들어갈시 팝업창으로 알려줌
- 
-        $('#addButton').click(function(){
-          if($('#bookName').val()==''){
-        	  alert('책이름을 입력하세요');
-              $('#bookName').focus();
-          }else {
-              $('#addForm').submit();
-          }
+        $('#insertBtn').click(function(){
+        	// 공백들어갈시 팝업창으로 알려줌
+        	let bookName = $.trim($('#bookName').val());
+	          if(bookName == ""){
+	        	  alert('책이름을 입력하세요');
+	        	  // 텍스트비움
+	        	  $('#bookName').val('');
+	          }else {
+	              $('#addForm').submit();
+	          }
         });
     });
 </script>
@@ -25,10 +25,10 @@
 </head>
 <body>
 	<!-- top 부분 -->
-	<jsp:include page="../module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
 	<!-- top 부분 끝-->
 	<!-- 네비게이션 -->
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<!-- 네비게이션 끝-->
 	
 	<!-- 메인 화면  -->

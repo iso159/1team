@@ -10,10 +10,10 @@
 </head>
 <body>
 <!-- top 부분 -->
-	<jsp:include page="../module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
 	<!-- top 부분 끝-->
 	<!-- 네비게이션 -->
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<!-- 네비게이션 끝-->
 	
 	<!-- 메인 화면  -->
