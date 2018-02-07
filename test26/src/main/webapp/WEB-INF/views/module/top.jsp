@@ -74,8 +74,8 @@
 				</a>
 					<ul class="dropdown-menu extended logout">
 						<div class="log-arrow-up"></div>
-						<li class="eborder-top"><a href="/"><i class="icon_profile"></i>회원 수정 </a></li>
-						<li class="eborder-top"><a href="/"><i class="icon_profile"></i>회원 삭제 </a></li>
+						<li class="eborder-top"><a href="#"><i class="icon_profile"></i>회원 수정 </a></li>
+						<li><a href="#"><i class="icon_profile"></i>회원 삭제 </a></li>
 						<li><a href="${pageContext.request.contextPath}/login1team/logout"><i class="icon_key_alt"></i> 로그아웃</a></li>
 					</ul>
 				</li>
