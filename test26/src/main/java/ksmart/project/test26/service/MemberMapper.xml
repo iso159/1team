@@ -9,7 +9,7 @@
 		INTO member (member_id, member_pw) 
 		VALUES (#{memberId},#{memberPw});
 	</insert>
-
+	
 	<!-- update 쿼리 -->
 	<update id="updateMember" parameterType="ksmart.project.test26.service.Member">
 		UPDATE member
@@ -18,14 +18,11 @@
 		,member_pw = #{memberPw}
 		where member_no = #{memberNo}
 	</update>
+	
 	<!-- delete 쿼리 -->
 	<delete id="deleteMember" parameterType="ksmart.project.test26.service.Member">
 		delete from member
-		where
-		member_no = #{memberNo}
-		member_id = #{memberId}
-		member_pw = #{memberPw}
-		member_level = #{memberLevel}
+		where member_no = #{memberNo}
 	</delete>
 
 	<!-- select 쿼리 -->
@@ -34,9 +31,8 @@
 		member_no as memberNo,
 		member_id as memberId,
 		member_pw as memberPw
-		from member
+		from test.member
 		where
 		member_no=#{memberNo}
 	</select>
-
 </mapper>

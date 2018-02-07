@@ -1,16 +1,16 @@
 package ksmart.project.test26.service;
 
 public class Member {
-	private String memberNo;
+	private int memberNo;
 	private String memberId;
 	private String memberPw;
 	private String memberLevel;
 
-	public String getMemberNo() {
+	public int getMemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(String memberNo) {
+	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 
