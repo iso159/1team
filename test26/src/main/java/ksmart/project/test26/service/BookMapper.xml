@@ -24,7 +24,7 @@
  </update>
   
   <!-- Book 한 권 조회하는 쿼리문 -->
-  <select id="selectOneBook"
+  <select id="selectBookOne"
   			resultType="ksmart.project.test26.service.Book"
   			parameterType="int">
 	SELECT

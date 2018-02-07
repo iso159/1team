@@ -16,22 +16,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.service.Book;
 import ksmart.project.test26.service.BookDao;
+import ksmart.project.test26.service.BookService;
 
 @Controller
 public class BookController {
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 	@Autowired
 	private BookDao bookDao;
+	@Autowired
+	private BookService bookService;
 	
+	// Book전체 리스트
 	@RequestMapping(value="/book/bookList")
-	public String BookList(Model model,HttpSession session) {
+	public String Book(Model model,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		List<Book> list = bookDao.selectBookList();
+		List<Book> list = bookService.checkBookList();
+		logger.debug("Book(Model model,HttpSession session) 메서드 list is {}",list);
 		model.addAttribute("list", list);
-		return "book/bookList";
+		return "/book/bookList";
 		
 	}
 	// 입력요청
@@ -41,18 +46,18 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.info("입력요청확인 :{}", book);
-		bookDao.insertBook(book);
+		logger.info("bookInsert(Book book,HttpSession session) 메서드 book is {}", book);
+		bookService.addBook(book);
 		return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
 	}
 	// 입력페이지요청
 	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
 	public String bookInsert(HttpSession session) {
+		logger.info("bookInsert(HttpSession session) 메서드");
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.debug("입력페이지 요청확인");
 		return "/book/bookInsert";
 	}
 	
@@ -63,8 +68,8 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.debug("삭제 요청확인");
-		bookDao.deleteBook(bookId);
+		logger.info("bookDelete(int bookId,HttpSession session) 메서드 bookId is {}", bookId);
+		bookService.removeBook(bookId);
 		return "redirect:/book/bookList";
 	}
 	
@@ -75,8 +80,9 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.debug("수정페이지 요청확인");
-		Book book = bookDao.selectOneBook(bookId);
+		Book book = bookService.checkBookOne(bookId);
+		// 리턴받은 book값 확인
+		logger.info("bookOneSelect(Model model,int bookId,HttpSession session) 메서드 book is {}", book);
 		model.addAttribute("book", book);
 		return "/book/bookUpdate";
 	}
@@ -88,8 +94,9 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.info("수정요청확인 :{}", book);
-		bookDao.updateBook(book);
+		logger.info("bookUpdate(Book book,HttpSession session) 메서드 book is {}", book);
+		bookService.modifyBook(book);
+		
 		return "redirect:/book/bookList";
 	}
 	
