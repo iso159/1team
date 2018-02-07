@@ -58,7 +58,7 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		return "/book/bookInsert";
+		return "/book/bookAdd";
 	}
 	
 	// 삭제요청
@@ -74,7 +74,7 @@ public class BookController {
 	}
 	
 	// 수정페이지 요청, 수정할 한 권조회
-	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.GET)
+	@RequestMapping(value="/book/bookModify", method = RequestMethod.GET)
 	public String bookOneSelect(Model model,@RequestParam(value="bookId", required=true) int bookId,HttpSession session ) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
@@ -84,17 +84,17 @@ public class BookController {
 		// 리턴받은 book값 확인
 		logger.info("bookOneSelect(Model model,int bookId,HttpSession session) 메서드 book is {}", book);
 		model.addAttribute("book", book);
-		return "/book/bookUpdate";
+		return "/book/bookModify";
 	}
 	
 	// 수정요청
-	@RequestMapping(value="/book/bookUpdate", method = RequestMethod.POST)
+	@RequestMapping(value="/book/bookModify", method = RequestMethod.POST)
 	public String bookUpdate(Book book,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		logger.info("bookUpdate(Book book,HttpSession session) 메서드 book is {}", book);
+		logger.info("bookModify(Book book,HttpSession session) 메서드 book is {}", book);
 		bookService.modifyBook(book);
 		
 		return "redirect:/book/bookList";
