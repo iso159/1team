@@ -45,6 +45,8 @@
 	<div class="top-nav notification-row">
 		<ul class="nav pull-right top-menu">
 			<!-- top 오른쪽 로그인 부분 -->
+			<c:set var="login" value="${loginMember}"></c:set>
+			<c:if test="${empty login}">
 			<li id="task_notificatoin_bar" class="dropdown">
 			<a data-toggle="dropdown" class="dropdown-toggle" href="#"> 
 			<i class="icon-task-l"></i>
@@ -54,17 +56,15 @@
 					<li>
 						<p class="blue">로그인 관리</p>
 					</li>
-					<c:set var="login" value="${loginMember}"></c:set>
-					<c:if test="${empty login}">
 						<li>
 							<a href="${pageContext.request.contextPath}/login1team/login"><div class="desc">로그인</div></a>
 						</li>
 						<li>
 							<a href="${pageContext.request.contextPath}/member/memberInsert"><div class="desc">회원 가입</div></a>
-						</li>
-					</c:if>						
+						</li>						
 				</ul>
 			</li>
+			</c:if>
 			<!-- top 오른쪽 로그인 부분 끝 -->
 			<!-- top 오른쪽 회원정보 부분 -->
 			<c:if test="${!empty login}">
