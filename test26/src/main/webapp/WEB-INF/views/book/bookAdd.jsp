@@ -35,7 +35,7 @@
 	<!-- 메인 화면 내용 부분 -->
 		<div class="container">
 			<h2>Book 입력 화면</h2>
-				<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/book/bookInsert" method="post">
+				<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/book/bookAdd" method="post">
 					<div class ="row">
 						<div class="col-md-4">
 							<label for="title">책이름</label>
