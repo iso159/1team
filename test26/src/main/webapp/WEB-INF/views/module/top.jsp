@@ -69,7 +69,7 @@
 			<!-- top 오른쪽 회원정보 부분 -->
 			<c:if test="${!empty login}">
 				<li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#"> <span class="profile-ava">
-					<img alt="" src="resources/img/sis.small.jpg">
+					<img alt="" src="${pageContext.request.contextPath}/resources/img/sis.small.jpg">
 					</span> <span class="username">${loginMember.memberId }</span> <b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu extended logout">
