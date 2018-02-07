@@ -20,7 +20,7 @@
 	<!-- 메인 화면 내용 부분 -->
 <div class="container">
 <h2>로그인 화면</h2>
-	<form id="" class="form-inline" action="${pageContext.request.contextPath}/login1team/login" method="post">
+	<form id="" class="form-inline" action="${pageContext.request.contextPath}/member/login" method="post">
 		<div class="row">
 			<div class="col-md-4">
 				<label for="code">아이디</label>

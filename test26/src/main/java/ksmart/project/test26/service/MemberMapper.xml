@@ -35,4 +35,18 @@
 		where
 		member_no=#{memberNo}
 	</select>
+	
+	<!-- 로그인시 id와 pw로 회원정보 조회하는 select 쿼리문 -->
+	<select id="selectCheckMember"
+			parameterType="ksmart.project.test26.service.Member"
+			resultType="ksmart.project.test26.service.Member">
+			
+	SELECT 	member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw			
+	FROM 	member 
+	WHERE 	member_id = #{memberId} 
+	AND 	member_pw = #{memberPw}
+	
+	</select>
 </mapper>

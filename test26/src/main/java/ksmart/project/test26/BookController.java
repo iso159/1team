@@ -27,7 +27,7 @@ public class BookController {
 	public String BookList(Model model,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		List<Book> list = bookDao.selectBookList();
 		model.addAttribute("list", list);
@@ -39,7 +39,7 @@ public class BookController {
 	public String bookInsert(Book book,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.info("입력요청확인 :{}", book);
 		bookDao.insertBook(book);
@@ -50,7 +50,7 @@ public class BookController {
 	public String bookInsert(HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.debug("입력페이지 요청확인");
 		return "/book/bookInsert";
@@ -61,7 +61,7 @@ public class BookController {
 	public String bookDelete(@RequestParam(value="bookId", required=true) int bookId,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.debug("삭제 요청확인");
 		bookDao.deleteBook(bookId);
@@ -73,7 +73,7 @@ public class BookController {
 	public String bookOneSelect(Model model,@RequestParam(value="bookId", required=true) int bookId,HttpSession session ) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.debug("수정페이지 요청확인");
 		Book book = bookDao.selectOneBook(bookId);
@@ -86,7 +86,7 @@ public class BookController {
 	public String bookUpdate(Book book,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.info("수정요청확인 :{}", book);
 		bookDao.updateBook(book);

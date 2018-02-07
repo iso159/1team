@@ -22,7 +22,7 @@ public class CityController {
 	public String cityList(Model model,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		List <City> list = cityDao.selectCityList();
 		model.addAttribute("CityList", list);
@@ -33,7 +33,7 @@ public class CityController {
 	public String cityAdd(HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		return "city/cityinsert";
 	}
@@ -42,7 +42,7 @@ public class CityController {
 	public String cityAdd(City city,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		cityDao.insertCityList(city);		
 		return "redirect:/city/cityList";
@@ -52,7 +52,7 @@ public class CityController {
 	public String seletOneList(Model model, @RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		City city = cityDao.selectOneCityList(cityId);
 		model.addAttribute("city", city);
@@ -63,7 +63,7 @@ public class CityController {
 	public String seletOneList(Model model, City city,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		cityDao.updateCityList(city);
 		return "redirect:/city/cityList";
@@ -73,7 +73,7 @@ public class CityController {
 	public String cityRemove(@RequestParam(value="cityId", required=true) int cityId,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		System.out.println(cityId + "<--cityId");
 		cityDao.deleteCityList(cityId);

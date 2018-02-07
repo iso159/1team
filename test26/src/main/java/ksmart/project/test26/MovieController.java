@@ -28,7 +28,7 @@ public class MovieController {
 	public String movie(Model model,HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		List<Movie> list = movieDao.selectMovieList();
 		logger.debug("list is {}",list);
@@ -42,7 +42,7 @@ public class MovieController {
 	public String movieAdd(HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		// 입력 폼으로 이동
 		return "/movie/movieAdd";
@@ -53,7 +53,7 @@ public class MovieController {
 	public String movieAdd(Movie movie, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		// movie dto에 값이 잘들어갔는지 콘솔창으로 확인
 		logger.debug("movie is {}",movie);
@@ -67,7 +67,7 @@ public class MovieController {
 	public String movieModify(Model model, Movie movie, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		// movieDao.selectMovie(movie)의 결과를 받아 담아서 forward한다.
 		model.addAttribute("Movie",movieDao.selectMovie(movie));
@@ -79,7 +79,7 @@ public class MovieController {
 	public String movieModify(Movie movie, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		movieDao.updateMovie(movie);
 		return "redirect:/movie/movieList";
@@ -90,7 +90,7 @@ public class MovieController {
 	public String movieRemove(Movie movie, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		movieDao.deleteMovie(movie);
 		return "redirect:/movie/movieList";

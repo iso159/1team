@@ -23,7 +23,7 @@ public class CountryController {
 	public String country(Model model,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		List<Country> list = countryDao.selectCountryList();
 		model.addAttribute("CountryList", list);
@@ -35,7 +35,7 @@ public class CountryController {
 	public String countryInsert(HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		return "/country/countryInsert";
 	}
@@ -45,7 +45,7 @@ public class CountryController {
 	public String countryInsert(Country country,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		countryDao.insertCountry(country);
 		return "redirect:/country/countryList";	
@@ -56,7 +56,7 @@ public class CountryController {
 	public String countryDelete(@RequestParam(value = "countryId", required = true) int countryId,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		countryDao.deleteCountry(countryId);
 		return "redirect:/country/countryList";
@@ -67,7 +67,7 @@ public class CountryController {
 	public String countryOneSelect(Model model, @RequestParam(value = "countryId", required = true) int country,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		Country countrySelect = countryDao.selectOneCountry(country);
 		model.addAttribute("Country", countrySelect);
@@ -79,7 +79,7 @@ public class CountryController {
 	public String countryUpdate(Country country,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
-			return "redirect://login1team/login";
+			return "redirect:/member/login";
 		}
 		countryDao.updateCountry(country);
 		return "redirect:/country/countryList";

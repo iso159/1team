@@ -28,7 +28,7 @@ public class IdolController {
 	public String idolList(Model model,HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		List<Idol> list = idolDao.seleteIdol();
 		model.addAttribute("list", list);
@@ -40,7 +40,7 @@ public class IdolController {
 	public String idolOneSelete(Model model,HttpSession session,@RequestParam(value="idolId", required=true) int idolId) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		//System.out.println(idolId+"<--IdolController.java idolOneSelete");
 		List<Idol> list = idolDao.seleteOneIdol(idolId);
@@ -53,7 +53,7 @@ public class IdolController {
 	public String idelUpdate(Idol idol, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.info("입력요청확인 :{}", idol);
 		idolDao.updateIdol(idol);
@@ -65,7 +65,7 @@ public class IdolController {
 	public String idolAdd(HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		return "/idol/idolAdd";
 	}
@@ -75,7 +75,7 @@ public class IdolController {
 	public String idolAdd(Idol idol,HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.info("입력요청확인 :{}", idol);
 		idolDao.addIdol(idol);
@@ -87,7 +87,7 @@ public class IdolController {
 	public String idolDelete(HttpSession session ,@RequestParam(value="idolId", required=true) int idolId) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
-			return "redirect:/login1team/login";
+			return "redirect:/member/login";
 		}
 		logger.info("입력요청확인 :{}", idolId);
 		idolDao.deleteIdol(idolId);
