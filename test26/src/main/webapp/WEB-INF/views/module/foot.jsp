@@ -10,7 +10,7 @@
             by
             <a href="http://cafe.naver.com/jjdev"> <span class="text sis-mide">cafe.naver.com/jjdev</span></a>
             <span>
-         		<img alt="avatar" src="resources/img/apple_logo-iloveimg-resized.jpg">
+         		<img alt="avatar" src="${pageContext.request.contextPath}/resources/img/apple_logo-iloveimg-resized.jpg">
          	</span>
                <!--
                   All the links in the footer should remain intact.
