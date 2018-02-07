@@ -17,7 +17,7 @@
 		VALUES (#{movieName})
 	</insert>
 	<!-- 조건에 맞는 movie 테이블 컬럼 하나를 가져오기 위한 쿼리문 -->
-	<select id="selectMovie" parameterType="ksmart.project.test26.service.Movie" 
+	<select id="selectMovieOne" parameterType="ksmart.project.test26.service.Movie" 
 		resultType="ksmart.project.test26.service.Movie">
 		SELECT 
 			movie_id as movieId
