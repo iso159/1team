@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.book.service;
 
 public class Book {
 	private int bookId;

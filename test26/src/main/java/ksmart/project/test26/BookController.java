@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Book;
-import ksmart.project.test26.service.BookDao;
-import ksmart.project.test26.service.BookService;
+import ksmart.project.test26.book.service.Book;
+import ksmart.project.test26.book.service.BookDao;
+import ksmart.project.test26.book.service.BookService;
 
 @Controller
 public class BookController {

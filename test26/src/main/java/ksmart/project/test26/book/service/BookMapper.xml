@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.project.test26.service.BookMapper">
+<mapper namespace="ksmart.project.test26.book.service.BookMapper">
  	<!-- Book 리스트 조회하는 쿼리문 -->
   <select id="selectBookList"
-  			resultType="ksmart.project.test26.service.Book">
+  			resultType="ksmart.project.test26.book.service.Book">
   			
 	SELECT
 		book_id as bookId,
@@ -16,7 +16,7 @@
   
   <!-- Book 한 권 수정하는 쿼리문 -->
   <update id="updateBook"
- 			parameterType="ksmart.project.test26.service.Book">
+ 			parameterType="ksmart.project.test26.book.service.Book">
  	UPDATE	book 
  	SET		book_name = #{bookName} 
 	WHERE 	book_id = #{bookId}
@@ -25,7 +25,7 @@
   
   <!-- Book 한 권 조회하는 쿼리문 -->
   <select id="selectBookOne"
-  			resultType="ksmart.project.test26.service.Book"
+  			resultType="ksmart.project.test26.book.service.Book"
   			parameterType="int">
 	SELECT
 		book_id as bookId,
@@ -37,14 +37,14 @@
   
   <!-- Book 입력하기 위한 쿼리문 -->
   <insert id="insertBook"
-  			parameterType="ksmart.project.test26.service.Book">
+  			parameterType="ksmart.project.test26.book.service.Book">
  	INSERT INTO book (book_name) 
 	VALUES (#{bookName})
   </insert>
   
   <!-- Book 삭제 쿼리문 -->
   <delete id="deleteBook"
-  			parameterType="ksmart.project.test26.service.Book">
+  			parameterType="ksmart.project.test26.book.service.Book">
  	 DELETE FROM book 
  	 WHERE  book_id = #{bookId}
   </delete>

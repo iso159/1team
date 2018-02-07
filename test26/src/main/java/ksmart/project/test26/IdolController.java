@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Idol;
-import ksmart.project.test26.service.IdolService;
+import ksmart.project.test26.idol.service.Idol;
+import ksmart.project.test26.idol.service.IdolService;
 
 @Controller
 public class IdolController {

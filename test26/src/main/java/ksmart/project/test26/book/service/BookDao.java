@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.book.service;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class BookDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
-	private final String NS = "ksmart.project.test26.service.BookMapper."; // namespace
+	private final String NS = "ksmart.project.test26.book.service.BookMapper."; // namespace
 
 	// Book 리스트 보여주는 메소드
 	public List<Book> selectBookList(){

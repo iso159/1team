@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.idol.service;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ksmart.project.test26.idol.service.Idol;
 import ksmart.project.test26.movie.service.MovieService;
-import ksmart.project.test26.service.Idol;
 
 @Repository
 @Service

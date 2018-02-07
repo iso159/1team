@@ -2,17 +2,17 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.project.test26.service.IdolMapper">
+<mapper namespace="ksmart.project.test26.idol.service.IdolMapper">
 
 	<!-- idol 전체 리스트를 띄움 -->
-	<select id="selectIdolList" resultType="ksmart.project.test26.service.Idol">
+	<select id="selectIdolList" resultType="ksmart.project.test26.idol.service.Idol">
 		SELECT idol_id as idolId,
 			idol_name as idolName 
 			FROM test.idol
 	</select>
 	
 	<!-- idol 한명 리스트 띄움 -->
-	<select id="selectIdolOne" resultType="ksmart.project.test26.service.Idol" parameterType="int">
+	<select id="selectIdolOne" resultType="ksmart.project.test26.idol.service.Idol" parameterType="int">
 		SELECT idol_id as idolId,
 			idol_name as idolName 
 			FROM test.idol
@@ -21,7 +21,7 @@
 	</select>
 	
 	<!-- idol update 아이돌 변경 -->
-	<update id="updateIdol" parameterType="ksmart.project.test26.service.Idol">
+	<update id="updateIdol" parameterType="ksmart.project.test26.idol.service.Idol">
 		update idol set 
 			idol_name = #{idolName} 
 			where 
@@ -29,7 +29,7 @@
 	</update>
 	
 	<!-- idol insert 아이돌 추가 -->
-	<insert id="insertIdol" parameterType="ksmart.project.test26.service.Idol">
+	<insert id="insertIdol" parameterType="ksmart.project.test26.idol.service.Idol">
 		insert into 
 			idol(idol_name) 
 			value 
