@@ -10,24 +10,26 @@
 <title>Insert title here</title>
 <script>
     $(document).ready(function(){
- // 공백들어갈시 팝업창으로 알려줌
-        $('#updateButton').click(function(){
-          if($('#bookName').val()==''){
-        	  alert('수정할 책 이름을 입력하세요');
-              $('#bookName').focus();
-          }else {
-              $('#updateForm').submit();
-          }
+	 // 공백들어갈시 팝업창으로 알려줌
+        $('#updateBtn').click(function(){
+        	let bookName = $.trim($('#bookName').val());
+	          if(bookName == ""){
+	        	  alert('수정할 책 이름을 입력하세요');
+		        	// 텍스트비움
+		        	$('#bookName').val('');
+	          }else {
+	              $('#updateForm').submit();
+	          }
         });
     });
 </script>
 </head>
 <body>
 <!-- top 부분 -->
-	<jsp:include page="../module/top.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/top.jsp"/>
 	<!-- top 부분 끝-->
 	<!-- 네비게이션 -->
-	<jsp:include page="../module/left.jsp"/>
+	<jsp:include page="/WEB-INF/views/module/left.jsp"/>
 	<!-- 네비게이션 끝-->
 	
 	<!-- 메인 화면  -->
@@ -41,7 +43,7 @@
 				<input class="form-control" type="text" name="bookId" value="${book.bookId }" readonly>
 				<label for="title">책 이름</label>
 				<input id="bookName" class="form-control" type="text" name="bookName" value="${book.bookName }">
-				<button type="updateButton" id="updateForm" class="btn btn-info">수정 완료</button>
+				<button type="button" id="updateBtn" class="btn btn-info">수정 완료</button>
 			</div>
 		</div>
 	</form>
