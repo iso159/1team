@@ -26,10 +26,10 @@ public class CityDao {
 		return list;
 	}
 	
-	public void deleteCity(int i) {
+	public void deleteCity(int cityId) {
 		//int값 받아오는지 확인
-		logger.debug("deleteCityList(int i) 메서드 i is {}",i);
-		sqlSessionTemplate.delete(ns + "deleteCity", i);
+		logger.debug("deleteCityList(int cityId) 메서드 cityId is {}",cityId);
+		sqlSessionTemplate.delete(ns + "deleteCity", cityId);
 	}
 	
 	public void updateCity(City city) {
@@ -45,9 +45,9 @@ public class CityDao {
 		return sqlSessionTemplate.insert(ns + "insertCity", city);
 	}
 	
-	public City selectCityOne(int i) {
+	public City selectCityOne(int cityId) {
 		//int i 값 콘솔창에서 확인
-		logger.debug("selectCityOne(int i) 메서드 i is {}",i);
-		return sqlSessionTemplate.selectOne(ns + "selectCityOne", i);
+		logger.debug("selectCityOne(int cityId) 메서드 cityId is {}",cityId);
+		return sqlSessionTemplate.selectOne(ns + "selectCityOne", cityId);
 	}
 }
