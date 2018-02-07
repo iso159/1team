@@ -5,7 +5,7 @@
 <mapper namespace="ksmart.project.test26.service.IdolMapper">
 
 	<!-- idol 전체 리스트를 띄움 -->
-	<select id="selectIdol" resultType="ksmart.project.test26.service.Idol">
+	<select id="selectIdolList" resultType="ksmart.project.test26.service.Idol">
 		SELECT idol_id as idolId,
 			idol_name as idolName 
 			FROM test.idol
@@ -37,7 +37,7 @@
 	</insert>
 	
 	<!-- idol delete 아이돌 삭제 -->
-	<delete id="deleteidol" parameterType="int">
+	<delete id="deleteIdol" parameterType="int">
 		delete from idol 
 			where 
 			idol_id=#{idelId}
