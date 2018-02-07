@@ -35,7 +35,7 @@
 			<tr>
 				<td>${book.bookId }</td>
 				<td>${book.bookName }</td>
-				<td><a href="${pageContext.request.contextPath}/book/bookUpdate?bookId=${book.bookId}">수정</a></td>
+				<td><a href="${pageContext.request.contextPath}/book/bookModify?bookId=${book.bookId}">수정</a></td>
 				<td><a href="${pageContext.request.contextPath}/book/bookDelete?bookId=${book.bookId}">삭제</a></td>
 			</tr>
 			</c:forEach>
@@ -44,7 +44,7 @@
 		<div>
 			<h4>책 개수 : ${list.size()}</h4>
 		</div>
-	<a href="${pageContext.request.contextPath}/book/bookInsert"><button type="button" class="btn btn-info">추가</button></a>
+	<a href="${pageContext.request.contextPath}/book/bookAdd"><button type="button" class="btn btn-info">추가</button></a>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success">홈으로</button></a>
 </div>
 	<!-- 메인 화면 내용 끝 -->

@@ -40,7 +40,7 @@ public class BookController {
 		
 	}
 	// 입력요청
-	@RequestMapping(value="/book/bookInsert", method = RequestMethod.POST)
+	@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
 	public String bookInsert(Book book,HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
@@ -51,7 +51,7 @@ public class BookController {
 		return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
 	}
 	// 입력페이지요청
-	@RequestMapping(value="/book/bookInsert", method = RequestMethod.GET)
+	@RequestMapping(value="/book/bookAdd", method = RequestMethod.GET)
 	public String bookInsert(HttpSession session) {
 		logger.info("bookInsert(HttpSession session) 메서드");
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트

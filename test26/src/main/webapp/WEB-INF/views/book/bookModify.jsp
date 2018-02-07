@@ -36,7 +36,7 @@
 	<!-- 메인 화면 내용 부분 -->
 <div class="container">
 	<h2>Book 수정화면</h2>
-	<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/book/bookUpdate" method="post">
+	<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/book/bookModify" method="post">
 		<div class="row">
 			<div class="col-md-4">
 				<label for="code">책코드</label>
