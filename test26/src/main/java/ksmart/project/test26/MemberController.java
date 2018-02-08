@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Country;
-import ksmart.project.test26.service.Member;
-import ksmart.project.test26.service.MemberDao;
-import ksmart.project.test26.service.MemberService;
+import ksmart.project.test26.country.service.Country;
+import ksmart.project.test26.member.service.Member;
+import ksmart.project.test26.member.service.MemberDao;
+import ksmart.project.test26.member.service.MemberService;
 
 @Controller
 public class MemberController {

@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.project.test26.service.MemberMapper">
+<mapper namespace="ksmart.project.test26.member.service.MemberMapper">
 	<!-- insert 쿼리 -->
-	<insert id="insertMember" parameterType="ksmart.project.test26.service.Member">
+	<insert id="insertMember" parameterType="ksmart.project.test26.member.service.Member">
 		INSERT 
 		INTO member (member_id, member_pw) 
 		VALUES (#{memberId},#{memberPw});
 	</insert>
 	
 	<!-- update 쿼리 -->
-	<update id="updateMember" parameterType="ksmart.project.test26.service.Member">
+	<update id="updateMember" parameterType="ksmart.project.test26.member.service.Member">
 		UPDATE member
 		SET
 		member_id = #{memberId}
@@ -20,13 +20,13 @@
 	</update>
 	
 	<!-- delete 쿼리 -->
-	<delete id="deleteMember" parameterType="ksmart.project.test26.service.Member">
+	<delete id="deleteMember" parameterType="ksmart.project.test26.member.service.Member">
 		delete from member
 		where member_no = #{memberNo}
 	</delete>
 
 	<!-- select 쿼리 -->
-	<select id="selectMember" parameterType="int" resultType="ksmart.project.test26.service.Member">		
+	<select id="selectMember" parameterType="int" resultType="ksmart.project.test26.member.service.Member">		
 		select
 		member_no as memberNo,
 		member_id as memberId,
@@ -38,8 +38,8 @@
 	
 	<!-- 로그인시 id와 pw로 회원정보 조회하는 select 쿼리문 -->
 	<select id="selectCheckMember"
-			parameterType="ksmart.project.test26.service.Member"
-			resultType="ksmart.project.test26.service.Member">
+			parameterType="ksmart.project.test26.member.service.Member"
+			resultType="ksmart.project.test26.member.service.Member">
 			
 	SELECT 	member_no as memberNo,
 			member_id as memberId,

@@ -53,11 +53,11 @@
 		<property name="mapperLocations">
 			<list>
 				<value>classpath:ksmart/project/test26/movie/service/MovieMapper.xml</value>
-				<value>classpath:ksmart/project/test26/service/CityMapper.xml</value>
+				<value>classpath:ksmart/project/test26/city/service/CityMapper.xml</value>
 				<value>classpath:ksmart/project/test26/book/service/BookMapper.xml</value>
-				<value>classpath:ksmart/project/test26/service/CountryMapper.xml</value>
+				<value>classpath:ksmart/project/test26/country/service/CountryMapper.xml</value>
 				<value>classpath:ksmart/project/test26/idol/service/IdolMapper.xml</value>
-				<value>classpath:ksmart/project/test26/service/MemberMapper.xml</value>
+				<value>classpath:ksmart/project/test26/member/service/MemberMapper.xml</value>
 			</list>
 		</property>
 	</bean>

@@ -16,34 +16,34 @@ public class BookDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
-	private final String NS = "ksmart.project.test26.book.service.BookMapper."; // namespace
+	private final String nameSpace = "ksmart.project.test26.book.service.BookMapper."; // namespace
 
 	// Book 리스트 보여주는 메소드
 	public List<Book> selectBookList(){
-		return sqlSessionTemplate.selectList(NS+"selectBookList");
+		return sqlSessionTemplate.selectList(nameSpace + "selectBookList");
 	}
 	
 	// Book 입력 메소드
 	public void insertBook(Book book) {
 		logger.debug("insertBook(Book book) 메서드 book is {}",book);
-		sqlSessionTemplate.insert(NS+"insertBook", book);
+		sqlSessionTemplate.insert(nameSpace + "insertBook", book);
 	}
 	
 	// Book 삭제 메소드
 	public void deleteBook(int bookId) {
 		logger.debug("deleteBook(int bookId) 메서드 bookId is {}",bookId);
-		sqlSessionTemplate.delete(NS+"deleteBook", bookId);
+		sqlSessionTemplate.delete(nameSpace + "deleteBook", bookId);
 	}
 	
 	// Book 한 권 조회 메소드
 	public Book selectBookOne(int bookId){
 		logger.debug("selectBookOne(int bookId) 메서드 bookId is {}",bookId);
-		return sqlSessionTemplate.selectOne(NS+"selectBookOne", bookId);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectBookOne", bookId);
 	}
 	
 	// Book 한 권 조회 후 수정 처리 메소드
 	public void updateBook(Book book) {
 		logger.debug("updateBook(Book book) 메서드 book is {}",book);
-		sqlSessionTemplate.selectList(NS+"updateBook", book);
+		sqlSessionTemplate.selectList(nameSpace + "updateBook", book);
 	}
 }

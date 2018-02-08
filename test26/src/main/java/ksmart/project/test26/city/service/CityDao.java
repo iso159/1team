@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.city.service;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ public class CityDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	private static final Logger logger = LoggerFactory.getLogger(CityDao.class);
 	
-	private final String ns = "ksmart.project.test26.service.CityMapper.";
+	private final String nameSpace = "ksmart.project.test26.city.service.CityMapper.";
 	
 	public List<City> selectCityList(){
-		List<City> list = sqlSessionTemplate.selectList(ns + "selectCityList");
+		List<City> list = sqlSessionTemplate.selectList(nameSpace + "selectCityList");
 		//콘솔창에서 list에 들어있는값 확인
 		logger.debug("selectCityList() 메서드 list is {}",list);
 		return list;
@@ -29,25 +29,25 @@ public class CityDao {
 	public void deleteCity(int cityId) {
 		//int값 받아오는지 확인
 		logger.debug("deleteCityList(int cityId) 메서드 cityId is {}",cityId);
-		sqlSessionTemplate.delete(ns + "deleteCity", cityId);
+		sqlSessionTemplate.delete(nameSpace + "deleteCity", cityId);
 	}
 	
 	public void updateCity(City city) {
 		// 매개변수 city값 확인
 		logger.debug("updateCity(City city) 메서드 city is {}",city);
-		sqlSessionTemplate.update(ns + "updateCity", city);
+		sqlSessionTemplate.update(nameSpace + "updateCity", city);
 	}
 	
 	public int insertCity(City city) {
 		
 		logger.debug("insertCity(City city) 메서드 movie is {}",city);
 		
-		return sqlSessionTemplate.insert(ns + "insertCity", city);
+		return sqlSessionTemplate.insert(nameSpace + "insertCity", city);
 	}
 	
 	public City selectCityOne(int cityId) {
 		//int i 값 콘솔창에서 확인
 		logger.debug("selectCityOne(int cityId) 메서드 cityId is {}",cityId);
-		return sqlSessionTemplate.selectOne(ns + "selectCityOne", cityId);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectCityOne", cityId);
 	}
 }

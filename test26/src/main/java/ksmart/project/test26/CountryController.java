@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ksmart.project.test26.service.Country;
-import ksmart.project.test26.service.CountryDao;
-import ksmart.project.test26.service.CountryService;
+import ksmart.project.test26.country.service.Country;
+import ksmart.project.test26.country.service.CountryDao;
+import ksmart.project.test26.country.service.CountryService;
 
 @Controller
 public class CountryController {

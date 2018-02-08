@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.member.service;
 
 import java.util.List;
 
@@ -16,32 +16,32 @@ public class MemberDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	// 쿼리 경로를 상수로 입력
-	private final String namespace = "ksmart.project.test26.service.MemberMapper.";
+	private final String nameSpace = "ksmart.project.test26.member.service.MemberMapper.";
 
 	// country insert
 	public void insertMember(Member member) {
 		logger.debug("insertMember(Member member) 메서드 member is {}", member);
-		sqlSessionTemplate.insert(namespace + "insertMember", member);
+		sqlSessionTemplate.insert(nameSpace + "insertMember", member);
 	}
 
 	public Member selectMemberOne(Member member) { // 여기 매개변수데이터타입 int
 		logger.debug("selectOne(int member) 메서드 member is {}", member);
-		return sqlSessionTemplate.selectOne(namespace + "selectMemberOne", member);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectMemberOne", member);
 	}
 
 	public void updateMember(Member memberNo) {
 		logger.debug("updateMember(Member memberNo) 메서드 member is {}", memberNo);
-		sqlSessionTemplate.selectList(namespace + "updateMember", memberNo);
+		sqlSessionTemplate.selectList(nameSpace + "updateMember", memberNo);
 	}
 
 	public void deleteMember(Member member) {// 여기 매개변수데이터타입 int
 		logger.debug("deleteMember(int memberNo) 메서드 member is {}", member);
-		sqlSessionTemplate.selectList(namespace + "deleteMember", member);
+		sqlSessionTemplate.selectList(nameSpace + "deleteMember", member);
 	}
 
 	// 로그인 확인하는 메소드
 	public Member loginCheck(Member member) {
 		logger.debug("loginCheck(Member member) 메서드 member is {}", member);
-		return sqlSessionTemplate.selectOne(namespace + "selectCheckMember", member);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectCheckMember", member);
 	}
 }

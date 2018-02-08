@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import ksmart.project.test26.city.service.City;
+import ksmart.project.test26.city.service.CityService;
 import ksmart.project.test26.service.*;
 
 @Controller

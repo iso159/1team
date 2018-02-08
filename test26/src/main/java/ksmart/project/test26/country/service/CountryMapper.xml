@@ -2,23 +2,23 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="ksmart.project.test26.service.CountryMapper">
+<mapper namespace="ksmart.project.test26.country.service.CountryMapper">
 	<!-- 셀렉트 쿼리 -->
-	<select id="selectCountryList" resultType="ksmart.project.test26.service.Country">
+	<select id="selectCountryList" resultType="ksmart.project.test26.country.service.Country">
 		select country_id as
 		countryId
 		,country_name as countryName
 		from test.country
 	</select>
 	<!-- update 쿼리 -->
-	<update id="updateCountry" parameterType="ksmart.project.test26.service.Country">
+	<update id="updateCountry" parameterType="ksmart.project.test26.country.service.Country">
 		UPDATE country
 		SET
 		country_name = #{countryName}
 		where country_id = #{countryId}
 	</update>
 	<!-- country one select -->
-	<select id="selectOneCountry" resultType="ksmart.project.test26.service.Country"
+	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country"
 		parameterType="int">
 		select
 		country_id as countryId,
@@ -28,12 +28,12 @@
 		where country_id=#{countryId}
 	</select>
 	<!-- delete -->
-	<delete id="deleteCountry" parameterType="ksmart.project.test26.service.Country">
+	<delete id="deleteCountry" parameterType="ksmart.project.test26.country.service.Country">
 		delete from country
 		where country_id = #{countryId}
 	</delete>
 	<!-- insert -->
-	<insert id="insertCountry" parameterType="ksmart.project.test26.service.Country">
+	<insert id="insertCountry" parameterType="ksmart.project.test26.country.service.Country">
 		insert into
 		country(country_name)
 		values (#{countryName})

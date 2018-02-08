@@ -1,4 +1,4 @@
-package ksmart.project.test26.service;
+package ksmart.project.test26.member.service;
 
 public class Member {
 	private int memberNo;
