@@ -16,45 +16,50 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ksmart.project.test26.service.Country;
 import ksmart.project.test26.service.Member;
 import ksmart.project.test26.service.MemberDao;
+import ksmart.project.test26.service.MemberService;
 
 @Controller
 public class MemberController {
 	@Autowired
-	private MemberDao memberDao;
+	private MemberService memberService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 	// insert 회원가입
 	@RequestMapping(value = "/member/memberInsert", method = RequestMethod.GET)
 	public String insertMember() {
+		logger.debug("insertMember() 메서드 member is {}");
 		return "member/memberInsert";
 	}
 
 	// insert 회원가입
 	@RequestMapping(value = "/member/memberInsert", method = RequestMethod.POST)
 	public String insertMember(Member member) {
-		memberDao.insertMember(member);
+		logger.debug("insertMember(Member member) 메서드 member is {}", member);
+		memberService.addMember(member);
 		return "redirect:/member/login";
 	}
 
 	// update 요청
 	@RequestMapping(value = "/member/memberUpdate", method = RequestMethod.POST)
 	public String updateMember(Member member) { 
-		memberDao.updateMember(member);
+		memberService.modifyMember(member);
+		logger.debug("updateMember(Member member) 메서드 member is {}", member);
 		return "redirect:/";
 	}
 
 	// 수정페이지 요청, 한 명 조회
 	@RequestMapping(value = "/member/memberUpdate", method = RequestMethod.GET)
-	public String memberOneSelect(Model model, @RequestParam(value = "memberNo", required = true) int member) {
-		Member memberSelect = memberDao.selectOneMember(member);
-		model.addAttribute("Member", memberSelect);
+	public String selectMemberOne(Model model, @RequestParam(value = "memberNo", required = true) int member) {
+		model.addAttribute("Member", memberService);
+		logger.debug("selectMemberOne(Model model, @RequestParam(value = \"memberNo\", required = true) int member) 메서드 member is {}", member);
 		return "member/memberUpdate";
 	}
 
 	// 회원 삭제요청
 	@RequestMapping(value = "/member/memberRemove", method = RequestMethod.GET)
-	public String deleteMember(HttpSession session, @RequestParam(value = "memberNo", required = true) int memberNo) {
-		memberDao.deleteMember(memberNo);
+	public String deleteMember(HttpSession session, Member member) {
+		memberService.removeMember(member);
+		logger.debug("deleteMember(HttpSession session, Member member)) 메서드 member is {}", member);
 		session.removeAttribute("loginMember");
 		return "redirect:/member/login";
 	}
@@ -62,7 +67,8 @@ public class MemberController {
 	// 로그인요청
 	@RequestMapping(value="/member/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session) {
-		member = memberDao.loginCheck(member);
+		logger.debug("login(Member member, HttpSession session) 메서드 member is {}", member);
+		member = memberService.loginCheck(member);
 		// 회원정보가 입력되지 않았으면 로그인화면으로 리다이렉트
 		if(member == null) {
 			return "redirect:/member/login";
