@@ -37,7 +37,8 @@
   <!-- Book 입력하기 위한 쿼리문 -->
   <insert id="insertBook"
   			parameterType="ksmart.project.test26.book.service.Book">
- 	INSERT INTO book (book_name) 
+ 	INSERT INTO 
+ 		book (book_name) 
 	VALUES (#{bookName})
   </insert>
   

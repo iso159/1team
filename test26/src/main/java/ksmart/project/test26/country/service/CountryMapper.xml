@@ -33,7 +33,7 @@
 	</delete>
 	<!-- insert -->
 	<insert id="insertCountry" parameterType="ksmart.project.test26.country.service.Country">
-		INSERT into
+		INSERT INTO
 			country(country_name)
 		VALUES (#{countryName})
 	</insert>
