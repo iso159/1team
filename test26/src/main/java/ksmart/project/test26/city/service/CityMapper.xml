@@ -14,7 +14,8 @@
 	<!-- 도시추가 쿼리문 -->
 	<insert id="insertCity" parameterType="ksmart.project.test26.city.service.City">
 		INSERT INTO 
-			test.city(city_name) VALUES (#{cityName})	
+			test.city(city_name) 
+		VALUES (#{cityName})	
 	</insert>
 	
 	<!-- 도시 수정쿼리문 -->

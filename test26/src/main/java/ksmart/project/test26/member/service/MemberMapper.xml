@@ -14,26 +14,26 @@
 	<update id="updateMember" parameterType="ksmart.project.test26.member.service.Member">
 		UPDATE member
 		SET
-		member_id = #{memberId}
-		,member_pw = #{memberPw}
+			member_id = #{memberId}
+			,member_pw = #{memberPw}
 		where member_no = #{memberNo}
 	</update>
 	
 	<!-- delete 쿼리 -->
 	<delete id="deleteMember" parameterType="ksmart.project.test26.member.service.Member">
-		delete from member
-		where member_no = #{memberNo}
+		DELETE FROM member
+		WHERE member_no = #{memberNo}
 	</delete>
 
 	<!-- select 쿼리 -->
 	<select id="selectMember" parameterType="int" resultType="ksmart.project.test26.member.service.Member">		
-		select
-		member_no as memberNo,
-		member_id as memberId,
-		member_pw as memberPw
-		from test.member
-		where
-		member_no=#{memberNo}
+		SELECT
+			member_no as memberNo,
+			member_id as memberId,
+			member_pw as memberPw
+		FROM test.member
+		WHERE
+			member_no=#{memberNo}
 	</select>
 	
 	<!-- 로그인시 id와 pw로 회원정보 조회하는 select 쿼리문 -->

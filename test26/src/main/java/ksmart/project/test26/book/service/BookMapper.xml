@@ -5,8 +5,7 @@
 <mapper namespace="ksmart.project.test26.book.service.BookMapper">
  	<!-- Book 리스트 조회하는 쿼리문 -->
   <select id="selectBookList"
-  			resultType="ksmart.project.test26.book.service.Book">
-  			
+  			resultType="ksmart.project.test26.book.service.Book">  			
 	SELECT
 		book_id as bookId,
 		book_name as bookName
@@ -48,5 +47,4 @@
  	 DELETE FROM book 
  	 WHERE  book_id = #{bookId}
   </delete>
-  
 </mapper>

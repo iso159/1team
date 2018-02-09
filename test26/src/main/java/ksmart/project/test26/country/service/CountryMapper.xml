@@ -5,37 +5,36 @@
 <mapper namespace="ksmart.project.test26.country.service.CountryMapper">
 	<!-- 셀렉트 쿼리 -->
 	<select id="selectCountryList" resultType="ksmart.project.test26.country.service.Country">
-		select country_id as
-		countryId
-		,country_name as countryName
-		from test.country
+		SELECT 
+			country_id as countryId,
+			country_name as countryName
+		FROM test.country
 	</select>
 	<!-- update 쿼리 -->
 	<update id="updateCountry" parameterType="ksmart.project.test26.country.service.Country">
 		UPDATE country
 		SET
-		country_name = #{countryName}
-		where country_id = #{countryId}
+			country_name = #{countryName}
+		WHERE country_id = #{countryId}
 	</update>
 	<!-- country one select -->
 	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country"
 		parameterType="int">
-		select
-		country_id as countryId,
-		country_name as
-		countryName
-		from country
-		where country_id=#{countryId}
+		SELECT
+			country_id as countryId,
+			country_name as countryName
+		FROM country
+		WHERE country_id=#{countryId}
 	</select>
 	<!-- delete -->
 	<delete id="deleteCountry" parameterType="ksmart.project.test26.country.service.Country">
-		delete from country
-		where country_id = #{countryId}
+		DELETE FROM country
+		WHERE country_id = #{countryId}
 	</delete>
 	<!-- insert -->
 	<insert id="insertCountry" parameterType="ksmart.project.test26.country.service.Country">
-		insert into
-		country(country_name)
-		values (#{countryName})
+		INSERT into
+			country(country_name)
+		VALUES (#{countryName})
 	</insert>
 </mapper>

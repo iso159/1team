@@ -6,40 +6,43 @@
 
 	<!-- idol 전체 리스트를 띄움 -->
 	<select id="selectIdolList" resultType="ksmart.project.test26.idol.service.Idol">
-		SELECT idol_id as idolId,
+		SELECT 
+			idol_id as idolId,
 			idol_name as idolName 
-			FROM test.idol
+		FROM test.idol
 	</select>
 	
 	<!-- idol 한명 리스트 띄움 -->
 	<select id="selectIdolOne" resultType="ksmart.project.test26.idol.service.Idol" parameterType="int">
-		SELECT idol_id as idolId,
+		SELECT 
+			idol_id as idolId,
 			idol_name as idolName 
 			FROM test.idol
-			where 
+		WHERE 
 			idol_id = #{idelId}
 	</select>
 	
 	<!-- idol update 아이돌 변경 -->
 	<update id="updateIdol" parameterType="ksmart.project.test26.idol.service.Idol">
-		update idol set 
+		UPDATE idol 
+		SET 
 			idol_name = #{idolName} 
-			where 
+		WHERE 
 			idol_id = #{idolId}
 	</update>
 	
 	<!-- idol insert 아이돌 추가 -->
 	<insert id="insertIdol" parameterType="ksmart.project.test26.idol.service.Idol">
-		insert into 
+		INSERT INTO 
 			idol(idol_name) 
-			value 
+		VALUE 
 			(#{idolName})
 	</insert>
 	
 	<!-- idol delete 아이돌 삭제 -->
 	<delete id="deleteIdol" parameterType="int">
-		delete from idol 
-			where 
+		DELETE FROM idol 
+		WHERE 
 			idol_id=#{idelId}
 	</delete>
 </mapper>
