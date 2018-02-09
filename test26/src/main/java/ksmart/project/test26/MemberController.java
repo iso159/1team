@@ -28,7 +28,7 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberInsert", method = RequestMethod.GET)
 	public String insertMember() {
 		logger.debug("insertMember() 메서드 member is {}");
-		return "member/memberInsert";
+		return "member/memberAdd";
 	}
 
 	// insert 회원가입
@@ -52,7 +52,7 @@ public class MemberController {
 	public String selectMemberOne(Model model, @RequestParam(value = "memberNo", required = true) int member) {
 		model.addAttribute("Member", memberService);
 		logger.debug("selectMemberOne(Model model, @RequestParam(value = \"memberNo\", required = true) int member) 메서드 member is {}", member);
-		return "member/memberUpdate";
+		return "member/memberModify";
 	}
 
 	// 회원 삭제요청

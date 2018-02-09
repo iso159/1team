@@ -51,7 +51,7 @@ public class IdolController {
 		//list 객체 안에 있는 정보 확인
 		logger.debug("(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 list is {}",list);
 		model.addAttribute("list", list);
-		return "/idol/idolUpdate";
+		return "/idol/idolModify";
 	}
 	
 	/* /idol/idolUpdate 에서 post방식 일시 업데이트 부분*/

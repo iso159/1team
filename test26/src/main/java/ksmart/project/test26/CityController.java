@@ -43,7 +43,7 @@ public class CityController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		return "city/cityinsert";
+		return "city/cityAdd";
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.POST)
@@ -66,7 +66,7 @@ public class CityController {
 		// 매개변수 city 값 확인
 		logger.debug("cityModify(City , Movie movie, HttpSession session) 메서드 city is {}",city);
 		model.addAttribute("city", city);
-		return "city/cityUpdate";
+		return "city/cityModify";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.POST)

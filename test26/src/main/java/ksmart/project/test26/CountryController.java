@@ -44,7 +44,7 @@ public class CountryController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		return "/country/countryInsert";
+		return "/country/countryAdd";
 	}
 
 	// insert post방식 요청
@@ -81,7 +81,7 @@ public class CountryController {
 		logger.debug("countryOneSelect(Model model, Country country,HttpSession session) 메서드 country is {}",country);
 		Country countrySelect = countryService.checkCountryOne(country);
 		model.addAttribute("Country", countrySelect);
-		return "/country/countryUpdate";
+		return "/country/countryModify";
 	}
 
 	// 수정요청
