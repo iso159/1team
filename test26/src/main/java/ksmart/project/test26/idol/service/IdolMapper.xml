@@ -45,4 +45,21 @@
 		WHERE 
 			idol_id=#{idelId}
 	</delete>
+	
+	<!-- idol selectListPerPage 페이지당 보여줄 개수  -->
+	<select id="selectListPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.idol.service.Idol">
+		SELECT 
+			idol_id as idolId,
+		    idol_name as idolName 
+		FROM test.idol
+		ORDER BY idol_id asc
+		limit #{startRow},#{rowPerPage}
+	</select>
+	
+	<!-- selectTotalCount(총개수) -->
+	<select id="selectTotalCount" resultType="int">
+		SELECT 
+			count(*) as count 
+		FROM test.idol
+	</select>
 </mapper>

@@ -1,6 +1,8 @@
 package ksmart.project.test26;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,16 +27,38 @@ public class IdolController {
 	
 	/* /idol/idolList 에서 get방식 일시 idol 리스트로 연결해서 전체 띄움*/
 	@RequestMapping(value="/idol/idolList", method = RequestMethod.GET)
-	public String idol(Model model,HttpSession session) {
+	public String idol(Model model,
+						HttpSession session,
+						@RequestParam(value="currentPage" ,defaultValue="1" ,required=false) int currentPage,
+						@RequestParam(value="rowPerPage" ,defaultValue="10" ,required=false) int rowPerPage) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		//startRow 값 확인
+		logger.debug("Model model,\r\n" + 
+				"HttpSession session,\r\n" + 
+				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
+				+" 메서드 currentPage is {}",currentPage);
+		map.put("currentPage", currentPage);
+		//pageperRow 값 확인
+		logger.debug("Model model,\r\n" + 
+				"HttpSession session,\r\n" + 
+				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
+				+" 메서드 rowPerPage is {}",rowPerPage);
+		map.put("rowPerPage", rowPerPage);
 		//전체 리스트 정보 받아옴
-		List<Idol> list = idolService.checkIdolList();
-		//받아온 list 정보 확인
-		logger.debug("idolList(Model model,HttpSession session) 메서드 list is {}",list);
-		model.addAttribute("list", list);
+		Map<String, Object> returnMap = idolService.getIdolList(map);
+		//받아온 returnMap 정보 확인
+		logger.debug("Model model,\r\n" + 
+				"HttpSession session,\r\n" + 
+				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
+				+" 메서드 returnMap is {}",returnMap);
+		model.addAttribute("map", returnMap);
 		return "/idol/idolList";
 	}
 	
@@ -47,7 +71,7 @@ public class IdolController {
 		}
 		//idolId 값 확인
 		logger.debug("(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
-		List<Idol> list = idolService.checkIdolOne(idolId);
+		List<Idol> list = idolService.getIdolOne(idolId);
 		//list 객체 안에 있는 정보 확인
 		logger.debug("(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 list is {}",list);
 		model.addAttribute("list", list);
@@ -103,4 +127,5 @@ public class IdolController {
 		idolService.removeMovie(idolId);
 		return "redirect:/idol/idolList";
 	}
+	
 }

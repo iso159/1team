@@ -1,11 +1,12 @@
 package ksmart.project.test26.idol.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,34 +22,56 @@ public class IdolService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
-	public List<Idol> checkIdolList() {
-		List<Idol> list = idolDao.selectIdolList();
-		// list 객체안에 정보 확인
-		logger.debug("checkIdolList() 메서드 list is {}",list);
-		return list;
+	/*아이돌 전체리스트 띄우고 페이징 작업*/
+	public Map<String, Object> getIdolList(Map<String, Integer> map) {
+		// map 객체안에 정보 확인 
+		logger.debug("getListByPage(Map map) 메서드 map is {}",map);
+		int currentPage = map.get("currentPage");
+		int rowPerPage = map.get("rowPerPage");
+		// 시작  페이지
+		int startRow = (currentPage-1)*rowPerPage;
+		// 페이징 작업을 통한 리스트 구함
+		map.put("startRow", startRow);
+		List<Idol> list = idolDao.selectListByPerPage(map);
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("rowPerPage", rowPerPage);
+		returnMap.put("currentPage", currentPage);
+		returnMap.put("startRow", startRow);
+		returnMap.put("list", list);
+		// 데이터 총갯수 구함
+		int totalCount = idolDao.selectTotalCount();
+		// 페이지마다 마지막 표시
+		int lastPage = (int)Math.ceil((double)totalCount/(double)rowPerPage);
+		returnMap.put("lastPage", lastPage);
+		returnMap.put("selectIdolList", idolDao.selectIdolList());
+		return returnMap;
 	}
 	
-	public List<Idol> checkIdolOne(int idolId) {
+	/*아이돌 한명정보 띄우는부분*/
+	public List<Idol> getIdolOne(int idolId) {
 		// idolId 확인
-		logger.debug("checkIdolOne(int idolId) 메서드 idolId is {}",idolId);
+		logger.debug("getIdolOne(int idolId) 메서드 idolId is {}",idolId);
 		List<Idol> list = idolDao.selectIdolOne(idolId);
 		// list 객체안에 정보 확인
-		logger.debug("checkIdolOne(int idolId) 메서드 list is {}",list);
+		logger.debug("getIdolOne(int idolId) 메서드 list is {}",list);
 		return list;
 	}
 	
+	/*아이돌 수정*/
 	public void modifyIdol(Idol idol) {
 		// idol 객체안에 정보 확인
 		logger.debug("modifyIdol(Idol idol) 메서드 idol is {}",idol);
 		idolDao.updateIdol(idol);
 	}
 	
+	/*아이돌 추가*/
 	public void addIdol(Idol idol) {
 		// idol 객체안에 정보 확인
 		logger.debug("addIdol(Idol idol) 메서드 idol is {}",idol);
 		idolDao.insertIdol(idol);
 	}
 	
+	/*아이돌 삭제부분*/
 	public void removeMovie(int idolId) {
 		//idolId 확인
 		logger.debug("removeMovie(int idolId) 메서드 idolId is {}",idolId);

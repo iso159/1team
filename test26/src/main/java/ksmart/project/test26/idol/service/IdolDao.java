@@ -1,15 +1,13 @@
 package ksmart.project.test26.idol.service;
 
 import java.util.List;
+import java.util.Map;
 
-import org.apache.ibatis.cursor.Cursor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import ksmart.project.test26.movie.service.MovieDao;
 
 //@Repository를 적게되면 객체가 미리 생성되서 IdolDao를 AutoWired로 객체에 주입할수있음
 @Repository
@@ -42,7 +40,7 @@ public class IdolDao {
 	
 	/*아이돌 수정*/
 	public void updateIdol(Idol idol) {
-		// 받아온 idlo 객체 확인
+		// 받아온 idol 객체 확인
 		logger.debug("updateIdol(Idol idol) 메서드 idol is {}",idol);
 		// idol 객체 정보를 확인 하고 데이터베이스 수정
 		sqlSessionTemplate.update(nameSpace + "updateIdol", idol);
@@ -62,5 +60,16 @@ public class IdolDao {
 		logger.debug("deleteIdol(int idolId) 메서드 idolId is {}",idolId);
 		// idolId 확인하고 해당 정보 삭제
 		sqlSessionTemplate.delete(nameSpace + "deleteIdol", idolId);
+	}
+	
+	/*아이돌 페이징 작업*/
+	public List<Idol> selectListByPerPage(Map<String, Integer> map){
+		logger.debug("selectListByPerPage(Map<String, Integer> map) 메서드 map is {}",map);
+		return sqlSessionTemplate.selectList(nameSpace + "selectListPerPage", map);
+	}
+	
+	/*페이징 작업시 총갯수를 구함*/
+	public int selectTotalCount() {
+		return sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount");
 	}
 }
