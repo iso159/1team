@@ -26,7 +26,7 @@ CREATE TABLE `city` (
   `city_id` int(10) NOT NULL AUTO_INCREMENT,
   `city_name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`city_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,7 +35,7 @@ CREATE TABLE `city` (
 
 LOCK TABLES `city` WRITE;
 /*!40000 ALTER TABLE `city` DISABLE KEYS */;
-INSERT INTO `city` VALUES (2,'전주'),(3,'순천'),(4,'서울'),(6,'제주도'),(7,'인천'),(8,'대구'),(9,'대전'),(10,'부산'),(11,'울릉도'),(12,'목포'),(13,'여수'),(14,'정읍'),(15,'군산');
+INSERT INTO `city` VALUES (2,'전주'),(3,'순천'),(4,'서울'),(6,'제주'),(7,'인천'),(8,'대구'),(9,'대전'),(10,'부산'),(11,'부안'),(12,'목포'),(13,'여수'),(14,'정읍'),(15,'군산'),(16,'무주'),(17,'포항'),(18,'경주'),(19,'안동'),(20,'구미'),(21,'청주'),(22,'수원'),(23,'성남'),(24,'시흥'),(25,'광주'),(26,'속초'),(27,'순창'),(28,'고창'),(29,'담양'),(30,'남원'),(31,'곡성'),(32,'김제시'),(33,'완주'),(34,'여주'),(35,'이천'),(36,'과천');
 /*!40000 ALTER TABLE `city` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-12 11:18:22
+-- Dump completed on 2018-02-12 12:26:18
