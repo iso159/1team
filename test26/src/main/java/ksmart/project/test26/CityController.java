@@ -28,7 +28,7 @@ public class CityController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		List <City> list = cityservice.checkCityList();
+		List <City> list = cityservice.getCityList();
 		// list 값 확인
 		logger.debug("city(Model model,HttpSession session) 메서드 list is {}",list);
 		model.addAttribute("CityList", list);
@@ -62,7 +62,7 @@ public class CityController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		City city = cityservice.checkCityOne(cityId);
+		City city = cityservice.getCityOne(cityId);
 		// 매개변수 city 값 확인
 		logger.debug("cityModify(City , Movie movie, HttpSession session) 메서드 city is {}",city);
 		model.addAttribute("city", city);
