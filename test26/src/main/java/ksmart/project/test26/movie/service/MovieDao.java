@@ -1,6 +1,7 @@
 package ksmart.project.test26.movie.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -58,5 +59,20 @@ public class MovieDao {
 		logger.debug("deleteMovie(Movie movie) 메서드 movie is {}",movie);
 		// 아이디가 updateMovie인 쿼리를 실행해 movie필드의 id와 같은 컬럼 삭제
 		sqlSessionTemplate.delete(nameSpace + "deleteMovie", movie);
+	}
+	
+	// movie 테이블 현재 페이지에 맞는 리스트 조회
+	public List<Movie> selectListByPerPage(Map map){
+		logger.debug("selectListByPerPage(Map map) 메서드 map is {}",map);
+		List<Movie> list = sqlSessionTemplate.selectList(nameSpace + "selectListByPerPage", map);
+		logger.debug("selectListByPerPage(Map map) 메서드 list is {}",list);
+		return list;
+	}
+	
+	// movie 테이블 총 행의 개수 조회
+	public int selectTotalCount() {
+		int totalCount = sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
+		logger.debug("selectTotalCount() 메서드 totalCount is {}", totalCount);
+		return totalCount;
 	}
 }

@@ -10,12 +10,14 @@
 			,movie_name as movieName
 		FROM test.movie
 	</select>
+	
 	<!-- movie 테이블 컬럼 입력을 위한 쿼리문 -->
 	<insert id="insertMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		INSERT 
 			INTO test.movie (movie_name) 
 		VALUES (#{movieName})
 	</insert>
+	
 	<!-- 조건에 맞는 movie 테이블 컬럼 하나를 가져오기 위한 쿼리문 -->
 	<select id="selectMovieOne" parameterType="ksmart.project.test26.movie.service.Movie" 
 		resultType="ksmart.project.test26.movie.service.Movie">
@@ -25,16 +27,34 @@
 		FROM test.movie	
 		WHERE movie_id = #{movieId}
 	</select>
+	
 	<!-- 조건에 맞는 movie 테이블의 컬럼 수정을 위한 쿼리문 -->
 	<update id="updateMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		UPDATE test.movie SET
 			movie_name = #{movieName}
 		WHERE movie_id = #{movieId}
 	</update>
+	
 	<!-- 조건에 맞는 movie 테이블의 컬럼 삭제를 위한 쿼리문 -->
 	<delete id="deleteMovie" parameterType="ksmart.project.test26.movie.service.Movie">
 		DELETE 
 		FROM test.movie
 		WHERE movie_id = #{movieId}	
 	</delete>
+	
+	<!-- 현재 페이지에 맞는 리스트 조회 -->
+	<select id="selectListByPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.movie.service.Movie">
+		SELECT 
+			movie_id as movieId
+			,movie_name as movieName
+		FROM test.movie
+		ORDER BY movie_id DESC
+		LIMIT #{startRow},#{rowPerPage}
+	</select>
+	
+	<!-- 총 행의 개수 -->
+	<select id="selectTotalCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM test.movie
+	</select> 
 </mapper>

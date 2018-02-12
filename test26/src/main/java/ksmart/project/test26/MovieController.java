@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpSession;
@@ -26,17 +27,24 @@ public class MovieController {
 	
 	// /movie/movieList 요청시 movie메서드 호출됨
 	@RequestMapping(value="/movie/movieList")
-	public String movie(Model model,HttpSession session) {
+	public String movie(Model model,HttpSession session
+							,@RequestParam(value="currentPage",defaultValue="1",required=false) int currentPage
+							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		// 전체 영화 조회 서비스 메서드 호출
-		List<Movie> list = movieService.checkMovieList();
-		// list 값 확인
-		logger.debug("movie(Model model,HttpSession session) 메서드 list is {}",list);
-		// request.setAttribute와 비슷함 forward한 곳에서도 객체를 사용할수 있게해줌
+		logger.debug("movie(...)메서드 currentPage is {}",currentPage);
+		logger.debug("movie(...)메서드 pagePerRow is {}",rowPerPage);
+		Map map = movieService.getListByPage(currentPage, rowPerPage);
+		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력 받음
+		List<Movie> list = (List<Movie>)map.get("list");
+		int lastPage = (Integer)map.get("lastPage");
+		// list,lastPage,currentPage,rowPerPage model에 담음
 		model.addAttribute("MovieList",list);
+		model.addAttribute("lastPage",lastPage);
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("rowPerPage",rowPerPage);
 		return "/movie/movieList";
 	}
 	
@@ -77,7 +85,7 @@ public class MovieController {
 		// 매개변수 movie 값 확인
 		logger.debug("movieModify(Model model, Movie movie, HttpSession session) 메서드 movie is {}",movie);		
 		// movieService.checkMovieOne(movie)의 결과를 받는다.
-		Movie checkMovie = movieService.checkMovieOne(movie);
+		Movie checkMovie = movieService.getMovieOne(movie);
 		// 영화 하나를 조회하는 서비스 메서드 호출후 리턴 값 확인
 		logger.debug("movieModify(Model model, Movie movie, HttpSession session) 메서드 checkMovie is {}",checkMovie);
 		// Movie라는 키에 checkMovie 값을 담는다.
