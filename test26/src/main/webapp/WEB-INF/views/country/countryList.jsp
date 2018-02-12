@@ -27,6 +27,7 @@
 					<th>국가 이름</th>
 					<th>수정</th>
 					<th>삭제</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -40,15 +41,42 @@
 							href="${pageContext.request.contextPath}/country/countryDelete?countryId=${C.countryId}">삭제</a></td>
 					</tr>
 				</c:forEach>
+
 			</tbody>
 		</table>
 		<div>
 			<h4>국가 개수 : ${CountryList.size()}</h4>
+			<br>
+
+			<!-- 보여줄 행의 개수 작업 -->
+			<select name="rowPerPage" onchange="location.href=this.value">
+				<option value="#">개수 선택</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=5">5개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=10">10개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=15">15개씩 보기</option>
+			</select><br>
+			<!-- 페이징 처리를 위한 폼 = [다음][이전] -->
+			<ul class="pagination">
+				<c:set var="currentPage" value="${currentPage}" />
+				<c:if test="${currentPage!=1}">
+					<li class="page-item"><a class="page-link"
+						href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
+					</li>
+				</c:if>
+				<c:if test="${currentPage!=lastPage}">
+					<li class="page-item"><a class="page-link"
+						href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
+					</li>
+				</c:if>
+			</ul>
 		</div>
-		<a href="${pageContext.request.contextPath}/country/countryInsert"><button
-				type="button" class="btn btn-info">국가 추가</button></a> <a
-			href="${pageContext.request.contextPath}"><button type="button"
-				class="btn btn-success">홈으로</button></a>
+		<!-- 페이징 처리를 위한 폼 = [다음][이전] 끝 -->
+
+		<a href="${pageContext.request.contextPath}/country/countryAdd">
+			<button type="button" class="btn btn-info">국가 추가</button>
+		</a> <a href="${pageContext.request.contextPath}">
+			<button type="button" class="btn btn-success">홈으로</button>
+		</a>
 	</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->

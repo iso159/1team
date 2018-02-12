@@ -20,9 +20,9 @@ public class MemberService {
 
 	public Member serviceMemberOne(Member member) {
 		// 매개변수 member 값 확인
-		logger.debug("checkMemberOne(Member member) 메서드 member is {}", member);
-		Member checkMember = memberDao.selectMemberOne(member);
-		return checkMember;
+		logger.debug("getMemberOne(Member member) 메서드 member is {}", member);
+		Member getMember = memberDao.selectMemberOne(member);
+		return getMember;
 	}
 
 	public void addMember(Member member) {
@@ -46,10 +46,10 @@ public class MemberService {
 		memberDao.deleteMember(member);
 	}
 	
-	public Member loginCheck(Member member) {
-		Member checkMember = memberDao.loginCheck(member);
-		logger.debug("loginCheck(Member member) 메서드 member is {}",member);
-		return checkMember;		
+	public Member loginget(Member member) {
+		Member getMember = memberDao.loginget(member);
+		logger.debug("loginget(Member member) 메서드 member is {}",member);
+		return getMember;		
 	}
 
 }

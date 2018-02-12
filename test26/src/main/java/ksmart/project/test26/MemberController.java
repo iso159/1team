@@ -22,8 +22,9 @@ import ksmart.project.test26.member.service.MemberService;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+
 	// insert 회원가입
 	@RequestMapping(value = "/member/memberInsert", method = RequestMethod.GET)
 	public String insertMember() {
@@ -41,7 +42,7 @@ public class MemberController {
 
 	// update 요청
 	@RequestMapping(value = "/member/memberUpdate", method = RequestMethod.POST)
-	public String updateMember(Member member) { 
+	public String updateMember(Member member) {
 		memberService.modifyMember(member);
 		logger.debug("updateMember(Member member) 메서드 member is {}", member);
 		return "redirect:/";
@@ -51,7 +52,9 @@ public class MemberController {
 	@RequestMapping(value = "/member/memberUpdate", method = RequestMethod.GET)
 	public String selectMemberOne(Model model, @RequestParam(value = "memberNo", required = true) int member) {
 		model.addAttribute("Member", memberService);
-		logger.debug("selectMemberOne(Model model, @RequestParam(value = \"memberNo\", required = true) int member) 메서드 member is {}", member);
+		logger.debug(
+				"selectMemberOne(Model model, @RequestParam(value = \"memberNo\", required = true) int member) 메서드 member is {}",
+				member);
 		return "member/memberModify";
 	}
 
@@ -63,31 +66,32 @@ public class MemberController {
 		session.removeAttribute("loginMember");
 		return "redirect:/member/login";
 	}
-	
+
 	// 로그인요청
-	@RequestMapping(value="/member/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public String login(Member member, HttpSession session) {
 		logger.debug("login(Member member, HttpSession session) 메서드 member is {}", member);
-		member = memberService.loginCheck(member);
+		member = memberService.loginget(member);
 		// 회원정보가 입력되지 않았으면 로그인화면으로 리다이렉트
-		if(member == null) {
+		if (member == null) {
 			return "redirect:/member/login";
-		}	// 회원정보 입력되면 세션속성"loginMember"에 member값 넣은후 홈으로 리다이렉트
+		} // 회원정보 입력되면 세션속성"loginMember"에 member값 넣은후 홈으로 리다이렉트
 		session.setAttribute("loginMember", member);
 		return "redirect:/";
 	}
+
 	// 로그인페이지요청
-	@RequestMapping(value="/member/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String login() {
 		logger.debug("로그인페이지 요청확인");
 		return "/member/login";
 	}
-	
-	//로그아웃 요청
-	@RequestMapping(value="/member/logout", method = RequestMethod.GET)
+
+	// 로그아웃 요청
+	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		logger.debug("로그아웃 확인");
-		// 세션속성 제거 후에 홈으로 리다이렉트 
+		// 세션속성 제거 후에 홈으로 리다이렉트
 		session.removeAttribute("loginMember");
 		return "redirect:/";
 	}

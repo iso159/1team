@@ -37,7 +37,7 @@
 	</select>
 	
 	<!-- 로그인시 id와 pw로 회원정보 조회하는 select 쿼리문 -->
-	<select id="selectCheckMember"
+	<select id="selectgetMember"
 			parameterType="ksmart.project.test26.member.service.Member"
 			resultType="ksmart.project.test26.member.service.Member">
 			

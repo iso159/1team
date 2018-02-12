@@ -5,36 +5,55 @@
 <mapper namespace="ksmart.project.test26.country.service.CountryMapper">
 	<!-- 셀렉트 쿼리 -->
 	<select id="selectCountryList" resultType="ksmart.project.test26.country.service.Country">
-		SELECT 
-			country_id as countryId,
-			country_name as countryName
+		SELECT
+		country_id as
+		countryId,
+		country_name as countryName
 		FROM test.country
 	</select>
 	<!-- update 쿼리 -->
 	<update id="updateCountry" parameterType="ksmart.project.test26.country.service.Country">
 		UPDATE country
 		SET
-			country_name = #{countryName}
+		country_name = #{countryName}
 		WHERE country_id = #{countryId}
 	</update>
-	<!-- country one select -->
+	<!-- country one select 쿼리문 -->
 	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country"
-		parameterType="int">
+		parameterType="int">s
 		SELECT
-			country_id as countryId,
-			country_name as countryName
+		country_id as countryId,
+		country_name as
+		countryName
 		FROM country
 		WHERE country_id=#{countryId}
 	</select>
-	<!-- delete -->
+	<!-- delete 쿼리문 -->
 	<delete id="deleteCountry" parameterType="ksmart.project.test26.country.service.Country">
 		DELETE FROM country
 		WHERE country_id = #{countryId}
 	</delete>
-	<!-- insert -->
+	<!-- insert 쿼리문 -->
 	<insert id="insertCountry" parameterType="ksmart.project.test26.country.service.Country">
 		INSERT INTO
-			country(country_name)
+		country(country_name)
 		VALUES (#{countryName})
 	</insert>
+
+	<!-- 총 페이지 개수 -->
+	<select id="selectTotalCount" resultType="Integer">
+		SELECT COUNT(*) FROM
+		test.country
+	</select>
+
+	<!-- 현재 페이지에 맞는 리스트 셀렉트 -->
+	<select id="selectListByPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.country.service.Country">
+		SELECT
+		country_id as countryId, country_name as countryName
+		FROM
+		test.country
+		ORDER BY country_id DESC
+		LIMIT #{startRow},#{rowPerPage}
+		<!-- 시작행, 보여줄 행의 수 -->
+	</select>
 </mapper>

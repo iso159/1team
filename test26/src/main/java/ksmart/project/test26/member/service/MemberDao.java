@@ -40,8 +40,8 @@ public class MemberDao {
 	}
 
 	// 로그인 확인하는 메소드
-	public Member loginCheck(Member member) {
-		logger.debug("loginCheck(Member member) 메서드 member is {}", member);
-		return sqlSessionTemplate.selectOne(nameSpace + "selectCheckMember", member);
+	public Member loginget(Member member) {
+		logger.debug("loginget(Member member) 메서드 member is {}", member);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectgetMember", member);
 	}
 }
