@@ -44,6 +44,15 @@
 		</table>
 		<div>
 			<h4>책 개수 : ${list.size()}</h4>
+			<!-- n개씩보기 -->
+			<select name="rowPerPage" onchange="location.href=this.value">
+				<option value="#">개수 선택</option>
+  				<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=5">5개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=10">10개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/book/bookList?rowPerPage=15">15개씩 보기</option>
+  			</select><br>
+			<!-- n개씩보기 끝 -->
+			
 			<!-- 페이징 -->
 			<ul class="pagination">
 			<c:set var="currentPage" value="${currentPage}"/>

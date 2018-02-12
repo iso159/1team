@@ -39,7 +39,7 @@ public class BookController {
 		logger.debug("Book 메서드 currentPage is {}",currentPage);
 		logger.debug("Book 메서드 rowPerPage is {}",rowPerPage);
 	
-		// service에서 return받은 map을 형변환 후 값을 담는다.
+		// service에서 리턴받은 map(returnMap)을 형변환 후 값을 담는다.
 		Map map = bookService.getListByPage(currentPage, rowPerPage);
 		List<Book> list = (List<Book>)map.get("list");
 		int lastPage = (Integer) map.get("lastPage");
