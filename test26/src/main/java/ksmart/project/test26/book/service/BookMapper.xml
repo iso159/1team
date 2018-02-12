@@ -3,49 +3,69 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.book.service.BookMapper">
- 	<!-- Book 리스트 조회하는 쿼리문 -->
-  <select id="selectBookList"
+	<!-- 페이징 쿼리문 -->
+	<select id="selectListByPerPage"
+			parameterType="java.util.Map"
+			resultType="ksmart.project.test26.book.service.Book">
+		SELECT 	book_id as bookId, 
+	  			book_name as bookName
+		FROM book
+		ORDER BY bookId ASC
+		LIMIT 	#{startRow},
+				#{rowPerPage}
+		
+	</select>
+	
+	<!-- Book 전체 갯수 쿼리문 -->
+	<select id="selectTotalCount"
+			resultType="Integer">
+		SELECT COUNT(*) 
+		FROM book 
+	</select>
+	
+	<!-- Book 리스트 조회하는 쿼리문 -->
+	<select id="selectBookList"
   			resultType="ksmart.project.test26.book.service.Book">  			
-	SELECT
-		book_id as bookId,
-		book_name as bookName
-	FROM book
+		SELECT
+			book_id as bookId,
+			book_name as bookName
+		FROM book
  	
-  </select>
-  
-  <!-- Book 한 권 수정하는 쿼리문 -->
-  <update id="updateBook"
+	</select>
+	
+	<!-- Book 한 권 수정하는 쿼리문 -->
+	<update id="updateBook"
  			parameterType="ksmart.project.test26.book.service.Book">
- 	UPDATE	book 
- 	SET		book_name = #{bookName} 
-	WHERE 	book_id = #{bookId}
+	 	UPDATE	book 
+	 	SET		book_name = #{bookName} 
+		WHERE 	book_id = #{bookId}
 
- </update>
+	</update>
   
-  <!-- Book 한 권 조회하는 쿼리문 -->
-  <select id="selectBookOne"
+	<!-- Book 한 권 조회하는 쿼리문 -->
+	<select id="selectBookOne"
   			resultType="ksmart.project.test26.book.service.Book"
   			parameterType="int">
-	SELECT
-		book_id as bookId,
-		book_name as bookName
-	FROM book
-	WHERE book_id=#{bookId}
+		SELECT
+			book_id as bookId,
+			book_name as bookName
+		FROM book
+		WHERE book_id=#{bookId}
 
-  </select>
-  
-  <!-- Book 입력하기 위한 쿼리문 -->
-  <insert id="insertBook"
+	</select>
+	
+	<!-- Book 입력하기 위한 쿼리문 -->
+	<insert id="insertBook"
   			parameterType="ksmart.project.test26.book.service.Book">
- 	INSERT INTO 
- 		book (book_name) 
-	VALUES (#{bookName})
-  </insert>
+	 	INSERT INTO 
+	 		book (book_name) 
+		VALUES (#{bookName})
+	</insert>
   
-  <!-- Book 삭제 쿼리문 -->
-  <delete id="deleteBook"
+	<!-- Book 삭제 쿼리문 -->
+	<delete id="deleteBook"
   			parameterType="ksmart.project.test26.book.service.Book">
- 	 DELETE FROM book 
- 	 WHERE  book_id = #{bookId}
-  </delete>
+	 	 DELETE FROM book 
+	 	 WHERE  book_id = #{bookId}
+	</delete>
 </mapper>

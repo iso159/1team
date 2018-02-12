@@ -1,6 +1,7 @@
 package ksmart.project.test26.book.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -18,6 +19,18 @@ public class BookDao {
 	private static final Logger logger = LoggerFactory.getLogger(BookDao.class);
 	private final String nameSpace = "ksmart.project.test26.book.service.BookMapper."; // namespace
 
+	// Book 총 갯수
+	public int selectTotalCount() {
+		logger.debug("selectTotalCount 메서드");
+		return sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
+	}
+	
+	// 페이지당 보여줄 리스트 갯수
+	public List<Book> selectListByPerPage(Map map){
+		logger.debug("selectListByPerPage(Map map) 메서드 map is {}",map);
+		return sqlSessionTemplate.selectList(nameSpace + "selectListByPerPage", map);
+	}
+	
 	// Book 리스트 보여주는 메소드
 	public List<Book> selectBookList(){
 		return sqlSessionTemplate.selectList(nameSpace + "selectBookList");

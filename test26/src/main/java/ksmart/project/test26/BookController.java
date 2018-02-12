@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,20 +24,31 @@ import ksmart.project.test26.book.service.BookService;
 public class BookController {
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 	@Autowired
-	private BookDao bookDao;
-	@Autowired
 	private BookService bookService;
+
 	
-	// Book전체 리스트
+	// Book전체 리스트(페이징)
 	@RequestMapping(value="/book/bookList")
-	public String Book(Model model,HttpSession session) {
+	public String Book(Model model,HttpSession session
+			,@RequestParam(value="currentPage",defaultValue="1", required=false) int currentPage
+			,@RequestParam(value="rowPerPage",defaultValue="10", required=false) int rowPerPage) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		List<Book> list = bookService.checkBookList();
-		logger.debug("Book(Model model,HttpSession session) 메서드 list is {}",list);
+		logger.debug("Book 메서드 currentPage is {}",currentPage);
+		logger.debug("Book 메서드 rowPerPage is {}",rowPerPage);
+	
+		// service에서 return받은 map을 형변환 후 값을 담는다.
+		Map map = bookService.getListByPage(currentPage, rowPerPage);
+		List<Book> list = (List<Book>)map.get("list");
+		int lastPage = (Integer) map.get("lastPage");
+		
+		// model에 담는다.
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("list", list);
+		model.addAttribute("lastPage", lastPage);
 		return "/book/bookList";
 		
 	}
@@ -80,7 +93,7 @@ public class BookController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		Book book = bookService.checkBookOne(bookId);
+		Book book = bookService.getBookOne(bookId);
 		// 리턴받은 book값 확인
 		logger.info("bookOneSelect(Model model,int bookId,HttpSession session) 메서드 book is {}", book);
 		model.addAttribute("book", book);

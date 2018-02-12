@@ -21,6 +21,7 @@
 <div class="container">
 
 	<h2>Book List</h2>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -43,8 +44,23 @@
 		</table>
 		<div>
 			<h4>책 개수 : ${list.size()}</h4>
+			<!-- 페이징 -->
+			<ul class="pagination">
+			<c:set var="currentPage" value="${currentPage}"/>
+				<c:if test="${currentPage > 1}">
+				<li class="page-item">
+					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
+				</li>
+				</c:if>
+				<c:if test="${currentPage < lastPage}">
+				<li class="page-item">
+					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
+				</li>
+				</c:if>
+			</ul>
+			<!-- 페이징 끝-->
 		</div>
-	<a href="${pageContext.request.contextPath}/book/bookAdd"><button type="button" class="btn btn-info">추가</button></a>
+	<a href="${pageContext.request.contextPath}/book/bookAdd"><button type="button" class="btn btn-info">입력</button></a>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success">홈으로</button></a>
 </div>
 	<!-- 메인 화면 내용 끝 -->
