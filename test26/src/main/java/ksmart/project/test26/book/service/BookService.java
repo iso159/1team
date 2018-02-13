@@ -35,7 +35,7 @@ public class BookService {
 		map.put("SearchWord", SearchWord);
 		
 		// 전체갯수
-		int totalCount = bookDao.selectTotalCount();
+		int totalCount = bookDao.selectTotalCount(SearchWord);
 		logger.debug("getListByPage () 메서드 totalCount is {}",totalCount);
 		// 페이지당 보여줄 갯수+검색
 		List<Book> list = bookDao.selectListByPerPage(map);
@@ -52,6 +52,7 @@ public class BookService {
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
 		returnMap.put("SearchWord", SearchWord);
+		returnMap.put("totalCount", totalCount);
 		return returnMap;
 	}
 	

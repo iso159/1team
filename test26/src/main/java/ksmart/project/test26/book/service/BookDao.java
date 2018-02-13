@@ -20,9 +20,9 @@ public class BookDao {
 	private final String nameSpace = "ksmart.project.test26.book.service.BookMapper."; // namespace
 
 	// Book 총 갯수
-	public int selectTotalCount() {
+	public int selectTotalCount(String SearchWord) {
 		logger.debug("selectTotalCount 메서드");
-		return sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
+		return sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount", SearchWord);
 	}
 	
 	// 페이지당 보여줄 리스트 갯수+검색

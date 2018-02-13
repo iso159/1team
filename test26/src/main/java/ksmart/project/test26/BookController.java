@@ -46,6 +46,7 @@ public class BookController {
 		List<Book> list = (List<Book>)map.get("list");
 		int lastPage = (Integer) map.get("lastPage");
 		SearchWord = (String) map.get("SearchWord");
+		int totalCount = (Integer) map.get("totalCount");
 		
 		// model에 담는다.
 		model.addAttribute("currentPage", currentPage);
@@ -53,6 +54,7 @@ public class BookController {
 		model.addAttribute("list", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("SearchWord", SearchWord);
+		model.addAttribute("totalCount",totalCount);
 		return "/book/bookList";
 	
 	}

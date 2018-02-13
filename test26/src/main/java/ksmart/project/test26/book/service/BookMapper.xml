@@ -21,11 +21,16 @@
 		
 	</select>
 	
-	<!-- Book 전체 갯수 쿼리문 -->
-	<select id="selectTotalCount"
+	<!-- Book 전체 갯수 & 검색한 갯수 쿼리문 -->
+	<select id="selectTotalCount" 
+			parameterType="java.lang.String"
 			resultType="Integer">
 		SELECT COUNT(*) 
 		FROM book 
+		WHERE book_name
+		<if test="_parameter!=null">
+			LIKE CONCAT('%',#{SearchWord},'%')
+		</if>
 	</select>
 	
 	<!-- Book 리스트 조회하는 쿼리문 -->
