@@ -58,27 +58,39 @@ public class CountryService {
 		countryDao.deleteCountry(country);
 	}
 
-	// 페이지당 보여줄 개수 
+	// 페이지당 보여줄 개수
 
-	public Map<String, Object> getListByPage(int currentPage, int rowPerPage) {
-		logger.debug("01getListByPage(int currentPage, int rowPerPage) 메서드 is {}", currentPage, rowPerPage);
+	public Map<String, Object> getListByPage(int currentPage, int rowPerPage, String searchWord) {
+		logger.debug("getListByPage(int currentPage, int rowPerPage) 메서드 currentPage is {}", currentPage);
+		logger.debug("getListByPage(int currentPage, int rowPerPage) 메서드 currentPage is {}", rowPerPage);
+		logger.debug("getListByPage(int currentPage, int rowPerPage) 메서드 currentPage is {}", searchWord);
 		// CountryDao 를 이용하여 startRow
 		int startRow = 0;
 		startRow = (currentPage - 1) * rowPerPage;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("startRow", startRow);
-		logger.debug("02getListByPage(int currentPage, int rowPerPage) 메서드 is {}", startRow);
-		map.put("rowPerPage", rowPerPage);
-		logger.debug("03getListByPage(int currentPage, int rowPerPage) 메서드 is {}", rowPerPage);
 
-		Map<String, Object> returnMap = new HashMap<String, Object>(); // Map returnMap = new HashMap();
-		logger.debug("04Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 list is {}", returnMap);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("startRow", startRow);
+		logger.debug("(startRow) getListByPage(int currentPage, int rowPerPage, String searchWord) 메서드 is {}",
+				startRow);
+		map.put("rowPerPage", rowPerPage);
+		logger.debug("(getListByPage(int currentPage, int rowPerPage, String searchWord) 메서드 is {}", rowPerPage);
+		/* Map searchWordmap = new HashMap(); */
+		map.put("searchWord", searchWord);
+		logger.debug("(searchWord) getListByPage(int currentPage, int rowPerPage ,String searchWord) 메서드 is {}",
+				searchWord);
+
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		logger.debug("getListByPage(int currentPage, int pagePerRow) 메서드 list is {}", returnMap);
+		int totalCount = countryDao.selectTotalCount(searchWord);
 		List<Country> list = countryDao.selectListByPerPage(map);
-		logger.debug("05Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 list is {}", list);
-		int totalCount = countryDao.selectTotalCount();
-		int lastPage = (totalCount / rowPerPage);
+		logger.debug("getListByPage(int currentPage, int pagePerRow) 메서드 list is {}", list);
+
+		int lastPage = (int) Math.ceil((double) totalCount / (double) rowPerPage);
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
+		/*returnMap.put("searchWord", searchWord);*/
+		returnMap.put("totalCount", totalCount);
+		/*logger.debug("01. searchWord{}", searchWord);*/
 		return returnMap;
 	}
 }

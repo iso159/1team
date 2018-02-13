@@ -3,6 +3,7 @@ package ksmart.project.test26.country.service;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.cursor.Cursor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,10 +61,9 @@ public class CountryDao {
 	}
 
 	// country selectTotalCount
-	public int selectTotalCount() {
-		int totalCount = sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
+	public int selectTotalCount(String searchWord) {
+		int totalCount = sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount",searchWord);
 		logger.debug("selectTotalCount() 메서드 totalCount is {}", totalCount);
 		return totalCount;
 	}
-
 }

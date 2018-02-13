@@ -24,18 +24,16 @@ public class CountryController {
 	private CountryService countryService;
 	private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
 
-/*	@RequestMapping(value = "/country/countryList")
-	public String country(Model model, HttpSession session) {
-		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
-		if (session.getAttribute("loginMember") == null) {
-			logger.debug("country(Model model,HttpSession session) 메서드 model is {}", model);
-			return "redirect:/member/login";
-		}
-		List<Country> list = countryService.getCountryList();
-		model.addAttribute("CountryList", list);
-		logger.debug("country(Model model,HttpSession session) 메서드 list is {}", list);
-		return "country/countryList";
-	}*/
+	/*
+	 * @RequestMapping(value = "/country/countryList") public String country(Model
+	 * model, HttpSession session) { // 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트 if
+	 * (session.getAttribute("loginMember") == null) {
+	 * logger.debug("country(Model model,HttpSession session) 메서드 model is {}",
+	 * model); return "redirect:/member/login"; } List<Country> list =
+	 * countryService.getCountryList(); model.addAttribute("CountryList", list);
+	 * logger.debug("country(Model model,HttpSession session) 메서드 list is {}",
+	 * list); return "country/countryList"; }
+	 */
 
 	// insert 입력하기 요청
 	@RequestMapping(value = "/country/countryInsert", method = RequestMethod.GET)
@@ -102,22 +100,28 @@ public class CountryController {
 	@RequestMapping(value = "/country/countryList")
 	public String country(Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1", required = false) int currentPage,
-			@RequestParam(value = "rowPerPage", defaultValue = "10", required = false) int rowPerPage) {
+			@RequestParam(value = "rowPerPage", defaultValue = "10", required = false) int rowPerPage,
+			@RequestParam(value = "searchWord", required = false) String searchWord) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		logger.debug("country(...)메서드 currentPage is {}", currentPage);
-		logger.debug("country(...)메서드 pagePerRow is {}", rowPerPage);
-		Map map = countryService.getListByPage(currentPage, rowPerPage);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"currentPage\", defaultValue = \"1\", required = false) int currentPage 메서드 currentPage is {}", currentPage);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"rowPerPage\", defaultValue = \"10\", required = false) int rowPerPage is {}", rowPerPage);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"searchWord\", required = false) String searchWord is {}", searchWord);
+		Map map = countryService.getListByPage(currentPage, rowPerPage, searchWord);
 		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력 받음
 		List<Country> list = (List<Country>) map.get("list");
 		int lastPage = (Integer) map.get("lastPage");
+		int totalCount = (Integer)map.get("totalCount");
 		// list,lastPage,currentPage,rowPerPage model에 담음
 		model.addAttribute("CountryList", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("totalCount",totalCount);
+		logger.debug("searchWord{}",searchWord);
 		return "/country/countryList";
 	}
 }

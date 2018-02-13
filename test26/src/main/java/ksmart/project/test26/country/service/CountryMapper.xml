@@ -20,7 +20,7 @@
 	</update>
 	<!-- country one select 쿼리문 -->
 	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country"
-		parameterType="int">s
+		parameterType="int">
 		SELECT
 		country_id as countryId,
 		country_name as
@@ -41,17 +41,25 @@
 	</insert>
 
 	<!-- 총 페이지 개수 -->
-	<select id="selectTotalCount" resultType="Integer">
-		SELECT COUNT(*) FROM
-		test.country
+	<select id="selectTotalCount" parameterType="java.lang.String" resultType="Integer">
+	SELECT COUNT(*) as count
+		FROM test.country
+		<if test="_parameter!=null">
+			WHERE country_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 	</select>
 
 	<!-- 현재 페이지에 맞는 리스트 셀렉트 -->
-	<select id="selectListByPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.country.service.Country">
+	<select id="selectListByPerPage" parameterType="java.util.Map"
+		resultType="ksmart.project.test26.country.service.Country">
 		SELECT
-		country_id as countryId, country_name as countryName
+		country_id as countryId,
+		country_name as countryName
 		FROM
 		test.country
+		<if test="searchWord != null">
+			WHERE country_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 		ORDER BY country_id DESC
 		LIMIT #{startRow},#{rowPerPage}
 		<!-- 시작행, 보여줄 행의 수 -->
