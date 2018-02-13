@@ -25,7 +25,7 @@ public class BookDao {
 		return sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
 	}
 	
-	// 페이지당 보여줄 리스트 갯수
+	// 페이지당 보여줄 리스트 갯수+검색
 	public List<Book> selectListByPerPage(Map map){
 		logger.debug("selectListByPerPage(Map map) 메서드 map is {}",map);
 		return sqlSessionTemplate.selectList(nameSpace + "selectListByPerPage", map);

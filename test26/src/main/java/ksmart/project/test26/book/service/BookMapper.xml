@@ -3,13 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.book.service.BookMapper">
-	<!-- 페이징 쿼리문 -->
+	<!-- 페이징+검색 쿼리문 -->
 	<select id="selectListByPerPage"
 			parameterType="java.util.Map"
 			resultType="ksmart.project.test26.book.service.Book">
 		SELECT 	book_id as bookId, 
 	  			book_name as bookName
 		FROM book
+		WHERE book_name
+		<if test="SearchWord != null">
+			LIKE CONCAT('%',#{SearchWord},'%')
+		</if>
+		
 		ORDER BY bookId ASC
 		LIMIT 	#{startRow},
 				#{rowPerPage}

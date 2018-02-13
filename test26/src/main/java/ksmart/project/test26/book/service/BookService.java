@@ -20,33 +20,38 @@ public class BookService {
 	private BookDao bookDao;
 	
 	
-	// 페이징
-	public Map<String, Object> getListByPage(int currentPage, int rowPerPage){
+	// 페이징+검색
+	public Map<String, Object> getListByPage(int currentPage, int rowPerPage, String SearchWord){
 		logger.debug("getListByPage () 메서드");
-		logger.debug("getListByPage(int currentPage, int pagePerRow) 메서드 currentPage is {}", currentPage);
-		logger.debug("getListByPage(int currentPage, int pagePerRow) 메서드 rowPerPage is {}", rowPerPage);
+		logger.debug("getListByPage(int currentPage, int pagePerRow, String SearchWord) 메서드 currentPage is {}", currentPage);
+		logger.debug("getListByPage(int currentPage, int pagePerRow, String SearchWord) 메서드 rowPerPage is {}", rowPerPage);
+		logger.debug("getListByPaㄴge(int currentPage, int pagePerRow, String SearchWord) 메서드 SearchWord is {}", SearchWord);
 		
 		int startRow = (currentPage-1)*rowPerPage;
 		
 		Map map = new HashMap();
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("SearchWord", SearchWord);
 		
 		// 전체갯수
 		int totalCount = bookDao.selectTotalCount();
 		logger.debug("getListByPage () 메서드 totalCount is {}",totalCount);
-		// 페이지당 보여줄 갯수
+		// 페이지당 보여줄 갯수+검색
 		List<Book> list = bookDao.selectListByPerPage(map);
 		logger.debug("getListByPage () 메서드 list is {}",list);
 		// totalCount,rowPerPage로 마지막 페이지를 구함
 		int lastPage = (totalCount / rowPerPage);
 		logger.debug("getListByPage () 메서드 lastPage is {}",lastPage);
 		
+		
+		
+		
 		// 매핑한 list,lastPage를 returnMap에 담고 리턴
 		Map returnMap = new HashMap();
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
-	
+		returnMap.put("SearchWord", SearchWord);
 		return returnMap;
 	}
 	

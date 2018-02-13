@@ -21,7 +21,20 @@
 <div class="container">
 
 	<h2>Book List</h2>
-	
+	<!-- 검색 bar 부분 -->
+		<form action="${pageContext.request.contextPath}/book/bookList">
+		<ul class="nav top-menu">
+			<li>
+				<li class="page-item">
+					<input class="form-control" placeholder="SearchWord" type="text" name="SearchWord" value="${SearchWord}">
+					<button class="btn btn-danger"submit">검색</button>
+				</li>
+			</li>
+		</ul>
+		</form>
+		
+	<!--검색 bar 부분 끝 -->
+			
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -53,21 +66,25 @@
   			</select><br>
 			<!-- n개씩보기 끝 -->
 			
+			
 			<!-- 페이징 -->
 			<ul class="pagination">
 			<c:set var="currentPage" value="${currentPage}"/>
+			<c:set var="SearchWord" value="${SearchWord}"/>
 				<c:if test="${currentPage > 1}">
 				<li class="page-item">
-					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
+					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&SearchWord=${SearchWord}">이전</a>
 				</li>
 				</c:if>
 				<c:if test="${currentPage < lastPage}">
 				<li class="page-item">
-					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
+					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&SearchWord=${SearchWord}">다음</a>
 				</li>
 				</c:if>
 			</ul>
 			<!-- 페이징 끝-->
+			
+		
 		</div>
 	<a href="${pageContext.request.contextPath}/book/bookAdd"><button type="button" class="btn btn-info">입력</button></a>
 	<a href="${pageContext.request.contextPath}/"><button type="button" class="btn btn-success">홈으로</button></a>

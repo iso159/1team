@@ -27,30 +27,34 @@ public class BookController {
 	private BookService bookService;
 
 	
-	// Book전체 리스트(페이징)
+	// Book전체 리스트(페이징+검색)
 	@RequestMapping(value="/book/bookList")
 	public String Book(Model model,HttpSession session
 			,@RequestParam(value="currentPage",defaultValue="1", required=false) int currentPage
-			,@RequestParam(value="rowPerPage",defaultValue="10", required=false) int rowPerPage) {
+			,@RequestParam(value="rowPerPage",defaultValue="10", required=false) int rowPerPage
+			,@RequestParam(value="SearchWord",defaultValue="", required=false) String SearchWord) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
 		logger.debug("Book 메서드 currentPage is {}",currentPage);
 		logger.debug("Book 메서드 rowPerPage is {}",rowPerPage);
+		logger.debug("Book 메서드 SearchWord is {}",SearchWord);
 	
 		// service에서 리턴받은 map(returnMap)을 형변환 후 값을 담는다.
-		Map map = bookService.getListByPage(currentPage, rowPerPage);
+		Map map = bookService.getListByPage(currentPage, rowPerPage, SearchWord);
 		List<Book> list = (List<Book>)map.get("list");
 		int lastPage = (Integer) map.get("lastPage");
+		SearchWord = (String) map.get("SearchWord");
 		
 		// model에 담는다.
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("list", list);
 		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("SearchWord", SearchWord);
 		return "/book/bookList";
-		
+	
 	}
 	// 입력요청
 	@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
