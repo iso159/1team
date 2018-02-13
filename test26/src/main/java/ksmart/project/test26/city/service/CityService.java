@@ -74,7 +74,7 @@ public class CityService {
 		List<City> list = citydao.selectListByPerPage(map);
 		logger.debug("getListByPage()메서드 List is {}", list);
 		//총 행의 개수 조회 메서드 호출 및 totalCount에 입력
-		int totalCount = citydao.selectTotalCount();
+		int totalCount = citydao.selectTotalCount(map);
 		logger.debug("getListByPage()메서드 totalCount is {}", totalCount);
 		//totalCount와 pagePerRow로 마지막 페이지를 구함
 		int lastPage = (int)Math.ceil(totalCount/rowPerPage);
@@ -83,6 +83,7 @@ public class CityService {
 		//returnMap에 list와 lastPage를 매핑함
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
+		returnMap.put("totalCount", totalCount);
 		return returnMap;
 	}
 }

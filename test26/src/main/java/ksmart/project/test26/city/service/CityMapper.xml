@@ -55,9 +55,12 @@
 	</select>
 	
 	<!-- 총 행의 개수 -->
-	<select id="selectTotalCount" resultType="Integer">
+	<select id="selectTotalCount" parameterType="java.util.Map" resultType="Integer">
 		SELECT COUNT(*)
 		FROM test.city
+		<if test= "citySearchWord != null">
+			WHERE city_name LIKE CONCAT('%',#{citySearchWord},'%')
+		</if>
 	</select> 
 </mapper>
 

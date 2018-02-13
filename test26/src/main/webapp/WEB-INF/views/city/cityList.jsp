@@ -50,8 +50,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div>
-			<h4>도시 개수 : ${CityList.size()}</h4>
+		<div>				
+			<h4>도시 개수 : ${totalCount}</h4>
+												
 			<!-- 보여줄 행의 개수 작업 -->
 			<select name="rowPerPage" onchange="location.href=this.value">
 				<option value="#">개수 선택</option>

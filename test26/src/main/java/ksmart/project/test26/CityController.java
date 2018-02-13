@@ -40,13 +40,14 @@ public class CityController {
 		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력받음
 		List<City> list = (List<City>)map.get("list"); //map에서 list 키에 해당되는 값을 얻어온다
 		int lastPage = (Integer)map.get("lastPage");
-		
+		int totalCount = (Integer)map.get("totalCount");
 		// list,lastPage,currentPage,rowPerPage model에 담음
 		model.addAttribute("CityList", list);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
 		model.addAttribute("citySearchWord", citySearchWord);
+		model.addAttribute("totalCount", totalCount);
 		return "city/cityList";
 	}
 	

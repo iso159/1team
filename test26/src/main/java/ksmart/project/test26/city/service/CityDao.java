@@ -58,10 +58,10 @@ public class CityDao {
 		return city;
 	}
 	
-	public int selectTotalCount() {
+	public int selectTotalCount(Map map) {
 		
-		int totalCount = sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount");
-		logger.debug("selectTotalCount()메서드 totalCount is {}",totalCount);
+		int totalCount = sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount", map);
+		logger.debug("selectTotalCount()메서드 map is {}",map);
 		return totalCount;
 	}
 }
