@@ -5,11 +5,14 @@
 <mapper namespace="ksmart.project.test26.idol.service.IdolMapper">
 
 	<!-- idol 전체 리스트를 띄움 -->
-	<select id="selectIdolList" resultType="ksmart.project.test26.idol.service.Idol">
+	<select id="selectIdolList" parameterType="java.util.Map" resultType="ksmart.project.test26.idol.service.Idol">
 		SELECT 
 			idol_id as idolId,
 			idol_name as idolName 
 		FROM test.idol
+		<if test= "idolSearchWord != null">
+			WHERE idol_name LIKE CONCAT('%',#{idolSearchWord},'%')
+		</if>
 	</select>
 	
 	<!-- idol 한명 리스트 띄움 -->
@@ -60,9 +63,12 @@
 	</select>
 	
 	<!-- selectTotalCount(총개수) -->
-	<select id="selectTotalCount" resultType="int">
+	<select id="selectTotalCount" parameterType="java.util.Map" resultType="int">
 		SELECT 
 			count(*) as count 
 		FROM test.idol
+		<if test= "idolSearchWord != null">
+			WHERE idol_name LIKE CONCAT('%',#{idolSearchWord},'%')
+		</if>
 	</select>
 </mapper>

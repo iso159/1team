@@ -42,11 +42,11 @@ public class IdolService {
 		returnMap.put("startRow", startRow);
 		returnMap.put("list", list);
 		// 데이터 총갯수 구함
-		int totalCount = idolDao.selectTotalCount();
+		int totalCount = idolDao.selectTotalCount(map);
 		// 페이지마다 마지막 표시
 		int lastPage = (int)Math.ceil((double)totalCount/(double)rowPerPage);
 		returnMap.put("lastPage", lastPage);
-		returnMap.put("selectIdolList", idolDao.selectIdolList());
+		returnMap.put("selectIdolList", idolDao.selectIdolList(map));
 		return returnMap;
 	}
 	

@@ -19,10 +19,10 @@ public class IdolDao {
 	private static final Logger logger = LoggerFactory.getLogger(IdolDao.class);
 	private final String nameSpace = "ksmart.project.test26.idol.service.IdolMapper.";
 	
-	/*아이돌 전체리스트 띄우는부분*/
-	public List<Idol> selectIdolList(){
+	/*아이돌 수를 체크하는 용도 검색조건에 맞춰 진행됨*/
+	public List<Idol> selectIdolList(Map<String, Object> map){
 		// idol 전체 리스트를 리턴 받아서 list 에대입
-		List<Idol> list = sqlSessionTemplate.selectList(nameSpace + "selectIdolList");
+		List<Idol> list = sqlSessionTemplate.selectList(nameSpace + "selectIdolList", map);
 		// idol 전체 리스트가 list에 받아 졌는지 출력
 		logger.debug("selectIdolList() 메서드 list is {}",list);
 		return list;
@@ -68,8 +68,8 @@ public class IdolDao {
 		return sqlSessionTemplate.selectList(nameSpace + "selectListPerPage", map);
 	}
 	
-	/*페이징 작업시 총갯수를 구함*/
-	public int selectTotalCount() {
-		return sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount");
+	/*페이징 작업시 총갯수를 구함 만약 검색이 포함될경우 변경되도록함*/
+	public int selectTotalCount(Map<String, Object> map) {
+		return sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount", map);
 	}
 }
