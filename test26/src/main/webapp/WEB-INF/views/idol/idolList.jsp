@@ -15,6 +15,17 @@
 	<!-- 메인 화면 내용 부분 -->
 		<div class="container">
 		<h2>아이돌 리스트</h2>
+		<!-- 아이돌 검색 부분 -->
+		<ul class="nav top-menu">
+			<li>
+				<form class="navbar-form" action="${pageContext.request.contextPath}/idol/idolList" method="get">
+					<td><input type="hidden" name="rowPerPage" value="${map.rowPerPage}"></td>
+					<input class="form-control" placeholder="Search" type="text" name="idolSearchWord">
+					<button type="submit" class="btn btn-danger">검색</button>
+				</form>
+			</li>
+		</ul>
+		<!-- 아이돌 검색 부분 끝 -->
 		<!-- 아이돌 데이터 테이블 -->
 		<table class="table table-striped">
 			<thead>
@@ -38,17 +49,6 @@
 			</tbody>
 		</table>
 		<!-- 아이돌 데이터 테이블 끝 -->
-		<!-- 아이돌 검색  -->
-		<form action="${pageContext.request.contextPath}/idol/idolList" method="get">
-		<table>
-			<tr>
-				<td><input type="hidden" name="rowPerPage" value="${map.rowPerPage}"></td>
-				<td><input type="text" name="idolSearchWord"></td>
-				<td><button type="submit">검색</button></td>
-			</tr>
-		</table>
-		</form>
-		<!-- 아이돌 검색  끝 -->
 		<!-- 보여줄 행의 개수 작업 -->
 		<div style="margin-bottom:10;">
 		<select name="rowPerPage" onchange="location.href=this.value">
