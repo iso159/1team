@@ -41,7 +41,7 @@ public class BookService {
 		List<Book> list = bookDao.selectListByPerPage(map);
 		logger.debug("getListByPage () 메서드 list is {}",list);
 		// totalCount,rowPerPage로 마지막 페이지를 구함
-		int lastPage = (totalCount / rowPerPage);
+		int lastPage = ((totalCount / rowPerPage) +1);
 		logger.debug("getListByPage () 메서드 lastPage is {}",lastPage);
 		
 		

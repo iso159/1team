@@ -84,9 +84,14 @@
 					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&SearchWord=${SearchWord}">이전</a>
 				</li>
 				</c:if>
-				<c:if test="${currentPage <= lastPage}">
+				<c:if test="${currentPage < lastPage}">
 				<li class="page-item">
 					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&SearchWord=${SearchWord}">다음</a>
+				</li>
+				</c:if>
+				<c:if test="${currentPage == lastPage}">
+				<li class="page-item">
+					<a class="page-link" href="${pageContext.request.contextPath}/book/bookList?currentPage=${lastPage}&rowPerPage=${rowPerPage}&SearchWord=${SearchWord}">다음</a>
 				</li>
 				</c:if>
 		</ul>
