@@ -47,6 +47,9 @@
 			city_id as cityId
 			,city_name as cityName
 		FROM test.city
+		<if test= "citySearchWord != null">
+			WHERE city_name LIKE CONCAT('%',#{citySearchWord},'%')
+		</if>
 		ORDER BY city_id DESC
 		LIMIT #{startRow},#{rowPerPage}
 	</select>

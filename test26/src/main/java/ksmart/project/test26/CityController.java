@@ -26,17 +26,19 @@ public class CityController {
 	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
 	public String city(Model model,HttpSession session
 							,@RequestParam(value="currentPage",defaultValue="1",required=false) int currentPage
-							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage){
+							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage
+							,@RequestParam(value="citySearchWord",required=false) String citySearchWord){
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
 		logger.debug("city()메서드 currentPage is {}", currentPage);
 		logger.debug("city()메서드 rowPerPage is {}", rowPerPage);
-		
-		Map map = cityservice.getListByPage(currentPage, rowPerPage);
+		logger.debug("city()메서드 citySearchWord is {}", citySearchWord);
+				
+		Map map = cityservice.getListByPage(currentPage, rowPerPage, citySearchWord);
 		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력받음
-		List<City> list = (List<City>)map.get("list");
+		List<City> list = (List<City>)map.get("list"); //map에서 list 키에 해당되는 값을 얻어온다
 		int lastPage = (Integer)map.get("lastPage");
 		
 		// list,lastPage,currentPage,rowPerPage model에 담음
@@ -44,6 +46,7 @@ public class CityController {
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("rowPerPage", rowPerPage);
+		model.addAttribute("citySearchWord", citySearchWord);
 		return "city/cityList";
 	}
 	

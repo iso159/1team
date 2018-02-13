@@ -53,9 +53,10 @@ public class CityService {
 	}
 	
 	//Map<String, Object> int로 받을 수없기 때문에 Object로 받는다
-	public Map<String,Object> getListByPage(int currentPage, int rowPerPage){
-		logger.debug("getListByPage(int currentPage, int pagePerRow)메서드 currentPage is {}", currentPage);
-		logger.debug("getListByPage(int currentPage, int pagePerRow)메서드 rowPerPage is {}", rowPerPage);
+	public Map<String,Object> getListByPage(int currentPage, int rowPerPage, String citySearchWord){
+		logger.debug("getListByPage()메서드 currentPage is {}", currentPage);
+		logger.debug("getListByPage()메서드 rowPerPage is {}", rowPerPage);
+		logger.debug("getListByPage()메서드 rowPerPage is {}", citySearchWord);
 		//startRow선언
 		int startRow = 0;
 		//현재페이지 * 보여줄 개수로 시작행 구함
@@ -65,18 +66,19 @@ public class CityService {
 		//map에 startRow, pagePerRow를 매핑함
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
+		map.put("citySearchWord", citySearchWord);
 		
 		//리턴할 맵객체 생성
 		Map returnMap = new HashMap();
 		//페이지별로 보여줄 리스트 조회 메서드 호출
 		List<City> list = citydao.selectListByPerPage(map);
-		logger.debug("getListByPage(int currentPage, int rowPerPage)메서드 List is {}", list);
+		logger.debug("getListByPage()메서드 List is {}", list);
 		//총 행의 개수 조회 메서드 호출 및 totalCount에 입력
 		int totalCount = citydao.selectTotalCount();
-		logger.debug("getListByPage(int currentPage, int rowPerPage)메서드 totalCount is {}", totalCount);
+		logger.debug("getListByPage()메서드 totalCount is {}", totalCount);
 		//totalCount와 pagePerRow로 마지막 페이지를 구함
 		int lastPage = (int)Math.ceil(totalCount/rowPerPage);
-		logger.debug("getListByPage(int currentPage, int rowPerPage)메서드 lastPage is {}", lastPage);
+		logger.debug("getListByPage()메서드 lastPage is {}", lastPage);
 		
 		//returnMap에 list와 lastPage를 매핑함
 		returnMap.put("list", list);

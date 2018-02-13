@@ -19,11 +19,22 @@
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">	
 		<h2>도시 리스트</h2>
+		<!-- 도시 검색부분 -->
+		<ul class="nav top-menu">
+			<li>
+			<form class="navbar-form" action="${pageContext.request.contextPath}/city/cityList" method="get">
+				<input type="hidden" name="rowPerPage" value= ${rowPerPage}>
+				도시이름: <input class="form-control" placeholder="Search" type="text" name="citySearchWord">
+				<button type ="submit" class="btn btn-danger">검색</button>
+			</form>
+			</li>
+		</ul>
+		<!-- 도시 데이터 테이블 -->
 		<table class="table table-striped">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>시티이름</th>
+					<th>도시이름</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>
@@ -54,12 +65,12 @@
 				<c:set var="currentPage" value="${currentPage}"/> <!-- currentPage = ${currentPage} -->
 				<c:if test="${currentPage!=1}"> <!-- if(currentPage!=1) -->
 					<li class="page-item">
-  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
+  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&citySearchWord=${citySearchWord}">이전</a>
   					</li>
   				</c:if>
 				<c:if test="${currentPage!=lastPage}"> <!-- if(currentPage!=lastPage) -->
 					<li class="page-item">
-  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
+  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&citySearchWord=${citySearchWord}">다음</a>
   					</li>
 				</c:if> 	
 		</div>
