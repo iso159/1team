@@ -38,22 +38,33 @@
 			</tbody>
 		</table>
 		<!-- 아이돌 데이터 테이블 끝 -->
+		<!-- 아이돌 검색  -->
+		<form action="${pageContext.request.contextPath}/idol/idolList" method="get">
+		<table>
+			<tr>
+				<td><input type="hidden" name="rowPerPage" value="${map.rowPerPage}"></td>
+				<td><input type="text" name="idolSearchWord"></td>
+				<td><button type="submit">검색</button></td>
+			</tr>
+		</table>
+		</form>
+		<!-- 아이돌 검색  끝 -->
 		<!-- 보여줄 행의 개수 작업 -->
 		<div style="margin-bottom:10;">
 		<select name="rowPerPage" onchange="location.href=this.value">
 			<option value="#">개수 선택</option>
-			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=5">5개씩 보기</option>
-			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=10">10개씩 보기</option>
-			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=15">15개씩 보기</option>
+			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=5&idolSearchWord=${map.idolSearchWord}">5개씩 보기</option>
+			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=10&idolSearchWord=${map.idolSearchWord}">10개씩 보기</option>
+			<option value="${pageContext.request.contextPath}/idol/idolList?rowPerPage=15&idolSearchWord=${map.idolSearchWord}">15개씩 보기</option>
 		</select><br>
 		</div>
 		<!-- 보여줄 행의 개수 작업 끝 -->
 		<!-- 이전 다음 페이징 선택 -->
 		<div>
-			<a href="<c:if test="${map.startRow gt 0}">${pageContext.request.contextPath}/idol/idolList?currentPage=${map.currentPage-1}&rowPerPage=${map.rowPerPage}</c:if>">
+			<a href="<c:if test="${map.startRow gt 0}">${pageContext.request.contextPath}/idol/idolList?currentPage=${map.currentPage-1}&rowPerPage=${map.rowPerPage}&idolSearchWord=${map.idolSearchWord}</c:if>">
 				<button type="button" class="btn btn-info">이전</button>
 			</a>
-			<a href="<c:if test="${map.currentPage lt map.lastPage}">${pageContext.request.contextPath}/idol/idolList?currentPage=${map.currentPage+1}&rowPerPage=${map.rowPerPage}</c:if>">
+			<a href="<c:if test="${map.currentPage lt map.lastPage}">${pageContext.request.contextPath}/idol/idolList?currentPage=${map.currentPage+1}&rowPerPage=${map.rowPerPage}&idolSearchWord=${map.idolSearchWord}</c:if>">
 				<button type="button" class="btn btn-success">다음</button>
 			</a>
 		</div>

@@ -52,6 +52,9 @@
 			idol_id as idolId,
 		    idol_name as idolName 
 		FROM test.idol
+		<if test= "idolSearchWord != null">
+			WHERE idol_name LIKE CONCAT('%',#{idolSearchWord},'%')
+		</if>
 		ORDER BY idol_id asc
 		limit #{startRow},#{rowPerPage}
 	</select>

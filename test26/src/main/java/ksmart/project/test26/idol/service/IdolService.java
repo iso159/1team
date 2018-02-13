@@ -23,17 +23,20 @@ public class IdolService {
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
 	/*아이돌 전체리스트 띄우고 페이징 작업*/
-	public Map<String, Object> getIdolList(Map<String, Integer> map) {
+	public Map<String, Object> getIdolList(Map<String, Object> map) {
 		// map 객체안에 정보 확인 
 		logger.debug("getListByPage(Map map) 메서드 map is {}",map);
-		int currentPage = map.get("currentPage");
-		int rowPerPage = map.get("rowPerPage");
+		Integer currentPage = (Integer) map.get("currentPage");
+		Integer rowPerPage = (Integer) map.get("rowPerPage");
+		String idolSearchWord = (String) map.get("idolSearchWord");
 		// 시작  페이지
 		int startRow = (currentPage-1)*rowPerPage;
 		// 페이징 작업을 통한 리스트 구함
 		map.put("startRow", startRow);
+		logger.debug("getListByPage(Map map) 메서드 map is {}",map);
 		List<Idol> list = idolDao.selectListByPerPage(map);
 		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("idolSearchWord", idolSearchWord);
 		returnMap.put("rowPerPage", rowPerPage);
 		returnMap.put("currentPage", currentPage);
 		returnMap.put("startRow", startRow);

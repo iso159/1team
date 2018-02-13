@@ -30,34 +30,46 @@ public class IdolController {
 	public String idol(Model model,
 						HttpSession session,
 						@RequestParam(value="currentPage" ,defaultValue="1" ,required=false) int currentPage,
-						@RequestParam(value="rowPerPage" ,defaultValue="10" ,required=false) int rowPerPage) {
+						@RequestParam(value="rowPerPage" ,defaultValue="10" ,required=false) int rowPerPage,
+						@RequestParam(value="idolSearchWord" ,required=false) String idolSearchWord) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		//startRow 값 확인
-		logger.debug("Model model,\r\n" + 
+		logger.debug("idol(Model model,\r\n" + 
 				"HttpSession session,\r\n" + 
-				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
-				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
-				+" 메서드 currentPage is {}",currentPage);
+				"@RequestParam(value=\"currentPage\" ,defaultValue=\"1\" ,required=false) int currentPage,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\" ,required=false) int rowPerPage,\r\n" + 
+				"@RequestParam(value=\"idolSearchWord\" ,defaultValue=\"null\" ,required=false) String idolSearchWord)" +
+				"메서드 currentPage is {}",currentPage);
 		map.put("currentPage", currentPage);
 		//pageperRow 값 확인
-		logger.debug("Model model,\r\n" + 
+		logger.debug("idol(Model model,\r\n" + 
 				"HttpSession session,\r\n" + 
-				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
-				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
-				+" 메서드 rowPerPage is {}",rowPerPage);
+				"@RequestParam(value=\"currentPage\" ,defaultValue=\"1\" ,required=false) int currentPage,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\" ,required=false) int rowPerPage,\r\n" + 
+				"@RequestParam(value=\"idolSearchWord\" ,defaultValue=\"null\" ,required=false) String idolSearchWord)" +
+				"메서드 rowPerPage is {}",rowPerPage);
 		map.put("rowPerPage", rowPerPage);
+		//idolSearchWord 값 확인
+		logger.debug("idol(Model model,\r\n" + 
+				"HttpSession session,\r\n" + 
+				"@RequestParam(value=\"currentPage\" ,defaultValue=\"1\" ,required=false) int currentPage,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\" ,required=false) int rowPerPage,\r\n" + 
+				"@RequestParam(value=\"idolSearchWord\" ,defaultValue=\"null\" ,required=false) String idolSearchWord)" +
+				"메서드 idolSearchWord is {}",idolSearchWord);
+		map.put("idolSearchWord", idolSearchWord);
 		//전체 리스트 정보 받아옴
 		Map<String, Object> returnMap = idolService.getIdolList(map);
 		//받아온 returnMap 정보 확인
-		logger.debug("Model model,\r\n" + 
+		logger.debug("idol(Model model,\r\n" + 
 				"HttpSession session,\r\n" + 
-				"@RequestParam(value=\"startRow\" ,defaultValue=\"1\") int startRow,\r\n" + 
-				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\") int rowPerPage)"
-				+" 메서드 returnMap is {}",returnMap);
+				"@RequestParam(value=\"currentPage\" ,defaultValue=\"1\" ,required=false) int currentPage,\r\n" + 
+				"@RequestParam(value=\"rowPerPage\" ,defaultValue=\"10\" ,required=false) int rowPerPage,\r\n" + 
+				"@RequestParam(value=\"idolSearchWord\" ,defaultValue=\"null\" ,required=false) String idolSearchWord)" +
+				"메서드 returnMap is {}",returnMap);
 		model.addAttribute("map", returnMap);
 		return "/idol/idolList";
 	}

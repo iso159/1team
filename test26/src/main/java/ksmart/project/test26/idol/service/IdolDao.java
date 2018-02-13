@@ -63,8 +63,8 @@ public class IdolDao {
 	}
 	
 	/*아이돌 페이징 작업*/
-	public List<Idol> selectListByPerPage(Map<String, Integer> map){
-		logger.debug("selectListByPerPage(Map<String, Integer> map) 메서드 map is {}",map);
+	public List<Idol> selectListByPerPage(Map<String, Object> map){
+		logger.debug("selectListByPerPage(Map<String, Object> map) 메서드 map is {}",map);
 		return sqlSessionTemplate.selectList(nameSpace + "selectListPerPage", map);
 	}
 	
