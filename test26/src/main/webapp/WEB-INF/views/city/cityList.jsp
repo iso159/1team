@@ -41,6 +41,27 @@
 		</table>
 		<div>
 			<h4>도시 개수 : ${CityList.size()}</h4>
+			<!-- 보여줄 행의 개수 작업 -->
+			<select name="rowPerPage" onchange="location.href=this.value">
+				<option value="#">개수 선택</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=15">15개씩 보기</option>
+  			</select><br>
+  			
+  			<!-- 이전,다음 작업 -->
+			<ul class="pagination">
+				<c:set var="currentPage" value="${currentPage}"/> <!-- currentPage = ${currentPage} -->
+				<c:if test="${currentPage!=1}"> <!-- if(currentPage!=1) -->
+					<li class="page-item">
+  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
+  					</li>
+  				</c:if>
+				<c:if test="${currentPage!=lastPage}"> <!-- if(currentPage!=lastPage) -->
+					<li class="page-item">
+  					<a class = "page-link" href="${pageContext.request.contextPath}/city/cityList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
+  					</li>
+				</c:if> 	
 		</div>
 		<a href="${pageContext.request.contextPath}/city/cityAdd">
 			<button type="button" class="btn btn-info">입력</button>

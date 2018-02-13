@@ -40,5 +40,21 @@
 		FROM test.city 
 		WHERE city_id = #{cityId}
 	</delete>
+	
+	<!-- 현재 페이지에 맞는 리스트 조회 -->
+	<select id="selectListByPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.city.service.City">
+		SELECT 
+			city_id as cityId
+			,city_name as cityName
+		FROM test.city
+		ORDER BY city_id DESC
+		LIMIT #{startRow},#{rowPerPage}
+	</select>
+	
+	<!-- 총 행의 개수 -->
+	<select id="selectTotalCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM test.city
+	</select> 
 </mapper>
 

@@ -1,6 +1,7 @@
 package ksmart.project.test26;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,16 +23,27 @@ public class CityController {
 	private CityService cityservice;
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
 	
-	@RequestMapping(value="/city/cityList")
-	public String city(Model model,HttpSession session) {
+	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
+	public String city(Model model,HttpSession session
+							,@RequestParam(value="currentPage",defaultValue="1",required=false) int currentPage
+							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage){
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		List <City> list = cityservice.getCityList();
-		// list 값 확인
-		logger.debug("city(Model model,HttpSession session) 메서드 list is {}",list);
+		logger.debug("city()메서드 currentPage is {}", currentPage);
+		logger.debug("city()메서드 rowPerPage is {}", rowPerPage);
+		
+		Map map = cityservice.getListByPage(currentPage, rowPerPage);
+		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력받음
+		List<City> list = (List<City>)map.get("list");
+		int lastPage = (Integer)map.get("lastPage");
+		
+		// list,lastPage,currentPage,rowPerPage model에 담음
 		model.addAttribute("CityList", list);
+		model.addAttribute("lastPage", lastPage);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("rowPerPage", rowPerPage);
 		return "city/cityList";
 	}
 	

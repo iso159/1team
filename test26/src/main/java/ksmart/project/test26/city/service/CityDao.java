@@ -1,6 +1,7 @@
 package ksmart.project.test26.city.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -49,5 +50,18 @@ public class CityDao {
 		//int i 값 콘솔창에서 확인
 		logger.debug("selectCityOne(int cityId) 메서드 cityId is {}",cityId);
 		return sqlSessionTemplate.selectOne(nameSpace + "selectCityOne", cityId);
+	}
+	
+	public List<City> selectListByPerPage(Map map) {
+		List<City> city = sqlSessionTemplate.selectList(nameSpace + "selectListByPerPage", map);
+		logger.debug("selectListByPerPage(Map map)메서드 city is{}", city);
+		return city;
+	}
+	
+	public int selectTotalCount() {
+		
+		int totalCount = sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount");
+		logger.debug("selectTotalCount()메서드 totalCount is {}",totalCount);
+		return totalCount;
 	}
 }
