@@ -70,8 +70,9 @@ public class MovieDao {
 	}
 	
 	// movie 테이블 총 행의 개수 조회
-	public int selectTotalCount() {
-		int totalCount = sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount");
+	public int selectTotalCount(String searchWord) {
+		logger.debug("selectTotalCount() 메서드 map is {}", searchWord);
+		int totalCount = sqlSessionTemplate.selectOne(nameSpace + "selectTotalCount",searchWord);
 		logger.debug("selectTotalCount() 메서드 totalCount is {}", totalCount);
 		return totalCount;
 	}

@@ -48,13 +48,20 @@
 			movie_id as movieId
 			,movie_name as movieName
 		FROM test.movie
+		<if test="searchWord!=null">
+			WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 		ORDER BY movie_id DESC
 		LIMIT #{startRow},#{rowPerPage}
 	</select>
 	
-	<!-- 총 행의 개수 -->
-	<select id="selectTotalCount" resultType="Integer">
-		SELECT COUNT(*)
+	<!-- 총 행 또는 검색 행의 개수 -->
+	<select id="selectTotalCount" parameterType="java.lang.String" resultType="Integer">
+		SELECT COUNT(*) as count
 		FROM test.movie
+		<if test="_parameter!=null">
+			WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
+		</if>
 	</select> 
+	
 </mapper>

@@ -29,22 +29,27 @@ public class MovieController {
 	@RequestMapping(value="/movie/movieList")
 	public String movie(Model model,HttpSession session
 							,@RequestParam(value="currentPage",defaultValue="1",required=false) int currentPage
-							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage) {
+							,@RequestParam(value="rowPerPage",defaultValue="10",required=false) int rowPerPage
+							,@RequestParam(value="searchWord",required=false) String searchWord) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
 		logger.debug("movie(...)메서드 currentPage is {}",currentPage);
 		logger.debug("movie(...)메서드 pagePerRow is {}",rowPerPage);
-		Map map = movieService.getListByPage(currentPage, rowPerPage);
+		logger.debug("movie(...)메서드 searchWord is {}",searchWord);
+		Map map = movieService.getListByPage(currentPage, rowPerPage,searchWord);
 		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력 받음
 		List<Movie> list = (List<Movie>)map.get("list");
 		int lastPage = (Integer)map.get("lastPage");
+		int totalCount = (Integer)map.get("totalCount");
 		// list,lastPage,currentPage,rowPerPage model에 담음
 		model.addAttribute("MovieList",list);
 		model.addAttribute("lastPage",lastPage);
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("rowPerPage",rowPerPage);
+		model.addAttribute("totalCount",totalCount);
+		model.addAttribute("searchWord",searchWord);
 		return "/movie/movieList";
 	}
 	

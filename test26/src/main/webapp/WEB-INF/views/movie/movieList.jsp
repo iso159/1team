@@ -16,8 +16,32 @@
 	<!-- 네비게이션 끝-->
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
-	<div class="container">
+	<div class="container"> 
 		<h2>영화 리스트</h2>
+		<!-- 검색 폼 작업 -->
+		<div>
+			<ul class="nav top-menu">
+				<li>
+						<form class="navbar-form" action="${pageContext.request.contextPath}/movie/movieList?rowPerPage=${rowPerPage}" method="GET">
+							<input class="form-control" name="searchWord" placeholder="Search" type="text">
+							<button type="submit" class="btn btn-danger">검색</button>
+						</form>
+				</li>
+			</ul>
+		</div>
+		
+		<div style="float: right;">
+				<!-- 보여줄 행의 개수 작업 -->
+				<select name="rowPerPage" onchange="location.href=this.value" >
+					<option value="#">개수 선택</option>
+	  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=5&searchWord=${searchWord}">5개씩 보기</option>
+	  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=10&searchWord=${searchWord}">10개씩 보기</option>
+	  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=15&searchWord=${searchWord}">15개씩 보기</option>
+  				</select>
+				<!-- 보여줄 행의 개수 작업 끝 -->
+		</div>  
+		<!-- 검색 폼 작업 끝 -->
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -42,38 +66,60 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div>
-			<h4>영화 개수 : ${MovieList.size()}</h4><br>
-			
-			<!-- 보여줄 행의 개수 작업 -->
-			<select name="rowPerPage" onchange="location.href=this.value">
-				<option value="#">개수 선택</option>
-  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=5">5개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=10">10개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/movie/movieList?rowPerPage=15">15개씩 보기</option>
-  			</select><br>
-  			
+		<div>  			
   			<!-- 이전,다음 작업 -->
-			<ul class="pagination">
-				<c:set var="currentPage" value="${currentPage}"/>
-				<c:if test="${currentPage!=1}">
-  					<li class="page-item">
-  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}">이전</a>
-  					</li>
-  				</c:if>
-  				<c:if test="${currentPage!=lastPage}">
-  					<li class="page-item">
-  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}">다음</a>
-  					</li>
-  				</c:if>
-  			</ul>  			
+  			<div>
+				<ul class="pagination">
+					<c:set var="currentPage" value="${currentPage}"/>
+					<c:if test="${currentPage==1}">
+						<li class="page-item">
+	  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=1&rowPerPage=${rowPerPage}&searchWord=${searchWord}">이전</a>
+	  					</li>
+					</c:if>
+					
+					<c:if test="${currentPage!=1}">
+	  					<li class="page-item">
+	  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">이전</a>
+	  					</li>
+	  				</c:if>
+	  				
+	  				<c:if test="${currentPage!=lastPage}">
+	  					<li class="page-item">
+	  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">다음</a>
+	  					</li>
+	  				</c:if>
+	  				
+	  				<c:if test="${currentPage==lastPage}">
+	  					<li class="page-item">
+	  						<a class="page-link" href="${pageContext.request.contextPath}/movie/movieList?currentPage=${lastPage}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">다음</a>
+	  					</li>
+	  				</c:if>
+	  			</ul>
+  			</div>
+			<!-- 이전,다음 작업 끝 -->
+			<div style="float: right;">
+				<c:set var="searchWord" value="${searchWord}"></c:set>
+				<c:choose>
+					<c:when test="${empty searchWord}">
+						<h4>총 영화 개수 : ${totalCount}</h4>
+					</c:when>
+					
+					<c:when test="${!empty searchWord}">
+						<h4>검색한 영화 개수 : ${totalCount}</h4>
+					</c:when>				
+				</c:choose>
+				현재 페이지 : ${currentPage}<br>
+			</div>
+			
+			<div style="float: right;">
+			<a href="${pageContext.request.contextPath}/movie/movieAdd">
+				<button type="button" class="btn btn-info">입력</button>
+			</a>
+			<a href="${pageContext.request.contextPath}/">
+				<button type="button" class="btn btn-success">홈으로</button>
+			</a>
+			</div>			
 		</div>
-		<a href="${pageContext.request.contextPath}/movie/movieAdd">
-			<button type="button" class="btn btn-info">입력</button>
-		</a>
-		<a href="${pageContext.request.contextPath}/">
-			<button type="button" class="btn btn-success">홈으로</button>
-		</a>
 	</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->

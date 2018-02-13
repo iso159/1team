@@ -58,9 +58,10 @@ public class MovieService {
 		movieDao.deleteMovie(movie);
 	}
 	
-	public Map<String,Object> getListByPage(int currentPage, int rowPerPage){
-		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 currentPage is {}", currentPage);
-		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 rowPerPage is {}", rowPerPage);
+	public Map<String,Object> getListByPage(int currentPage, int rowPerPage, String searchWord){
+		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow, String searchWord) 메서드 currentPage is {}", currentPage);
+		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow, String searchWord) 메서드 rowPerPage is {}", rowPerPage);
+		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow, String searchWord) 메서드 rowPerPage is {}", searchWord);
 		// startRow 선언
 		int startRow = 0;
 		// 현재페이지 * 보여줄 개수로 시작행을 구함
@@ -70,21 +71,24 @@ public class MovieService {
 		// map에 startRow,pagePerRow를 매핑함
 		map.put("startRow",startRow);
 		map.put("rowPerPage", rowPerPage);
-		
+		map.put("searchWord", searchWord);
+
 		// 리턴할 맵객체 생성
 		Map returnMap = new HashMap();
+		// 총 행의 개수 조회 메서드 호출 및 totalCount에 입력
+		int totalCount = movieDao.selectTotalCount(searchWord);
 		// 페이지별로 보여줄 리스트 조회 메서드 호출
 		List<Movie> list = movieDao.selectListByPerPage(map);
 		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 list is {}",list);
-		// 총 행의 개수 조회 메서드 호출 및 totalCount에 입력
-		int totalCount = movieDao.selectTotalCount();
+		
 		logger.debug("Map<String,Object> getListByPage(int currentPage, int pagePerRow) 메서드 totalCount is {}",totalCount);
 		// totalCount와 pagePerRow로 마지막 페이지를 구함
 		int lastPage = (int)Math.ceil(((double)totalCount/(double)rowPerPage));
-		logger.debug("Map<String,Object> getListByPage(int currentPage, int lastPage) 메서드 totalCount is {}",lastPage);
+		logger.debug("Map<String,Object> getListByPage(int currentPage, int lastPage) 메서드 lastPage is {}",lastPage);
 		// returnMap에 list와 lastPage를 매핑함
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
+		returnMap.put("totalCount", totalCount);
 		return returnMap;
 	}
 }
