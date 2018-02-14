@@ -63,5 +63,4 @@
 			WHERE movie_name LIKE CONCAT('%',#{searchWord},'%')
 		</if>
 	</select> 
-	
 </mapper>

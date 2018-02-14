@@ -34,7 +34,7 @@
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">
-		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/country/countryInsert" method="post">
+		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/country/countryAdd" method="post">
 		<div class="row">
 			<div class="col-md-4">
 				<label for="title">국가 이름:</label>

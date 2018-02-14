@@ -36,9 +36,9 @@ public class CountryController {
 	 */
 
 	// insert 입력하기 요청
-	@RequestMapping(value = "/country/countryInsert", method = RequestMethod.GET)
-	public String countryInsert(HttpSession session) {
-		logger.debug("countryInsert(HttpSession session) 메서드 session is {}", session);
+	@RequestMapping(value = "/country/countryAdd", method = RequestMethod.GET)
+	public String countryAdd(HttpSession session) {
+		logger.debug("countryAdd(HttpSession session) 메서드 session is {}", session);
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
@@ -47,7 +47,7 @@ public class CountryController {
 	}
 
 	// insert post방식 요청
-	@RequestMapping(value = "/country/countryInsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/country/countryAdd", method = RequestMethod.POST)
 	public String countryInsert(Country country, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
@@ -72,7 +72,7 @@ public class CountryController {
 	}
 
 	// 수정페이지 요청, 수정할 한 권조회
-	@RequestMapping(value = "/country/countryUpdate", method = RequestMethod.GET)
+	@RequestMapping(value = "/country/countryModify", method = RequestMethod.GET)
 	public String countryOneSelect(Model model, Country country, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
@@ -85,14 +85,14 @@ public class CountryController {
 	}
 
 	// 수정요청
-	@RequestMapping(value = "/country/countryUpdate", method = RequestMethod.POST)
-	public String countryUpdate(Country country, HttpSession session) {
+	@RequestMapping(value = "/country/countryModify", method = RequestMethod.POST)
+	public String countryModify(Country country, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
 		countryService.modifyCountry(country);
-		logger.debug("countryUpdate(Country country,HttpSession session) 메서드 country session is {}", country, session);
+		logger.debug("countryModify(Country country,HttpSession session) 메서드 country session is {}", country, session);
 		return "redirect:/country/countryList";
 	}
 

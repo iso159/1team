@@ -1,12 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<c:url value="/resources/css/bootstrap.min.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 <title>Insert title here</title>
 <script>
 	$("#btnDelete").click(function() {
@@ -34,11 +32,8 @@
 		<div>
 			<ul class="nav top-menu">
 				<li>
-					<form class="navbar-form"
-						action="${pageContext.request.contextPath}/country/countryList?rowPerPage=${rowPerPage}"
-						method="get">
-						<input class="form-control" name="searchWord" placeholder="Search"
-							type="text">
+					<form class="navbar-form" action="${pageContext.request.contextPath}/country/countryList?rowPerPage=${rowPerPage}" method="get">
+						<input class="form-control" name="searchWord" placeholder="Search" type="text">
 						<button type="submit" class="btn btn-danger">검색</button>
 					</form>
 				</li>
@@ -50,21 +45,11 @@
 		<div style="float: right;">
 			<select name="rowPerPage" onchange="location.href=this.value">
 				<option value="#">10개씩 보기</option>
-				<option
-					value="${pageContext.request.contextPath}/country/countryList?rowPerPage=5">5개씩
-					보기</option>
-				<option
-					value="${pageContext.request.contextPath}/country/countryList?rowPerPage=10">10개씩
-					보기</option>
-				<option
-					value="${pageContext.request.contextPath}/country/countryList?rowPerPage=30">30개씩
-					보기</option>
-				<option
-					value="${pageContext.request.contextPath}/country/countryList?rowPerPage=50">50개씩
-					보기</option>
-				<option
-					value="${pageContext.request.contextPath}/country/countryList?rowPerPage=100">100개씩
-					보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=5&searchWord=${searchWord}">5개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=10&searchWord=${searchWord}">10개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=30&searchWord=${searchWord}">30개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=50&searchWord=${searchWord}">50개씩 보기</option>
+				<option value="${pageContext.request.contextPath}/country/countryList?rowPerPage=100&searchWord=${searchWord}">100개씩 보기</option>
 			</select>
 		</div>
 		<table class="table table-striped">
@@ -81,10 +66,8 @@
 					<tr>
 						<td>${C.countryId}</td>
 						<td>${C.countryName}</td>
-						<td><a
-							href="${pageContext.request.contextPath}/country/countryModify?countryId=${C.countryId}">수정</a></td>
-						<td><a
-							href="${pageContext.request.contextPath}/country/countryDelete?countryId=${C.countryId}">삭제</a></td>
+						<td><a href="${pageContext.request.contextPath}/country/countryModify?countryId=${C.countryId}">수정</a></td>
+						<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${C.countryId}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -97,12 +80,10 @@
 			<ul class="pagination">
 				<c:set var="currentPage" value="${currentPage}" />
 				<c:if test="${currentPage!=1}">
-					<li class="page-item"><a class="page-link"
-						href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">이전</a></li>
+					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">이전</a></li>
 				</c:if>
 				<c:if test="${currentPage!=lastPage}">
-					<li class="page-item"><a class="page-link"
-						href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">다음</a></li>
+					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">다음</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -124,8 +105,8 @@
 
 		<div style="float: right;">
 			<a href="${pageContext.request.contextPath}/country/countryAdd">
-				<button type="button" class="btn btn-info">국가 추가</button>
-			</a> <a href="${pageContext.request.contextPath}">
+				<button type="button" class="btn btn-info">국가 추가</button></a> 
+			<a href="${pageContext.request.contextPath}">
 				<button type="button" class="btn btn-success">홈으로</button>
 			</a>
 		</div>

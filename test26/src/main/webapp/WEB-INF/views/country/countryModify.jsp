@@ -37,18 +37,13 @@
 	<!-- 네비게이션 끝-->
 	<div class="container">
 		<h2>국가 수정 화면</h2>
-		<form id="updateForm" class="form-inline"
-			action="${pageContext.request.contextPath}/country/countryUpdate"
-			method="post">
+		<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/country/countryModify" method="post">
 			<div class="row">
 				<div class="col-md-4">
-					<label for="code">국가 코드:</label> <input class="form-control"
-						type="text" name="countryId" value="${Country.countryId}" readonly>
-					<label for="title">국가 제목:</label> <input id="countryTitle"
-						class="form-control" type="text" name="countryName"
+					<label for="code">국가 코드:</label> <input class="form-control" type="text" name="countryId" value="${Country.countryId}" readonly>
+					<label for="title">국가 제목:</label> <input id="countryTitle" class="form-control" type="text" name="countryName"
 						value="${Country.countryName}">
-					<button type="button" id="updateBtn" class="btn btn-info">수정
-						완료</button>
+					<button type="button" id="updateBtn" class="btn btn-info">수정완료</button>
 				</div>
 			</div>
 		</form>
