@@ -35,10 +35,9 @@
 		<!-- 보여줄 행의 개수 작업 -->
 		<div style="float: right;">
 			<select name="rowPerPage" onchange="location.href=this.value">
-				<option value="#">10개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=15">15개씩 보기</option>
+  				<option <c:if test="${rowPerPage == 5}">selected</c:if> value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개씩 보기</option>
+  				<option <c:if test="${rowPerPage == 10}">selected</c:if> value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개씩 보기</option>
+  				<option <c:if test="${rowPerPage == 15}">selected</c:if> value="${pageContext.request.contextPath}/city/cityList?rowPerPage=15">15개씩 보기</option>
   			</select><br>
 		</div>
 		<!-- 도시 데이터 테이블 -->
