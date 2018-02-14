@@ -56,7 +56,7 @@ public class CityService {
 	public Map<String,Object> getListByPage(int currentPage, int rowPerPage, String citySearchWord){
 		logger.debug("getListByPage()메서드 currentPage is {}", currentPage);
 		logger.debug("getListByPage()메서드 rowPerPage is {}", rowPerPage);
-		logger.debug("getListByPage()메서드 rowPerPage is {}", citySearchWord);
+		logger.debug("getListByPage()메서드 citySearchWord is {}", citySearchWord);
 		//startRow선언
 		int startRow = 0;
 		//현재페이지 * 보여줄 개수로 시작행 구함
@@ -77,7 +77,7 @@ public class CityService {
 		int totalCount = citydao.selectTotalCount(map);
 		logger.debug("getListByPage()메서드 totalCount is {}", totalCount);
 		//totalCount와 pagePerRow로 마지막 페이지를 구함
-		int lastPage = (int)Math.ceil(totalCount/rowPerPage);
+		int lastPage = (int)(totalCount/rowPerPage+1);
 		logger.debug("getListByPage()메서드 lastPage is {}", lastPage);
 		
 		//returnMap에 list와 lastPage를 매핑함
