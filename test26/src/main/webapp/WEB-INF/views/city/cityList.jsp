@@ -19,6 +19,7 @@
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">	
 		<h2>도시 리스트</h2>
+		<span>&nbsp;</span>
 		<!-- 도시 검색부분 -->
 		<ul class="nav top-menu">
 			<li>
@@ -29,6 +30,17 @@
 			</form>
 			</li>
 		</ul>
+		<span>&nbsp;</span>
+		<h5>도시 개수 : ${totalCount},&nbsp; 페이지:${currentPage}/${lastPage}</h5>
+		<!-- 보여줄 행의 개수 작업 -->
+		<div style="float: right;">
+			<select name="rowPerPage" onchange="location.href=this.value">
+				<option value="#">10개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개씩 보기</option>
+  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=15">15개씩 보기</option>
+  			</select><br>
+		</div>
 		<!-- 도시 데이터 테이블 -->
 		<table class="table table-striped">
 			<thead>
@@ -50,17 +62,8 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div>				
-			<h4>도시 개수 : ${totalCount}</h4>
-												
-			<!-- 보여줄 행의 개수 작업 -->
-			<select name="rowPerPage" onchange="location.href=this.value">
-				<option value="#">개수 선택</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=5">5개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=10">10개씩 보기</option>
-  				<option value="${pageContext.request.contextPath}/city/cityList?rowPerPage=15">15개씩 보기</option>
-  			</select><br>
-  			
+		<div>													
+			  			
   			<!-- 이전,다음 작업 -->
 			<ul class="pagination">
 				<c:set var="currentPage" value="${currentPage}"/> <!-- currentPage = ${currentPage} -->
