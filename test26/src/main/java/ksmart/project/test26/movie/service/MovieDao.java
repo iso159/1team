@@ -18,6 +18,19 @@ public class MovieDao {
 	// 쿼리 경로를 상수로 입력 
 	private final String nameSpace = "ksmart.project.test26.movie.service.MovieMapper.";
 	
+	// 마지막 입력된 id값 조회
+	public int selectLastId() {
+		int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");
+		logger.debug("selectLastId() 메서드 lastId is {}",lastId);
+		return lastId;
+	}
+	
+	// movieFile 테이블 컬럼 입력
+	public void insertMovieFile(MovieFile movieFile) {
+		logger.debug("insertMovieFile(MovieFile movieFile) 메서드 movieFile is {}",movieFile);
+		sqlSessionTemplate.insert(nameSpace + "insertMovieFile", movieFile);
+	}
+	
 	// movie 테이블 전체 리스트 조회
 	public List<Movie> selectMovieList(){
 		// 아이디가 selectMovieList인 쿼리를 실행해 List<Movie>형태로 받은후 리턴

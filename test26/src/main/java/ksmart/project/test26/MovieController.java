@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.movie.service.Movie;
+import ksmart.project.test26.movie.service.MovieCommand;
 import ksmart.project.test26.movie.service.MovieDao;
 import ksmart.project.test26.movie.service.MovieService;
 
@@ -68,15 +69,15 @@ public class MovieController {
 	
 	// /movie/movieAdd post방식으로 요청시 movieAdd(Movie movie)메서드 호출됨
 	@RequestMapping(value="/movie/movieAdd", method = RequestMethod.POST)
-	public String movieAdd(Movie movie, HttpSession session) {
+	public String movieAdd(MovieCommand movieCommand, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
 		// 매개변수 movie 확인
-		logger.debug("movieAdd(Movie movie, HttpSession session) 메서드 movie is {}",movie);
+		logger.debug("movieAdd(Movie movie, HttpSession session) 메서드 movieCommand is {}",movieCommand);
 		// 입력 서비스 메서드 호출
-		movieService.addMovie(movie);
+		movieService.addMovie(movieCommand);
 		return "redirect:/movie/movieList";
 	}
 	

@@ -35,11 +35,16 @@
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">
 		<h2>영화 입력 화면</h2>
-		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/movie/movieAdd" method="post">
+		<form id="insertForm"
+			  class="form-inline"
+			  enctype="Multipart/form-data"
+			  action="${pageContext.request.contextPath}/movie/movieAdd"
+			  method="post">
 			<div class="row">
 				<div class="col-md-4">
 					<label for="title">영화 제목:</label>
 					<input id="movieTitle" class="form-control"  type="text" name="movieName">
+					<input type="file" name="file" multiple="multiple">
 					<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
 				</div>
 			</div>
