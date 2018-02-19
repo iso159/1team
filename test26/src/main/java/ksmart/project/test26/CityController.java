@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.city.service.City;
+import ksmart.project.test26.city.service.CityCommand;
 import ksmart.project.test26.city.service.CityService;
 
 @Controller
@@ -63,12 +64,15 @@ public class CityController {
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.POST)
-	public String cityAdd(City city,HttpSession session) {
+	public String cityAdd(City city,HttpSession session, CityCommand cityCommand) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
-		cityservice.addCity(city);
+		logger.info("cityAdd(City city,HttpSession session, CityCommand cityCommand)메서드 city is {}", city);
+		logger.debug("fileName :{}",cityCommand);
+		logger.debug("filesize :{}",cityCommand.getFile().size());
+		cityservice.addCity(cityCommand);
 		return "redirect:/city/cityList";
 	}
 	

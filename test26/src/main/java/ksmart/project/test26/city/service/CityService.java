@@ -1,14 +1,18 @@
 package ksmart.project.test26.city.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -38,10 +42,58 @@ public class CityService {
 		citydao.updateCity(city);
 	}
 	//city 추가
-	public void addCity(City city) {
-		
-		logger.debug("addCity(City city) 메서드 city is {}",city);
+	public void addCity(CityCommand cityCommand) {
+		logger.debug("addCity(CityCommand cityCommand) 메서드 cityCommand is {}",cityCommand);
+		City city = new City();
+		city.setCityName(cityCommand.getCityName());
 		citydao.insertCity(city);
+		int cityId = citydao.selectLastId();
+		
+		for(MultipartFile file : cityCommand.getFile()) {
+			// 1. db에 입력
+			CityFile cityFile = new CityFile();
+			UUID uuid = UUID.randomUUID();
+			//파일이름
+			String fileName = uuid.toString();	// 중복되지않은 이름
+			String originalName = file.getOriginalFilename();
+			// 파일확장자
+			int pos = originalName.lastIndexOf(".");
+			String fileExt = originalName.substring(pos+1);
+			// 파일크기
+			long fileSize = file.getSize();
+			// 값들을 셋팅 후 메소드 실행
+			cityFile.setCityId(cityId);
+			cityFile.setFileName(fileName);
+			cityFile.setFileExt(fileExt);
+			cityFile.setFileSize(fileSize);
+			citydao.insertCityFile(cityFile);
+			
+			// 2. 하드디스크에 파일저장
+			File temp = new File("c:\\upload\\"+fileName);
+			try {
+				file.transferTo(temp);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				if(temp.exists()) {
+					// temp 파일 삭제 및 콘솔창으로 확인
+					if(temp.delete()) {
+						logger.debug("addCity(CityCommand cityCommand) 메서드 {} 파일 삭제 성공",temp);
+					}else {
+						logger.debug("addCity(CityCommand cityCommand) 메서드 {} 파일 삭제 실패",temp);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				if(temp.exists()) {
+					// temp 파일 삭제 및 콘솔창으로 확인
+					if(temp.delete()) {
+						logger.debug("addCity(CityCommand cityCommand) 메서드 {} 파일 삭제 성공",temp);
+					}else {
+						logger.debug("addCity(CityCommand cityCommand) 메서드 {} 파일 삭제 실패",temp);
+					}
+				}
+			}
+		}
 	}
 	//한개도시조회
 	public City getCityOne(int cityId) {

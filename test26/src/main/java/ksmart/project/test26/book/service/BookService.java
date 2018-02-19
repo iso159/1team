@@ -102,9 +102,9 @@ public class BookService {
 				if(temp.exists()) {
 					// temp 파일 삭제 및 콘솔창으로 확인
 					if(temp.delete()) {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 성공",temp);
 					}else {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 실패",temp);
 					}
 				}
 			} catch (IOException e) {
@@ -112,13 +112,12 @@ public class BookService {
 				if(temp.exists()) {
 					// temp 파일 삭제 및 콘솔창으로 확인
 					if(temp.delete()) {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 성공",temp);
 					}else {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 실패",temp);
 					}
 				}
 			}
-			
 			
 		}
 	}

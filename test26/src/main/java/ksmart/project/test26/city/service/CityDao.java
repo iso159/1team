@@ -39,6 +39,18 @@ public class CityDao {
 		sqlSessionTemplate.update(nameSpace + "updateCity", city);
 	}
 	
+	// 마지막으로 입력된 id값 조회
+	public int selectLastId() {
+		int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");
+		logger.debug("selectLastId() 메서드 lastId is {}",lastId);
+		return lastId;
+	}
+	
+	// city 파일 입력메소드
+	public int insertCityFile(CityFile cityFile) {
+		logger.debug("insertCityFile(CityFile cityFile) 메서드 cityFile is {}",cityFile);
+		return sqlSessionTemplate.insert(nameSpace + "insertCityFile", cityFile);
+	}
 	public int insertCity(City city) {
 		
 		logger.debug("insertCity(City city) 메서드 movie is {}",city);

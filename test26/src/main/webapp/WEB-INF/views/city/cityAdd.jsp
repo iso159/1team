@@ -36,11 +36,14 @@
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">	
 		<h2>도시 입력 화면</h2>
-		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/city/cityAdd" method="post">
+		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/city/cityAdd" 
+			method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-4">
 					<label for="title">도시 이름:</label>
 					<input id="cityTitle" class="form-control" type="text" name="cityName" value="${city.cityName}">
+					<label for="file">파일</label>
+	  				<input type="file" name="file" multiple="multiple">
 					<button type="button" id="insertBtn" class="btn btn-info">입력</button>
 				</div>
 			</div>
