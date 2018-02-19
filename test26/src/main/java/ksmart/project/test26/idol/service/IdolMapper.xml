@@ -42,6 +42,19 @@
 			(#{idolName})
 	</insert>
 	
+	<!-- idol insert 할때 마지막으로 추가된 idolId 값을 가져옴 -->
+	<select id="selectLastId" resultType="int">
+		select last_insert_id()
+	</select>
+	
+	<!-- idol insert 할때 파일 추가 부분 -->
+	<insert id="insertIdolFile" parameterType="ksmart.project.test26.idol.service.IdolFile">
+		INSERT INTO 
+			idol_file(idol_id,file_name,file_ext,file_size) 
+		VALUE 
+			(#{idolId},#{fileName},#{fileExt},#{fileSize})
+	</insert>
+	
 	<!-- idol delete 아이돌 삭제 -->
 	<delete id="deleteIdol" parameterType="int">
 		DELETE FROM idol 

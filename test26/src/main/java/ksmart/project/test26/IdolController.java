@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.idol.service.Idol;
+import ksmart.project.test26.idol.service.IdolCommand;
 import ksmart.project.test26.idol.service.IdolService;
 
 @Controller
@@ -116,14 +117,14 @@ public class IdolController {
 	
 	/*idol 추가 부분*/
 	@RequestMapping(value="/idol/idolAdd", method = RequestMethod.POST)
-	public String idolAdd(Idol idol,HttpSession session) {
+	public String idolAdd(IdolCommand idolCommand,HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		// idol객체 안에 정보 확인
-		logger.debug("idolAdd(Idol idol,HttpSession session) 메서드 idol is {}",idol);
-		idolService.addIdol(idol);
+		// idolCommand 객체 안에 정보 확인
+		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 idolCommand is {}",idolCommand);
+		idolService.addIdol(idolCommand);
 		return "redirect:/idol/idolList";
 	}
 	

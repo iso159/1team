@@ -1,14 +1,18 @@
 package ksmart.project.test26.idol.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import ksmart.project.test26.idol.service.Idol;
 import ksmart.project.test26.movie.service.MovieService;
@@ -68,10 +72,47 @@ public class IdolService {
 	}
 	
 	/*아이돌 추가*/
-	public void addIdol(Idol idol) {
+	public void addIdol(IdolCommand idolCommand) {
+		// idolCommand 객체안에 정보 확인
+		logger.debug("addIdol(IdolCommand idolCommand) 메서드 idolCommand is {}",idolCommand);
+		//1.아이돌 추가
+		Idol idol = new Idol();
+		idol.setIdolName(idolCommand.getIdolTitle());
 		// idol 객체안에 정보 확인
-		logger.debug("addIdol(Idol idol) 메서드 idol is {}",idol);
+		logger.debug("addIdol(IdolCommand idolCommand) 메서드 idol is {}",idol);
 		idolDao.insertIdol(idol);
+		// lastIdolId 구함
+		int lastIdolId = idolDao.selectLastId();
+		logger.debug("addIdol(IdolCommand idolCommand) 메서드 lastIdolId is {}",lastIdolId);
+		//2.들어온 파일 정보 입력
+		for(MultipartFile file : idolCommand.getFile()) {
+			IdolFile idolFile = new IdolFile();
+			//2-0.마지막에 넣은 아이디 값
+			idolFile.setIdolId(lastIdolId);
+			//2-1.파일 이름
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid.toString();
+			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileName is {}",fileName);
+			idolFile.setFileName(fileName);
+			//2-2.파일 확장자
+			String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileExt is {}",fileExt);
+			idolFile.setFileExt(fileExt);
+			//2-3.파일 사이즈
+			long fileSize = file.getSize();
+			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileSize is {}",fileSize);
+			idolFile.setFileSize(fileSize);;
+			//2-4.파일 저장
+			File temp = new File("c:\\upload\\"+fileName);
+			try {
+				file.transferTo(temp);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			idolDao.insertIdol(idolFile);
+		}
 	}
 	
 	/*아이돌 삭제부분*/

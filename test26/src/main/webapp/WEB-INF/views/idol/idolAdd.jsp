@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>하면 된다</title>
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
@@ -33,11 +34,13 @@
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">
 		<h2>아이돌 입력 화면</h2>
-		<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/idol/idolAdd" method="post">
+		<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/idol/idolAdd" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-4">
 					<label for="title">아이돌 이름:</label>
-					<input class="form-control" type="text" name="idolName" id="inputidolName">
+					<input class="form-control" type="text" name="idolTitle" id="inputidolName">
+					<label for="title">아이돌 파일:</label>
+					<input type="file" name="file" multiple="multiple">
 					<button type="button" id="idolButton" class="btn btn-info">입력</button>
 				</div>
 			</div>

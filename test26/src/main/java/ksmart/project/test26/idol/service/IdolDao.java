@@ -54,6 +54,20 @@ public class IdolDao {
 		sqlSessionTemplate.insert(nameSpace + "insertIdol", idol);
 	}
 	
+	/*아이돌 추가시 마지막 Id값 찾는부분*/
+	public int selectLastId() {
+		int LastId = sqlSessionTemplate.selectOne(nameSpace + "selectLastId");
+		logger.debug("selectLastId() 메서드 LastId is {}",LastId);
+		return LastId;
+	}
+	
+	/*아이돌 추가시 파일첨부*/
+	public void insertIdol(IdolFile idolFile) {
+		// 받아온 idolFile 객체 확인
+		logger.debug("insertIdol(IdolFile idolFile) 메서드 idolFile is {}",idolFile);
+		sqlSessionTemplate.insert(nameSpace + "insertIdolFile", idolFile);
+	}
+	
 	/*아이돌 삭제부분*/
 	public void deleteIdol(int idolId) {
 		// 받아온 idolId 확인
