@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.book.service.Book;
+import ksmart.project.test26.book.service.BookCommand;
 import ksmart.project.test26.book.service.BookDao;
 import ksmart.project.test26.book.service.BookService;
 
@@ -58,17 +59,7 @@ public class BookController {
 		return "/book/bookList";
 	
 	}
-	// 입력요청
-	@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
-	public String bookInsert(Book book,HttpSession session) {
-		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
-		if(session.getAttribute("loginMember")==null) {
-			return "redirect:/member/login";
-		}
-		logger.info("bookInsert(Book book,HttpSession session) 메서드 book is {}", book);
-		bookService.addBook(book);
-		return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
-	}
+	
 	// 입력페이지요청
 	@RequestMapping(value="/book/bookAdd", method = RequestMethod.GET)
 	public String bookInsert(HttpSession session) {
@@ -80,6 +71,20 @@ public class BookController {
 		return "/book/bookAdd";
 	}
 	
+	// 입력요청(파일추가)
+		@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
+		public String bookInsert(Book book,HttpSession session, BookCommand bookCommand) {
+			// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+			if(session.getAttribute("loginMember")==null) {
+				return "redirect:/member/login";
+			}
+			logger.info("bookInsert(Book book,HttpSession session) 메서드 book is {}", book);
+			logger.debug("fileName :{}",bookCommand);
+			logger.debug("filesize :{}",bookCommand.getFile().size());
+			bookService.addBook(bookCommand);
+			return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
+		}
+		
 	// 삭제요청
 	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
 	public String bookDelete(@RequestParam(value="bookId", required=true) int bookId,HttpSession session) {
@@ -92,7 +97,7 @@ public class BookController {
 		return "redirect:/book/bookList";
 	}
 	
-	// 수정페이지 요청, 수정할 한 권조회
+	// 수정페이지 요청, 수정할 한 권조회, 파일추가
 	@RequestMapping(value="/book/bookModify", method = RequestMethod.GET)
 	public String bookOneSelect(Model model,@RequestParam(value="bookId", required=true) int bookId,HttpSession session ) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
@@ -119,4 +124,5 @@ public class BookController {
 		return "redirect:/book/bookList";
 	}
 	
+
 }

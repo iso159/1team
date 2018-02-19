@@ -35,16 +35,18 @@
 	<!-- 메인 화면 내용 부분 -->
 		<div class="container">
 			<h2>Book 입력 화면</h2>
-				<form class="form-inline" id="addForm" action="${pageContext.request.contextPath}/book/bookAdd" method="post">
+				<form 	class="form-inline" id="addForm" action="${pageContext.request.contextPath}/book/bookAdd" 
+						method="post" enctype="multipart/form-data">
 					<div class ="row">
 						<div class="col-md-4">
 							<label for="title">책이름</label>
 							<input id="bookName" class="form-control" type="text" name="bookName" >
+	  						<label for="file">파일</label>
+	  						<input type="file" name="file" multiple="multiple">
 							<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
 						</div>
 					</div>
 				</form>
-			
 		</div>
 	<!-- 메인 화면 내용 끝 -->
 	<!-- 부트스트랩 가져온곳 삭제x -->

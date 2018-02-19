@@ -1,14 +1,18 @@
 package ksmart.project.test26.book.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import ksmart.project.test26.BookController;
 
@@ -44,9 +48,6 @@ public class BookService {
 		int lastPage = ((totalCount / rowPerPage) +1);
 		logger.debug("getListByPage () 메서드 lastPage is {}",lastPage);
 		
-		
-		
-		
 		// 매핑한 list,lastPage를 returnMap에 담고 리턴
 		Map returnMap = new HashMap();
 		returnMap.put("list", list);
@@ -66,9 +67,60 @@ public class BookService {
 	}
 	
 	// 입력
-	public void addBook(Book book) {
-		logger.debug("addBook(Book book) 메서드 book is {}",book);
+	public void addBook(BookCommand bookCommand)  {
+		logger.debug("addBook(BookCommand bookCommand) 메서드 bookCommand is {}",bookCommand);
+		Book book = new Book();
+		book.setBookName(bookCommand.getBookName());
 		bookDao.insertBook(book);
+		int bookId = bookDao.selectLastId();
+		
+		for(MultipartFile file : bookCommand.getFile()) {
+			// 1. db에 입력
+			BookFile bookFile = new BookFile();
+				UUID uuid = UUID.randomUUID();
+				// 파일이름
+				String fileName = uuid.toString();	// 중복되지않은 이름
+				String originalName = file.getOriginalFilename();
+				// 파일확장자
+				int pos = originalName.lastIndexOf(".");
+				String fileExt = originalName.substring(pos+1);
+				// 파일크기
+				long fileSize = file.getSize();
+				// 값들을 셋팅 후 메소드 실행
+				bookFile.setBookId(bookId);
+				bookFile.setFileName(fileName);
+				bookFile.setFileExt(fileExt);
+				bookFile.setFileSize(fileSize);
+				bookDao.insertBookFile(bookFile);
+			
+			// 2. 하드디스크에 파일저장
+			File temp = new File("c:\\upload\\"+fileName);
+			try {
+				file.transferTo(temp);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				if(temp.exists()) {
+					// temp 파일 삭제 및 콘솔창으로 확인
+					if(temp.delete()) {
+						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+					}else {
+						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				if(temp.exists()) {
+					// temp 파일 삭제 및 콘솔창으로 확인
+					if(temp.delete()) {
+						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+					}else {
+						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+					}
+				}
+			}
+			
+			
+		}
 	}
 	// 삭제
 	public void removeBook(int bookId) {

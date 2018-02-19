@@ -42,6 +42,19 @@ public class BookDao {
 		sqlSessionTemplate.insert(nameSpace + "insertBook", book);
 	}
 	
+	// 마지막으로 입력된 ID값 조회
+		public int selectLastId() {
+			int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");
+			logger.debug("selectLastId() 메서드 lastId is {}",lastId);
+			return lastId;
+		}
+		
+	// Book 파일 입력 메소드
+	public int insertBookFile(BookFile bookFile) {
+		logger.debug("insertBookFile(BookFile bookFile) 메서드 bookFile is {}",bookFile);
+		return sqlSessionTemplate.insert(nameSpace + "insertBookFile", bookFile);
+	}
+	
 	// Book 삭제 메소드
 	public void deleteBook(int bookId) {
 		logger.debug("deleteBook(int bookId) 메서드 bookId is {}",bookId);

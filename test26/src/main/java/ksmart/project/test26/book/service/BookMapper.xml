@@ -70,8 +70,28 @@
 	 	INSERT INTO 
 	 		book (book_name) 
 		VALUES (#{bookName})
+		
 	</insert>
-  
+	
+	<!-- 마지막으로 입력된 ID값 조회 쿼리문 -->
+	<select id="selectLastId" resultType="Integer">
+        	SELECT LAST_INSERT_ID()
+    </select>
+	
+	<!--  Book 파일입력 쿼리문 -->
+	<insert id="insertBookFile"
+  			parameterType="ksmart.project.test26.book.service.BookFile">
+		INSERT INTO 
+		 	book_file (	book_id, 
+		 				file_name, 
+		 				file_ext, 
+		 				file_size	) 
+			VALUES (	#{bookId},
+						#{fileName},
+						#{fileExt},
+						#{fileSize}	)
+	</insert>
+	
 	<!-- Book 삭제 쿼리문 -->
 	<delete id="deleteBook"
   			parameterType="ksmart.project.test26.book.service.Book">
