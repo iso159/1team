@@ -26,7 +26,9 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>
+	
 	<context:component-scan base-package="ksmart.project.test26" />
 
 	<!-- 커넥션 풀 설정 -->
