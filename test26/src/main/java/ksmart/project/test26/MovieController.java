@@ -76,8 +76,12 @@ public class MovieController {
 		}
 		// 매개변수 movie 확인
 		logger.debug("movieAdd(Movie movie, HttpSession session) 메서드 movieCommand is {}",movieCommand);
+		// resource 폴더 경로 받음
+		String path = session.getServletContext().getRealPath("/");
+		path += "resources/upload/";
+		logger.debug("movieAdd(MovieCommand movieCommand, HttpSession session) 메서드 path is {}",path);
 		// 입력 서비스 메서드 호출
-		movieService.addMovie(movieCommand);
+		movieService.addMovie(movieCommand,path);
 		return "redirect:/movie/movieList";
 	}
 	

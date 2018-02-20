@@ -22,7 +22,6 @@ import ksmart.project.test26.MovieController;
 public class MovieService {
 	@Autowired
 	private MovieDao movieDao;
-	private final String filePath = "c:\\upload\\";
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
 	public List<Movie> getMovieList(){
@@ -33,7 +32,7 @@ public class MovieService {
 		return list;
 	}
 	
-	public void addMovie(MovieCommand movieCommand) {
+	public void addMovie(MovieCommand movieCommand, String path) {
 		// 매개변수 movie 값 확인
 		logger.debug("addMovie(MovieCommand movieCommand) 메서드 movieCommand is {}",movieCommand);
 		// Movie 생성자로 객체 생성
@@ -76,7 +75,7 @@ public class MovieService {
 			movieDao.insertMovieFile(movieFile);
 			
 			// 파일을 하드디스크에 저장할 경로 설정
-			File temp = new File(filePath + fileName);
+			File temp = new File(path + fileName);
 			
 			// 빈 파일에 등록한 파일을 이동시킴
 			try {
