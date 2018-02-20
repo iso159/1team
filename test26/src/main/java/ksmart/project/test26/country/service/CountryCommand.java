@@ -1,8 +1,13 @@
 package ksmart.project.test26.country.service;
 
-public class Country {
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+public class CountryCommand {
 	private int countryId;
 	private String countryName;
+	private List<MultipartFile> file;
 
 	public int getCountryId() {
 		return countryId;
@@ -20,9 +25,17 @@ public class Country {
 		this.countryName = countryName;
 	}
 
+	public List<MultipartFile> getFile() {
+		return file;
+	}
+
+	public void setFile(List<MultipartFile> file) {
+		this.file = file;
+	}
+
 	@Override
 	public String toString() {
-		return "Country [countryId=" + countryId + ", countryName=" + countryName + "]";
+		return "CountryCommand [countryId=" + countryId + ", countryName=" + countryName + ", file=" + file + "]";
 	}
 
 }

@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>하면 된다</title>
-<script
-	src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
+
 </head>
 <script>
 	$(document).ready(function() {
@@ -34,11 +36,17 @@
 	<!-- 메인 화면  -->
 	<!-- 메인 화면 내용 부분 -->
 	<div class="container">
-		<form id="insertForm" class="form-inline" action="${pageContext.request.contextPath}/country/countryAdd" method="post">
+ 	<form id="insertForm" 
+ 		  class="form-inline"
+ 		  enctype="multipart/form-data" 
+ 		  action="${pageContext.request.contextPath}/country/countryAdd" 
+ 		  method="post">
 		<div class="row">
 			<div class="col-md-4">
 				<label for="title">국가 이름:</label>
 				<input id="countryTitle" class="form-control"  type="text" name="countryName">
+				<!-- multiple="multiple 파일을 여러개 넘기게 한다. html5부터 사용가능 -->
+				파일 : <input type="file" name="file" multiple="multiple">
 				<button type="button" id="insertBtn" class="btn btn-info">입력 완료</button>
 			</div>
 		</div>
@@ -52,4 +60,5 @@
 	<!-- 컨테이너 부분 -->
 	<jsp:include page="../module/hadan.jsp" />
 </body>
+<script src="resources/js/jquery/yboard.js"></script>
 </html>

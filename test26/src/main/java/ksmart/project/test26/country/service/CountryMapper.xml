@@ -41,8 +41,9 @@
 	</insert>
 
 	<!-- 총 페이지 개수 -->
-	<select id="selectTotalCount" parameterType="java.lang.String" resultType="Integer">
-	SELECT COUNT(*) as count
+	<select id="selectTotalCount" parameterType="java.lang.String"
+		resultType="Integer">
+		SELECT COUNT(*) as count
 		FROM test.country
 		<if test="_parameter!=null">
 			WHERE country_name LIKE CONCAT('%',#{searchWord},'%')
@@ -64,4 +65,15 @@
 		LIMIT #{startRow},#{rowPerPage}
 		<!-- 시작행, 보여줄 행의 수 -->
 	</select>
+
+	<select id="selectLastId" resultType="Integer">
+		SELECT LAST_INSERT_iD();
+	</select>
+	
+	<insert id="insertCountryFile" parameterType="ksmart.project.test26.country.service.CountryFile">
+		INSERT INTO
+		test.country_file (country_id, file_name, file_ext, file_size)
+		VALUES
+		(#{countryId},#{fileName},#{fileExt},#{fileSize});
+	</insert>
 </mapper>

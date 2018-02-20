@@ -1,8 +1,11 @@
 package ksmart.project.test26.country.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -10,7 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
 import ksmart.project.test26.CountryController;
+import ksmart.project.test26.country.service.Country;
+import ksmart.project.test26.country.service.CountryCommand;
+import ksmart.project.test26.country.service.CountryFile;
 
 @Service
 @Transactional
@@ -59,7 +67,6 @@ public class CountryService {
 	}
 
 	// 페이지당 보여줄 개수
-
 	public Map<String, Object> getListByPage(int currentPage, int rowPerPage, String searchWord) {
 		logger.debug("getListByPage(int currentPage, int rowPerPage) 메서드 currentPage is {}", currentPage);
 		logger.debug("getListByPage(int currentPage, int rowPerPage) 메서드 currentPage is {}", rowPerPage);
@@ -88,9 +95,66 @@ public class CountryService {
 		int lastPage = (int) Math.ceil((double) totalCount / (double) rowPerPage);
 		returnMap.put("list", list);
 		returnMap.put("lastPage", lastPage);
-		/*returnMap.put("searchWord", searchWord);*/
+		/* returnMap.put("searchWord", searchWord); */
 		returnMap.put("totalCount", totalCount);
-		/*logger.debug("01. searchWord{}", searchWord);*/
+		/* logger.debug("01. searchWord{}", searchWord); */
 		return returnMap;
+	}
+
+	public void addCountry(CountryCommand countryCommand){
+		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand);
+		Country country = new Country();
+		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand.getCountryName());
+		country.setCountryName(countryCommand.getCountryName());
+		countryDao.insertCountry(country);
+		logger.debug("countryDao.insertCountry(country) country is {}", country);
+		int countryId = countryDao.selectLastId();
+		logger.debug("int countryId = countryDao.selectLastId(); countryId is {}", countryId);
+
+		for (MultipartFile file : countryCommand.getFile()) {
+			// 1. DB에 입력...
+			CountryFile countryFile = new CountryFile();
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid.toString(); // 중복되지않은 이름 랜덤...
+			String originalName = file.getOriginalFilename();
+			int pos = originalName.lastIndexOf(".");
+			// 오리지널 이름에서 마지막 .
+			String fileExt = originalName.substring(pos+1); // 오지리널 파일 확장자
+
+			long fileSize = file.getSize(); // 오지리널 파일 사이즈
+			logger.debug("long fileSize = file.getSize() fileSize is {}", fileSize);
+			
+			countryFile.setCountryId(countryId);
+			logger.debug("countryFile.setFileName(fileName) countryId is {}", countryId);
+			countryFile.setFileName(fileName);
+			logger.debug("countryFile.setFileName(fileName) fileName is {}", fileName);
+			countryFile.setFileExt(fileExt);
+			logger.debug("countryFile.setFileExt(fileExt) fileExt is {}", fileExt);
+			countryFile.setFileSize(fileSize);
+			logger.debug("countryFile.setFileSize(fileSize) fileSize is {}", fileSize);
+			
+			countryDao.insertCountryFile(countryFile);
+			// 2. 파일을 저장
+			File temp = new File("c:\\upload\\" + fileName);
+			try {
+				file.transferTo(temp);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+				if (temp.exists()) {
+					if (temp.delete()) {
+						logger.debug("addCountry(CountryCommand countryCommand) 메서드 {} 파일 삭제 성공", temp);
+					} else {
+						logger.debug("addCountry(CountryCommand countryCommand) 메서드 {} 파일 삭제 실패", temp);
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				if (temp.exists()) {
+					logger.debug("addCountry(CountryCommand countryCommand) 메서드 {} 파일 삭제 성공", temp);
+				} else {
+					logger.debug("addCountry(CountryCommand countryCommand) 메서드 {} 파일 삭제 실패", temp);
+				}
+			}
+		}
 	}
 }
