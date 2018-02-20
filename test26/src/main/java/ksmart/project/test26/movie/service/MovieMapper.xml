@@ -3,6 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.movie.service.MovieMapper">
+	<resultMap type="ksmart.project.test26.movie.service.MovieAndMovieFile"
+			   id="MovieJoinMovieFileMap">
+			   <id column="movie_id" property="movieId"/>
+			   <result column="movie_name" property="movieName"/>
+			   <collection property="list" ofType="ksmart.project.test26.movie.service.MovieFile">
+			   		<id column="movie_file_id" property="movieFileId"/>
+			   		<result column="file_name" property="fileName"/>
+			   		<result column="file_ext" property="fileExt"/>
+			   		<result column="file_size" property="fileSize"/>
+			   </collection>
+	</resultMap>
+
+	<!-- movie테이블 기본키를 참조해 movie_file 테이블 조회 -->
+	<select id="selectMovieAndMovieFile" parameterType="Integer"  resultMap="MovieJoinMovieFileMap">
+		SELECT
+			m.movie_id
+			,m.movie_name
+			,mf.movie_file_id
+			,mf.file_name
+			,mf.file_ext
+			,mf.file_size
+		FROM test.movie m INNER JOIN test.movie_file mf
+		ON m.movie_id = mf.movie_id
+		WHERE m.movie_id = #{id}
+	</select>
 	<!-- 마지막으로 입력한 키값 조회 -->
 	<select id="selectLastId" resultType="Integer">
 		SELECT LAST_INSERT_ID();

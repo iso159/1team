@@ -24,6 +24,14 @@ public class MovieService {
 	private MovieDao movieDao;
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
+	public MovieAndMovieFile getMovieAndMovieFile(int movieId) {
+		logger.debug("getMovieAndMovieFile(int movieId) 메서드 movieId is {}",movieId);
+		MovieAndMovieFile movieAndMovieFile = movieDao.selectMovieAndMovieFile(movieId);
+		logger.debug("getMovieAndMovieFile(int movieId) 메서드 movieAndMovieFile is {}",movieAndMovieFile);
+		
+		return movieAndMovieFile;
+	}
+	
 	public List<Movie> getMovieList(){
 		// 전체 영화 조회 메서드 호출 후 리턴 받음
 		List<Movie> list = movieDao.selectMovieList();

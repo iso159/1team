@@ -18,6 +18,14 @@ public class MovieDao {
 	// 쿼리 경로를 상수로 입력 
 	private final String nameSpace = "ksmart.project.test26.movie.service.MovieMapper.";
 	
+	// movie 테이블과 movieFile 조인 결과 조회
+	public MovieAndMovieFile selectMovieAndMovieFile(int movieId) {
+		logger.debug("selectMovieAndMovieFile(int movieId) 메서드 movieId is {}", movieId);
+		MovieAndMovieFile movieAndMovieFile = sqlSessionTemplate.selectOne(nameSpace + "selectMovieAndMovieFile", movieId);
+		logger.debug("selectMovieAndMovieFile(int movieId) 메서드 movieAndMovieFile is {}", movieAndMovieFile);
+		return movieAndMovieFile;
+	}
+	
 	// 마지막 입력된 id값 조회
 	public int selectLastId() {
 		int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");

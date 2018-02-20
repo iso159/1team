@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.movie.service.Movie;
+import ksmart.project.test26.movie.service.MovieAndMovieFile;
 import ksmart.project.test26.movie.service.MovieCommand;
 import ksmart.project.test26.movie.service.MovieDao;
 import ksmart.project.test26.movie.service.MovieService;
@@ -25,6 +26,24 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+	
+	// /movie/movieFileList 요청시 메서드 호출됨
+	@RequestMapping(value="/movie/movieFileList")
+	public String movieFile(Model model, HttpSession session
+								,@RequestParam(value="movieId") int movieId) {
+		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		logger.debug("movieFile(...) 메서드 movieId is {}", movieId);
+		MovieAndMovieFile movieFile = movieService.getMovieAndMovieFile(movieId);
+		logger.debug("movieFile(...) 메서드 movieFile is {}", movieFile);
+		model.addAttribute("movieFile", movieFile);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/upload/";
+		model.addAttribute("realPath", realPath);
+		return "/movie/movieFileList";
+	}
 	
 	// /movie/movieList 요청시 movie메서드 호출됨
 	@RequestMapping(value="/movie/movieList")
