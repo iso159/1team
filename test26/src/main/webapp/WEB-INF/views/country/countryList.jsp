@@ -65,7 +65,7 @@
 				<c:forEach var="C" items="${CountryList}">
 					<tr>
 						<td>${C.countryId}</td>
-						<td>${C.countryName}</td>
+						<td><a href="${pageContext.request.contextPath}/country/countryFileList?countryId=${C.countryId}">${C.countryName}</a></td>
 						<td><a href="${pageContext.request.contextPath}/country/countryModify?countryId=${C.countryId}">수정</a></td>
 						<td><a href="${pageContext.request.contextPath}/country/countryDelete?countryId=${C.countryId}">삭제</a></td>
 					</tr>
@@ -102,7 +102,7 @@
 			</c:choose>
 			현재 페이지 : ${currentPage}<br>
 		</div>
-
+			
 		<div style="float: right;">
 			<a href="${pageContext.request.contextPath}/country/countryAdd">
 				<button type="button" class="btn btn-info">국가 추가</button></a> 

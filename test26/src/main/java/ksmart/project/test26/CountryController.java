@@ -1,6 +1,5 @@
 package ksmart.project.test26;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.country.service.Country;
+import ksmart.project.test26.country.service.CountryAndCountryFile;
 import ksmart.project.test26.country.service.CountryCommand;
 import ksmart.project.test26.country.service.CountryDao;
 import ksmart.project.test26.country.service.CountryService;
@@ -27,14 +27,16 @@ public class CountryController {
 	private CountryService countryService;
 	private static final Logger logger = LoggerFactory.getLogger(CountryController.class);
 
-/*	@RequestMapping(value = "/country/countryList") 
-	public String country(Model model, HttpSession session) { // 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트 if
-	  (session.getAttribute("loginMember") == null) {
-	  logger.debug("country(Model model,HttpSession session) 메서드 model is {}",
-	  model); return "redirect:/member/login"; } List<Country> list =
-	  countryService.getCountryList(); model.addAttribute("CountryList", list);
-	  logger.debug("country(Model model,HttpSession session) 메서드 list is {}",
-	  list); return "country/countryList"; }*/
+	/*
+	 * @RequestMapping(value = "/country/countryList") public String country(Model
+	 * model, HttpSession session) { // 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트 if
+	 * (session.getAttribute("loginMember") == null) {
+	 * logger.debug("country(Model model,HttpSession session) 메서드 model is {}",
+	 * model); return "redirect:/member/login"; } List<Country> list =
+	 * countryService.getCountryList(); model.addAttribute("CountryList", list);
+	 * logger.debug("country(Model model,HttpSession session) 메서드 list is {}",
+	 * list); return "country/countryList"; }
+	 */
 
 	// insert 입력하기 요청
 	@RequestMapping(value = "/country/countryAdd", method = RequestMethod.GET)
@@ -54,7 +56,10 @@ public class CountryController {
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		countryService.addCountry(countryCommand);
+		String path = session.getServletContext().getRealPath("/");
+		path += "/resources/upload/";
+		logger.debug("countryInsert(CountryCommand countryCommand, HttpSession session) 메서드 path is {}", path);
+		countryService.addCountry(countryCommand, path);
 		logger.debug("countryInsert(Country country,HttpSession session) 메서드 countryCommand is {}", countryCommand);
 		return "redirect:/country/countryList";
 	}
@@ -107,15 +112,9 @@ public class CountryController {
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		logger.debug(
-				"country(Model model, HttpSession session, @RequestParam(value = \"currentPage\", defaultValue = \"1\", required = false) int currentPage 메서드 currentPage is {}",
-				currentPage);
-		logger.debug(
-				"country(Model model, HttpSession session, @RequestParam(value = \"rowPerPage\", defaultValue = \"10\", required = false) int rowPerPage is {}",
-				rowPerPage);
-		logger.debug(
-				"country(Model model, HttpSession session, @RequestParam(value = \"searchWord\", required = false) String searchWord is {}",
-				searchWord);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"currentPage\", defaultValue = \"1\", required = false) int currentPage 메서드 currentPage is {}", currentPage);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"rowPerPage\", defaultValue = \"10\", required = false) int rowPerPage is {}", rowPerPage);
+		logger.debug("country(Model model, HttpSession session, @RequestParam(value = \"searchWord\", required = false) String searchWord is {}", searchWord);
 		Map map = countryService.getListByPage(currentPage, rowPerPage, searchWord);
 		// map에서 형변환으로 list와 lastPage변수를 꺼내 값을 입력 받음
 		@SuppressWarnings("unchecked")
@@ -131,6 +130,22 @@ public class CountryController {
 		model.addAttribute("totalCount", totalCount);
 		logger.debug("searchWord{}", searchWord);
 		return "/country/countryList";
+	}
+	@RequestMapping(value="/country/countryFileList")
+	public String countryFile(Model model, HttpSession session
+								,@RequestParam(value="countryId") int countryId) {
+		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		logger.debug("countryFile(Model model, HttpSession session\r\n" + ",@RequestParam(value=\"countryId\") int countryId) 메서드 countryId is {}", countryId);
+		CountryAndCountryFile countryFile = countryService.getCountryAndCountryFile(countryId);
+		logger.debug("countryFile(Model model, HttpSession session\\r\\n\" + \",@RequestParam(value=\\\"countryId\\\") int countryId) 메서드 countryFile is {}", countryFile);
+		model.addAttribute("countryFile", countryFile);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/upload/";
+		model.addAttribute("realPath", realPath);
+		return "/country/countryFileList";
 	}
 
 }

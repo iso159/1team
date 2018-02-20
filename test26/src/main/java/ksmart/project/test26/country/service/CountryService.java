@@ -19,6 +19,7 @@ import ksmart.project.test26.CountryController;
 import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryCommand;
 import ksmart.project.test26.country.service.CountryFile;
+import ksmart.project.test26.movie.service.MovieAndMovieFile;
 
 @Service
 @Transactional
@@ -101,8 +102,9 @@ public class CountryService {
 		return returnMap;
 	}
 
-	public void addCountry(CountryCommand countryCommand){
+	public void addCountry(CountryCommand countryCommand, String path){
 		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand);
+		logger.debug("addCountry(CountryCommand countryCommand) 메서드 path is {}", path);
 		Country country = new Country();
 		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand.getCountryName());
 		country.setCountryName(countryCommand.getCountryName());
@@ -118,6 +120,7 @@ public class CountryService {
 			String fileName = uuid.toString(); // 중복되지않은 이름 랜덤...
 			String originalName = file.getOriginalFilename();
 			int pos = originalName.lastIndexOf(".");
+			logger.debug("addCountry(CountryCommand countryCommand, String path) 메서드 pos is {}", pos);
 			// 오리지널 이름에서 마지막 .
 			String fileExt = originalName.substring(pos+1); // 오지리널 파일 확장자
 
@@ -135,7 +138,7 @@ public class CountryService {
 			
 			countryDao.insertCountryFile(countryFile);
 			// 2. 파일을 저장
-			File temp = new File("c:\\upload\\" + fileName);
+			File temp = new File(path + fileName);
 			try {
 				file.transferTo(temp);
 			} catch (IllegalStateException e) {
@@ -156,5 +159,11 @@ public class CountryService {
 				}
 			}
 		}
+	}
+
+	public CountryAndCountryFile getCountryAndCountryFile(int countryId) {
+		logger.debug("getCountryAndCountryFile(int countryId)");
+		CountryAndCountryFile countryAndCountryFile = countryDao.selectCountryAndCountryFile(countryId);
+		return countryAndCountryFile;
 	}
 }

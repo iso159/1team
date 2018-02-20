@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.cursor.Cursor;
+import org.apache.ibatis.session.ResultHandler;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 
 import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryFile;
+import ksmart.project.test26.movie.service.MovieAndMovieFile;
+import ksmart.project.test26.movie.service.MovieFile;
 
 //@Repository를 적으면 객체가 미리 생성되서 CountryDao를 AutoWired로 객체에 주입할수있음
 @Repository
@@ -80,4 +83,14 @@ public class CountryDao {
 		logger.debug("insertCountryFile(CountryFile countryFile) 메서드 countryFile is {}", countryFile);
 		sqlSessionTemplate.insert(nameSpace + "insertCountryFile", countryFile);
 	}
+	
+
+	public CountryAndCountryFile selectCountryAndCountryFile(int countryId) {
+		CountryAndCountryFile countryAndCountry = sqlSessionTemplate.selectOne(nameSpace + "selectCountryAndCountryFile", countryId);
+		// TODO Auto-generated method stub
+		return countryAndCountry;
+	}
+
+
+		
 }
