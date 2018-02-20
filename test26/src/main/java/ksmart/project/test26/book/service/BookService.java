@@ -65,9 +65,15 @@ public class BookService {
 		logger.debug("getBookList () 메서드 list is {}",list);
 		return list;
 	}
+	// 파일리스트조회
+	public BookAndBookFile getBookFileList(int bookId) {
+		BookAndBookFile bookAndBookFile = bookDao.selectBookAndBookFile(bookId);
+		logger.debug("getBookFileList(int bookId) bookAndBookFile is {}",bookAndBookFile);
+		return bookAndBookFile;
+	}
 	
 	// 입력
-	public void addBook(BookCommand bookCommand)  {
+	public void addBook(BookCommand bookCommand, String path)  {
 		logger.debug("addBook(BookCommand bookCommand) 메서드 bookCommand is {}",bookCommand);
 		Book book = new Book();
 		book.setBookName(bookCommand.getBookName());
@@ -94,7 +100,7 @@ public class BookService {
 				bookDao.insertBookFile(bookFile);
 			
 			// 2. 하드디스크에 파일저장
-			File temp = new File("c:\\upload\\"+fileName);
+			File temp = new File(path+fileName);
 			try {
 				file.transferTo(temp);
 			} catch (IllegalStateException e) {

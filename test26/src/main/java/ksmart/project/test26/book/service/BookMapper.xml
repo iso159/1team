@@ -3,6 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.book.service.BookMapper">
+
+	<!-- BookAndBookFile 리스트값 파라미터로받기 -->
+	<resultMap 	type="ksmart.project.test26.book.service.BookAndBookFile" 
+				id="BookAndBookFileMap">
+		<id column="book_id" property="bookId"/>
+		<result column="book_name" property="bookName"/>
+		<collection property="list" ofType="ksmart.project.test26.book.service.BookFile">
+			<id column="book_file_id" property="bookFileId"/>
+			<result column="file_name" property="fileName"/>
+			<result column="file_ext" property="fileExt"/>
+			<result column="file_size" property="fileSize"/>
+		</collection>
+	</resultMap>
+	
+	<!-- Book JOIN BookFile 조인쿼리문 -->
+	<select id="selectBookAndBookFile"
+			parameterType="int"
+			resultMap="BookAndBookFileMap">
+		SELECT
+				b.book_id,
+				b.book_name,
+				f.book_file_id,
+				f.file_name,
+				f.file_ext,
+				f.file_size
+		FROM 	book b
+		INNER JOIN 
+				book_file f
+		ON 		b.book_id = f.book_id
+		WHERE 	b.book_id = #{bookId}
+	</select>
+	
 	<!-- 페이징+검색 쿼리문 -->
 	<select id="selectListByPerPage"
 			parameterType="java.util.Map"
@@ -15,7 +47,7 @@
 			LIKE CONCAT('%',#{SearchWord},'%')
 		</if>
 		
-		ORDER BY bookId ASC
+		ORDER BY bookId DESC
 		LIMIT 	#{startRow},
 				#{rowPerPage}
 		

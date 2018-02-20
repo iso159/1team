@@ -35,6 +35,11 @@ public class BookDao {
 	public List<Book> selectBookList(){
 		return sqlSessionTemplate.selectList(nameSpace + "selectBookList");
 	}
+	// Book 파일 리스트 보여주는 메소드
+	public BookAndBookFile selectBookAndBookFile(int bookId){
+		logger.debug("selectBookAndBookFile(int bookId) 메서드 bookId is {}",bookId);
+		return sqlSessionTemplate.selectOne(nameSpace + "selectBookAndBookFile", bookId);
+	}
 	
 	// Book 입력 메소드
 	public void insertBook(Book book) {
@@ -43,11 +48,11 @@ public class BookDao {
 	}
 	
 	// 마지막으로 입력된 ID값 조회
-		public int selectLastId() {
-			int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");
-			logger.debug("selectLastId() 메서드 lastId is {}",lastId);
-			return lastId;
-		}
+	public int selectLastId() {
+		int lastId = sqlSessionTemplate.selectOne(nameSpace+"selectLastId");
+		logger.debug("selectLastId() 메서드 lastId is {}",lastId);
+		return lastId;
+	}
 		
 	// Book 파일 입력 메소드
 	public int insertBookFile(BookFile bookFile) {

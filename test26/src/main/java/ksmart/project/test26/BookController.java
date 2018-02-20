@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.book.service.Book;
+import ksmart.project.test26.book.service.BookAndBookFile;
 import ksmart.project.test26.book.service.BookCommand;
 import ksmart.project.test26.book.service.BookDao;
 import ksmart.project.test26.book.service.BookService;
@@ -59,6 +60,19 @@ public class BookController {
 		return "/book/bookList";
 	
 	}
+	// Book 파일리스트
+	@RequestMapping(value="/book/bookFileList")
+	public String BookFile(@RequestParam(value="bookId", required=true) int bookId,HttpSession session, Model model) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/member/login";
+		}
+		logger.debug("BookFile 메서드 bookId is {}",bookId);
+		BookAndBookFile bookAndBookFile =  bookService.getBookFileList(bookId);
+		logger.debug("BookFile 메서드 bookAndBookFile is {}",bookAndBookFile);
+		model.addAttribute("bookAndBookFile", bookAndBookFile);
+		return "/book/bookFileList";
+	}
 	
 	// 입력페이지요청
 	@RequestMapping(value="/book/bookAdd", method = RequestMethod.GET)
@@ -72,18 +86,21 @@ public class BookController {
 	}
 	
 	// 입력요청(파일추가)
-		@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
-		public String bookInsert(Book book,HttpSession session, BookCommand bookCommand) {
-			// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
-			if(session.getAttribute("loginMember")==null) {
-				return "redirect:/member/login";
-			}
-			logger.info("bookInsert(Book book,HttpSession session) 메서드 book is {}", book);
-			logger.debug("fileName :{}",bookCommand);
-			logger.debug("filesize :{}",bookCommand.getFile().size());
-			bookService.addBook(bookCommand);
-			return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
+	@RequestMapping(value="/book/bookAdd", method = RequestMethod.POST)
+	public String bookInsert(Book book, HttpSession session, BookCommand bookCommand) {
+		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/member/login";
 		}
+		// resource 폴더경로
+		String path = session.getServletContext().getRealPath("/");
+		path += "resources/upload/";
+		logger.debug("bookInsert(Book book,HttpSession session) 메서드 path is {}",path);
+		logger.debug("fileName :{}",bookCommand);
+		logger.debug("filesize :{}",bookCommand.getFile().size());
+		bookService.addBook(bookCommand, path);
+		return "redirect:/book/bookList";	// 북 입력 후 "/book/bookList"로 redirect 요청
+	}
 		
 	// 삭제요청
 	@RequestMapping(value="/book/bookDelete", method = RequestMethod.GET)
