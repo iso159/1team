@@ -22,22 +22,42 @@
 	</update>
 	
 	<!-- country one select 쿼리문 -->
-	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country"
-		parameterType="int">
+	<select id="selectOneCountry" resultType="ksmart.project.test26.country.service.Country" parameterType="int">
 		SELECT
 		country_id as countryId,
-		country_name as
-		countryName
+		country_name as countryName
 		FROM country
 		WHERE country_id=#{countryId}
 	</select>
 	
-	<!-- delete 쿼리문 -->
-	<delete id="deleteCountry" parameterType="ksmart.project.test26.country.service.Country">
+<!-- 	
+	countryFile one select 쿼리문
+	<select id="selectOneCountryFile" resultType="ksmart.project.test26.country.service.CountryFile" parameterType="int">
+		SELECT
+		country_file_id as countryFileId,
+		country_id as countryId,
+		file_name as FileName,
+		file_ext as FileExt,
+		file_size as FileSize
+		FROM country_file
+		WHERE country_file_id=#{countryFileId}
+	</select> 
+-->
+	
+	<!-- 등록국가 delete 쿼리문 -->
+	<delete id="deleteCountry" parameterType="int">
 		DELETE FROM country
 		WHERE country_id = #{countryId}
 	</delete>
 	
+<!-- 	
+	업로드 파일 삭제 delete 쿼리문
+	<delete id="deleteCountryFile" parameterType="ksmart.project.test26.country.service.CountryFile">
+		DELETE FROM country_file 
+		WHERE country_file_id = #{countryFileId}
+	</delete>
+-->
+	 
 	<!-- insert 쿼리문 -->
 	<insert id="insertCountry" parameterType="ksmart.project.test26.country.service.Country">
 		INSERT INTO
@@ -104,5 +124,31 @@
 		WHERE
 		c.country_id = #{id}
 	</select>
+	
+	<!-- MovieFile 맵 -->
+	<resultMap type="ksmart.project.test26.country.service.CountryFile" id="SelectCountryFileMap">
+		<id column="country_file_id" property="countryFileId" />
+		<result column="country_id" property="countryId" />
+		<result column="file_name" property="fileName" />
+		<result column="file_ext" property="fileExt" />
+		<result column="file_size" property="fileSize" />
+	</resultMap>
+	
+	<select id="selectCountryFileByCountryId"  parameterType="Integer" resultMap="SelectCountryFileMap">
+		SELECT 
+ 			country_file_id
+ 			,country_id
+ 			,file_name
+ 			,file_ext
+ 			,file_size
+ 		FROM test.country_file
+ 		WHERE country_id = #{id}
+ 	</select>
+ 
+ 	<delete id="deleteCountryFile" parameterType="Integer">
+ 		DELETE 
+ 		FROM test.country_file
+ 		WHERE country_id = #{id}
+ 	</delete>
 	
 </mapper>

@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
 <title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
+<script src="d5.js" type="text/javascript"></script>
 <script>
 	$("#btnDelete").click(function() {
 		if (confirm("삭제하시겠습니까?")) {
@@ -14,6 +16,42 @@
 		}
 	});
 </script>
+<!--
+<script>
+$(document).ready(function() {   
+	  var rows=$('table').find('tbody tr').length;
+	  var no_rec_per_page=10; //<- 한화면에 보여줄 갯수 
+	  var no_pages= Math.ceil(rows/no_rec_per_page);
+	  var $pagenumbers=$('<div id="pages"></div>');
+	  
+	  for(i=0;i<no_pages;i++) //<- 포문 돌면서 갯수 구하면서 만들고
+	  {
+	    $('<span class="page">'+(i+1)+'</span>').appendTo($pagenumbers);
+	  }   
+	  $pagenumbers.insertBefore('table'); //<- 숫자 모음을 그리기 
+
+	  $('.page').hover(
+	    function(){
+	      $(this).addClass('hover');
+	    }, 
+	    function(){
+	      $(this).removeClass('hover');
+	    }
+	  );	  
+	  var tr=$('table tbody tr');
+
+	  $('span').click(function(event){
+	    $('table').find('tbody tr').hide();
+	    for(var i=($(this).text()-1)*no_rec_per_page; //<- 초기값
+	        i<=$(this).text()*no_rec_per_page-1; //<- 조건식
+	        i++) //<- 증가값
+	    {
+	      $(tr[i]).show();
+	    }
+	  });
+	});
+</script> 
+-->
 </head>
 
 <body>
@@ -77,7 +115,7 @@
 			<br>
 
 			<!-- 페이징 처리 [다음][이전] 시작 -->
-			<ul class="pagination">
+			 <ul class="pagination">
 				<c:set var="currentPage" value="${currentPage}" />
 				<c:if test="${currentPage!=1}">
 					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage-1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">이전</a></li>
@@ -85,7 +123,9 @@
 				<c:if test="${currentPage!=lastPage}">
 					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/country/countryList?currentPage=${currentPage+1}&rowPerPage=${rowPerPage}&searchWord=${searchWord}">다음</a></li>
 				</c:if>
-			</ul>
+				
+				
+			</ul> 
 		</div>
 
 		<!-- 페이징 처리 [다음][이전] 끝 -->

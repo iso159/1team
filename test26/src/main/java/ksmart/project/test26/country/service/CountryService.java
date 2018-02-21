@@ -19,7 +19,6 @@ import ksmart.project.test26.CountryController;
 import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryCommand;
 import ksmart.project.test26.country.service.CountryFile;
-import ksmart.project.test26.movie.service.MovieAndMovieFile;
 
 @Service
 @Transactional
@@ -44,6 +43,7 @@ public class CountryService {
 		countryDao.insertCountry(country);
 	}
 
+	// 국가 1개 조회
 	public Country getCountryOne(Country country) {
 		// 매개변수 country 값 확인
 		logger.debug("getCountryOne(Country country) 메서드 country is {}", country);
@@ -53,6 +53,16 @@ public class CountryService {
 		return getCountry;
 	}
 
+	/*
+	 * // 국가 파일 1개 조회 public CountryFile getCountryFileOne(CountryFile countryFile)
+	 * { // 매개변수 CountryFile 값 확인 logger.
+	 * debug("getCountryFileOne(CountryFile countryFile) 메서드 countryFile is {}",
+	 * countryFile); CountryFile getCountryFile =
+	 * countryDao.selectCountryFileOne(countryFile); // 리턴값 확인 logger.
+	 * debug("getCountryFileOne(CountryFile countryFile) 메서드 getCountryFile is {}",
+	 * getCountryFile); return getCountryFile; }
+	 */
+
 	public void modifyCountry(Country country) {
 		// 매개변수 country 값 확인
 		logger.debug("modifyCountry(Country country) 메서드 country is {}", country);
@@ -60,12 +70,22 @@ public class CountryService {
 		countryDao.updateCountry(country);
 	}
 
-	public void removeCountry(Country country) {
+/*	
+// 국가 삭제
+	public void deleteCountry(Country country) {
 		// 매개변수 country 값 확인
-		logger.debug("removeCountry(Country country) 메서드 country is {}", country);
+		logger.debug("deleteCountry(Country country) 메서드 country is {}", country);
 		// 국가 삭제 메서드 호출
 		countryDao.deleteCountry(country);
 	}
+*/
+
+	/*
+	 * // 국가파일 삭제 public void removeCountryFile (CountryFile countryFile) { // 매개변수
+	 * countryFile 값 확인 logger.
+	 * debug("removeCountryFile (CountryFile countryFile) 메서드 countryFile is {}",
+	 * countryFile); //국가 삭제 메서드 호출 countryDao.deleteCountryFile(countryFile); }
+	 */
 
 	// 페이지당 보여줄 개수
 	public Map<String, Object> getListByPage(int currentPage, int rowPerPage, String searchWord) {
@@ -102,11 +122,13 @@ public class CountryService {
 		return returnMap;
 	}
 
-	public void addCountry(CountryCommand countryCommand, String path){
+	// 파일저장
+	public void addCountry(CountryCommand countryCommand, String path) {
 		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand);
 		logger.debug("addCountry(CountryCommand countryCommand) 메서드 path is {}", path);
 		Country country = new Country();
-		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}", countryCommand.getCountryName());
+		logger.debug("addCountry(CountryCommand countryCommand) 메서드 countryCommand is {}",
+				countryCommand.getCountryName());
 		country.setCountryName(countryCommand.getCountryName());
 		countryDao.insertCountry(country);
 		logger.debug("countryDao.insertCountry(country) country is {}", country);
@@ -122,11 +144,11 @@ public class CountryService {
 			int pos = originalName.lastIndexOf(".");
 			logger.debug("addCountry(CountryCommand countryCommand, String path) 메서드 pos is {}", pos);
 			// 오리지널 이름에서 마지막 .
-			String fileExt = originalName.substring(pos+1); // 오지리널 파일 확장자
+			String fileExt = originalName.substring(pos + 1); // 오지리널 파일 확장자
 
 			long fileSize = file.getSize(); // 오지리널 파일 사이즈
 			logger.debug("long fileSize = file.getSize() fileSize is {}", fileSize);
-			
+
 			countryFile.setCountryId(countryId);
 			logger.debug("countryFile.setFileName(fileName) countryId is {}", countryId);
 			countryFile.setFileName(fileName);
@@ -135,7 +157,7 @@ public class CountryService {
 			logger.debug("countryFile.setFileExt(fileExt) fileExt is {}", fileExt);
 			countryFile.setFileSize(fileSize);
 			logger.debug("countryFile.setFileSize(fileSize) fileSize is {}", fileSize);
-			
+
 			countryDao.insertCountryFile(countryFile);
 			// 2. 파일을 저장
 			File temp = new File(path + fileName);
@@ -166,4 +188,38 @@ public class CountryService {
 		CountryAndCountryFile countryAndCountryFile = countryDao.selectCountryAndCountryFile(countryId);
 		return countryAndCountryFile;
 	}
+
+	public void deleteCountry(int countryId, String realPath) {
+		// country_file 테이블 삭제 및 파일삭제후 country 테이블 삭제
+		// 매개변수 country 값 확인
+		logger.debug("deleteCountry(int countryId, String Path) 메서드 countryId is {}", countryId);
+		// 매개변수 Path 값 확인
+		logger.debug("deleteCountry(int countryId, String Path) 메서드 realPath is {}", realPath);
+		// countryId에 맞는 country_file 테이블 조회
+		List<CountryFile> list = countryDao.selectCountryFileAndCountryId(countryId);
+		// 조회결과가 null이 아니면 if블록 실행
+		if (list != null) {
+			for (CountryFile countryFile : list) {
+				// 경로에 조회 결과로 얻은 파일이름을 결합
+				File temp = new File(realPath + countryFile.getFileName());
+				// 파일이 있다면 if블록 실행
+				if (temp.exists()) {
+					// 파일이 삭제되면 if블록 실행 아니면 else 블록 실행
+					if (temp.delete()) {
+						// 파일 삭제 성공 debug 메시지
+						logger.debug("deleteCountry(int countryId, String path) 메서드 temp.delete CLEAR DELETE ! {} !",
+								temp);
+					} else {
+						// 파일 삭제 실패 debug 메시지
+						logger.debug("deletecountry(int countryId, String path) 메서드 temp.delete FAILURE DELETE ! {} ",
+								temp);
+					}
+				}
+			}
+			countryDao.deleteCountryFile(countryId);
+		}
+		// 국가 삭제 메서드 호출
+		countryDao.deleteCountry(countryId);
+	}
+
 }

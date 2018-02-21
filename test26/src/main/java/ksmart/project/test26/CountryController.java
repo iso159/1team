@@ -19,6 +19,7 @@ import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryAndCountryFile;
 import ksmart.project.test26.country.service.CountryCommand;
 import ksmart.project.test26.country.service.CountryDao;
+import ksmart.project.test26.country.service.CountryFile;
 import ksmart.project.test26.country.service.CountryService;
 
 @Controller
@@ -63,21 +64,39 @@ public class CountryController {
 		logger.debug("countryInsert(Country country,HttpSession session) 메서드 countryCommand is {}", countryCommand);
 		return "redirect:/country/countryList";
 	}
-
-	// 삭제요청
+	
+	// 국가 삭제요청
 	@RequestMapping(value = "/country/countryDelete", method = RequestMethod.GET)
-	public String countryDelete(Country country, HttpSession session) {
+	public String countryDelete(@RequestParam(value="countryId") int countryId, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
-		countryService.removeCountry(country);
-		logger.debug("String countryDelete(Country country,HttpSession session) 메서드 country, session is {}", country,
-				session);
+		logger.debug("countryDelete(Country country, HttpSession session) 메서드 country is {}",countryId);
+ 		String realPath = session.getServletContext().getRealPath("/");
+ 		realPath += "resources/upload/";
+ 		logger.debug("countrydelete(Country country, HttpSession session) 메서드 realPath is {}",realPath);
+ 
+		countryService.deleteCountry(countryId, realPath);
+		logger.debug("countryDelete(Country country,HttpSession session) 메서드 country, session is {}", countryId);
 		return "redirect:/country/countryList";
 	}
+	
+/*	
+	//국가파일 삭제요청
+	@RequestMapping(value = "/countryFile/countryFileDelete", method = RequestMethod.GET)
+	public String countryFileDelete(CountryFile countryFile, HttpSession session) {
+		//세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
+		if (session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		countryService.removeCountryFile(countryFile);
+		logger.debug("countryFileDelete(Country country, HttpSession session) 메서드 countryFile, session is {}", countryFile);
+		return "rediret:/countryFile/countryFilelist";
+	}
+*/
 
-	// 수정페이지 요청, 수정할 한 권조회
+	// 국가 수정페이지 요청, 수정할 한 권조회
 	@RequestMapping(value = "/country/countryModify", method = RequestMethod.GET)
 	public String countryOneSelect(Model model, Country country, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
@@ -90,7 +109,7 @@ public class CountryController {
 		return "/country/countryModify";
 	}
 
-	// 수정요청
+	// 국가 수정요청
 	@RequestMapping(value = "/country/countryModify", method = RequestMethod.POST)
 	public String countryModify(Country country, HttpSession session) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
@@ -98,7 +117,7 @@ public class CountryController {
 			return "redirect:/member/login";
 		}
 		countryService.modifyCountry(country);
-		logger.debug("countryModify(Country country,HttpSession session) 메서드 country session is {}", country, session);
+		logger.debug("countryModify(Country country,HttpSession session) 메서드 country is {}", country);
 		return "redirect:/country/countryList";
 	}
 
@@ -131,6 +150,8 @@ public class CountryController {
 		logger.debug("searchWord{}", searchWord);
 		return "/country/countryList";
 	}
+	
+	
 	@RequestMapping(value="/country/countryFileList")
 	public String countryFile(Model model, HttpSession session
 								,@RequestParam(value="countryId") int countryId) {

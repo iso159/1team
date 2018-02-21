@@ -26,6 +26,7 @@
 					<th>파일 이름</th>
 					<th>파일 확장자</th>
 					<th>파일 사이즈</th>
+					<th>다운로드</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,6 +36,8 @@
 						<td>${C.fileName}</td>
 						<td>${C.fileExt}</td>
 						<td>${C.fileSize}</td>
+
+						<td><a href="/resources/upload?fileName=${C.fileName}">다운로드</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

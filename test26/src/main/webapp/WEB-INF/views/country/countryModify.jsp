@@ -44,6 +44,8 @@
 					<label for="title">국가 제목:</label> <input id="countryTitle" class="form-control" type="text" name="countryName"
 						value="${Country.countryName}">
 					<button type="button" id="updateBtn" class="btn btn-info">수정완료</button>
+					<!-- multiple="multiple 파일을 여러개 넘기게 한다. html5부터 사용가능 -->
+					파일 : <input type="file" name="file" multiple="multiple">
 				</div>
 			</div>
 		</form>

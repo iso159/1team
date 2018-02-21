@@ -13,8 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryFile;
-import ksmart.project.test26.movie.service.MovieAndMovieFile;
-import ksmart.project.test26.movie.service.MovieFile;
 
 //@Repository를 적으면 객체가 미리 생성되서 CountryDao를 AutoWired로 객체에 주입할수있음
 @Repository
@@ -33,18 +31,25 @@ public class CountryDao {
 
 	// country insert
 	public void insertCountry(Country country) {
-		logger.debug("insertCountry(Country country) 메서드 list is {}");
+		logger.debug("insertCountry(Country country) 메서드 list is {}", country);
 		sqlSessionTemplate.insert(nameSpace + "insertCountry", country);
 	}
 
 	// country delete
-	public void deleteCountry(Country country) { // 여기 매개변수타입 int
-		logger.debug("deleteCountry(int country) 메서드 list is {}");
-		sqlSessionTemplate.delete(nameSpace + "deleteCountry", country);
+	public void deleteCountry(int countryId) {
+		logger.debug("deleteCountry(int countryId) 메서드 countryId is {}", countryId);
+		sqlSessionTemplate.delete(nameSpace + "deleteCountry", countryId);
 	}
-
+	
+/*	
+	// countryFile delete
+	public void deleteCountryFile(CountryFile countryFile) {
+		logger.debug("deleteCountryFile(CountryFile countryFile) 메서드countryFile is {} ");
+	}
+*/
+	
 	// country update
-	public void updateCountry(Country country) { // 여기 매개변수타입 int
+	public void updateCountry(Country country) {
 		logger.debug("updateCountry(int country) 메서드 list is {}");
 		sqlSessionTemplate.selectOne(nameSpace + "updateCountry", country);
 	}
@@ -55,9 +60,18 @@ public class CountryDao {
 		logger.debug("selectCountryOne(Country country) 메서드 country is {}", country);
 		return getCountry;
 	}
-
+	
+/*	
+	// countryFile one update
+	public CountryFile selectCountryFileOne(CountryFile countrtFile) {
+		CountryFile getCountryFile = sqlSessionTemplate.selectOne(nameSpace + "selectOneCountyFile", countrtFile);
+		logger.debug("selectCountryFileOne(CountryFile countrtFile) 메서드 country is {}", countrtFile);
+		return getCountryFile;
+	}
+*/
+	
 	// country selectListByPerPage (페이지당 보여줄 개수)
-	public List<Country> selectListByPerPage(Map<?, ?> map) { // public List<> selectListByPerPage(Map map){
+	public List<Country> selectListByPerPage(Map<?, ?> map) {
 		logger.debug("selectListByPerPage(Map map) 메서드 map is {}", map);
 		List<Country> list = sqlSessionTemplate.selectList(nameSpace + "selectListByPerPage", map);
 		logger.debug("selectListByPerPage(Map map) 메서드 list is {}", list);
@@ -85,12 +99,23 @@ public class CountryDao {
 	}
 	
 
+	// 국가 파일 리스트
 	public CountryAndCountryFile selectCountryAndCountryFile(int countryId) {
 		CountryAndCountryFile countryAndCountry = sqlSessionTemplate.selectOne(nameSpace + "selectCountryAndCountryFile", countryId);
 		// TODO Auto-generated method stub
 		return countryAndCountry;
 	}
-
-
-		
+	// country_file 테이블 하나 조회
+ 	public List<CountryFile> selectCountryFileAndCountryId(int countryId) {
+ 		logger.debug("selectCountryFileOne(int countryId) 메서드 countryId is {}",countryId);
+ 		List<CountryFile> countryFile = sqlSessionTemplate.selectList(nameSpace + "selectCountryFileByCountryId", countryId);
+ 		logger.debug("selectCountryFileOne(int countryId) 메서드 countryFile is {}",countryFile);
+ 		return countryFile;
+ 	}
+ 	
+ 	// country_file 테이블 삭제
+ 	public void deleteCountryFile(int countryId) {
+ 		logger.debug("deleteCountryFile(int countryId) 메서드 countryId is {}",countryId);
+ 		sqlSessionTemplate.delete(nameSpace + "deleteCountryFile", countryId);
+ 	}
 }
