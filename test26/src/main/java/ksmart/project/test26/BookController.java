@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +28,6 @@ public class BookController {
 	private static final Logger logger = LoggerFactory.getLogger(BookController.class);
 	@Autowired
 	private BookService bookService;
-
 	
 	// Book전체 리스트(페이징+검색)
 	@RequestMapping(value="/book/bookList")
@@ -110,7 +110,10 @@ public class BookController {
 			return "redirect:/member/login";
 		}
 		logger.info("bookDelete(int bookId,HttpSession session) 메서드 bookId is {}", bookId);
-		bookService.removeBook(bookId);
+		// resource 폴더경로
+		String path = session.getServletContext().getRealPath("/");
+		path += "resources/upload/";
+		bookService.removeBook(bookId, path);
 		return "redirect:/book/bookList";
 	}
 	

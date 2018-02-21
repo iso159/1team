@@ -124,13 +124,33 @@ public class BookService {
 					}
 				}
 			}
-			
 		}
 	}
-	// 삭제
-	public void removeBook(int bookId) {
+	// 삭제 ( BookFile조회 -> BookFile삭제 -> Book삭제 )
+	public void removeBook(int bookId, String path) {
 		logger.debug("removeBook(int bookId) 메서드 bookId is {}",bookId);
+		List<BookFile> list = bookDao.selectBookFileByBookId(bookId);
+		logger.debug("removeBook(int bookId) 메서드 list is {}",list);
+		
+		// 파일이 있으면 BookFile삭제 후 Book삭제
+		if(list != null) {
+			for(BookFile bookFile : list) {
+				logger.debug("for문 실행!");
+				File temp = new File(path+bookFile.getFileName());
+				if(temp.exists()) {
+					// temp 파일 삭제 및 콘솔창으로 확인
+					if(temp.delete()) {
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 성공",temp);
+					}else {
+						logger.debug("addBook(BookCommand bookCommand) 메서드 {} 파일 삭제 실패",temp);
+					}
+				}
+			}
+			bookDao.deleteBookFile(bookId);
+		}
+		// 파일이 없으면 Book만 삭제
 		bookDao.deleteBook(bookId);
+	
 	}
 	
 	// 수정할 한권 조회

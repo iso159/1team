@@ -26,7 +26,8 @@
 				<th>파일 ID</th>
 				<th>파일 이름</th>
 				<th>파일 확장자</th>
-				<th>파일크기</th>
+				<th>파일 크기</th>
+				<th>첨부 파일</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -36,6 +37,7 @@
 				<td>${b.fileName}</td>
 				<td>${b.fileExt}</td>
 				<td>${b.fileSize}</td>
+				<td><a href="${path}"></td>
 			</tr>
 			</c:forEach>
 		</tbody>

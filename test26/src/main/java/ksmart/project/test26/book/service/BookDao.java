@@ -35,7 +35,7 @@ public class BookDao {
 	public List<Book> selectBookList(){
 		return sqlSessionTemplate.selectList(nameSpace + "selectBookList");
 	}
-	// Book 파일 리스트 보여주는 메소드
+	// Book 파일 리스트 보여주는 메소드(JOIN)
 	public BookAndBookFile selectBookAndBookFile(int bookId){
 		logger.debug("selectBookAndBookFile(int bookId) 메서드 bookId is {}",bookId);
 		return sqlSessionTemplate.selectOne(nameSpace + "selectBookAndBookFile", bookId);
@@ -60,6 +60,18 @@ public class BookDao {
 		return sqlSessionTemplate.insert(nameSpace + "insertBookFile", bookFile);
 	}
 	
+	// BookFile 조회 메소드
+	public List<BookFile> selectBookFileByBookId(int bookId) {
+		logger.debug("selectBookFileByBookId(int BookId) BookId is {}",bookId);
+		return sqlSessionTemplate.selectList(nameSpace + "selectBookFile", bookId);
+	}
+	
+	// Book 파일 삭제 메소드
+	public void deleteBookFile(int bookId) {
+		logger.debug("deleteBookFile(int bookId) 메서드 bookId is {}",bookId);
+		sqlSessionTemplate.delete(nameSpace + "deleteBookFile", bookId );
+	}
+		
 	// Book 삭제 메소드
 	public void deleteBook(int bookId) {
 		logger.debug("deleteBook(int bookId) 메서드 bookId is {}",bookId);

@@ -4,9 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.book.service.BookMapper">
 
-	<!-- BookAndBookFile 리스트값 파라미터로받기 -->
+	<!-- BookAndBookFile 리스트값  -->
 	<resultMap 	type="ksmart.project.test26.book.service.BookAndBookFile" 
-				id="BookAndBookFileMap">
+				id="BookJoinBookFileMap">
 		<id column="book_id" property="bookId"/>
 		<result column="book_name" property="bookName"/>
 		<collection property="list" ofType="ksmart.project.test26.book.service.BookFile">
@@ -17,10 +17,37 @@
 		</collection>
 	</resultMap>
 	
+	<!-- BookFile 리스트값 -->
+	<resultMap 	type="ksmart.project.test26.book.service.BookFile" 
+				id="selectBookFileMap">
+		<id column="book_file_id" property="bookFileId"/>
+		<result column="book_id" property="bookId"/>
+		<result column="file_name" property="fileName"/>
+		<result column="file_ext" property="fileExt"/>
+		<result column="file_size" property="fileSize"/>
+							
+	</resultMap>
+			
+	<!-- BookFile 조회 쿼리문 -->
+	<select id="selectBookFile"
+			parameterType="int"
+			resultMap="selectBookFileMap">
+		SELECT
+			book_file_id,
+			book_id,
+			file_name,
+			file_ext,
+			file_size
+		FROM
+			book_file
+		WHERE
+			book_id = #{bookId}
+	</select>
+	
 	<!-- Book JOIN BookFile 조인쿼리문 -->
 	<select id="selectBookAndBookFile"
 			parameterType="int"
-			resultMap="BookAndBookFileMap">
+			resultMap="BookJoinBookFileMap">
 		SELECT
 				b.book_id,
 				b.book_name,
@@ -129,5 +156,12 @@
   			parameterType="ksmart.project.test26.book.service.Book">
 	 	 DELETE FROM book 
 	 	 WHERE  book_id = #{bookId}
+	</delete>
+	
+	<!-- Book 파일 삭제 쿼리문 -->
+	<delete id="deleteBookFile"
+			parameterType="int">
+		DELETE FROM book_file 
+	 	WHERE  book_id = #{bookId}	
 	</delete>
 </mapper>
