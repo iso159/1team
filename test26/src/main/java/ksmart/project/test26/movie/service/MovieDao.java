@@ -18,6 +18,19 @@ public class MovieDao {
 	// 쿼리 경로를 상수로 입력 
 	private final String nameSpace = "ksmart.project.test26.movie.service.MovieMapper.";
 	
+	// movie_file 테이블 하나 조회
+	public List<MovieFile> selectMovieFileByMovieId(int movieId) {
+		logger.debug("selectMovieFileOne(int movieId) 메서드 movieId is {}",movieId);
+		List<MovieFile> movieFile = sqlSessionTemplate.selectList(nameSpace + "selectMovieFileByMovieId", movieId);
+		logger.debug("selectMovieFileOne(int movieId) 메서드 movieFile is {}",movieFile);
+		return movieFile;
+	}
+	
+	// movie_file 테이블 삭제
+	public void deleteMovieFile(int movieId) {
+		logger.debug("deleteMovieFile(int movieId) 메서드 movieId is {}",movieId);
+		sqlSessionTemplate.delete(nameSpace + "deleteMovieFile", movieId);
+	}
 	// movie 테이블과 movieFile 조인 결과 조회
 	public MovieAndMovieFile selectMovieAndMovieFile(int movieId) {
 		logger.debug("selectMovieAndMovieFile(int movieId) 메서드 movieId is {}", movieId);
@@ -75,11 +88,11 @@ public class MovieDao {
 	}
 	
 	// movie 테이블 컬럼 삭제
-	public void deleteMovie(Movie movie) {
+	public void deleteMovie(int movieId) {
 		// 매개변수 movie 값 확인
-		logger.debug("deleteMovie(Movie movie) 메서드 movie is {}",movie);
+		logger.debug("deleteMovie(Movie movieId) 메서드 movieId is {}",movieId);
 		// 아이디가 updateMovie인 쿼리를 실행해 movie필드의 id와 같은 컬럼 삭제
-		sqlSessionTemplate.delete(nameSpace + "deleteMovie", movie);
+		sqlSessionTemplate.delete(nameSpace + "deleteMovie", movieId);
 	}
 	
 	// movie 테이블 현재 페이지에 맞는 리스트 조회

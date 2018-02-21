@@ -138,15 +138,19 @@ public class MovieController {
 	
 	// /movie/movieRemove get방식으로 요청시 movieRemove(Movie movie) 메소드 호출됨
 	@RequestMapping(value="/movie/movieRemove", method = RequestMethod.GET)
-	public String movieRemove(Movie movie, HttpSession session) {
+	public String movieRemove(@RequestParam(value="movieId") int movieId, HttpSession session) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
 		}
 		// 매개변수 movie 값 확인
-		logger.debug("movieRemove(Movie movie, HttpSession session) 메서드 movie is {}",movie);
+		logger.debug("movieRemove(Movie movie, HttpSession session) 메서드 movie is {}",movieId);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/upload/";
+		// 경로 확인
+		logger.debug("movieRemove(Movie movie, HttpSession session) 메서드 realPath is {}",realPath);
 		// 영화 삭제 서비스 메서드 호출
-		movieService.removeMovie(movie);
+		movieService.removeMovie(movieId,realPath);
 		return "redirect:/movie/movieList";
 	}
 }

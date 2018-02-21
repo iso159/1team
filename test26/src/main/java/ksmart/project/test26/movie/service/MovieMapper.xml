@@ -3,6 +3,16 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.movie.service.MovieMapper">
+	<!-- MovieFile 맵 -->
+	<resultMap type="ksmart.project.test26.movie.service.MovieFile" id="SelectMovieFileMap">
+		<id column="movie_file_id" property="movieFileId"/>
+		<result column="movie_id" property="movieId"/>
+		<result column="file_name" property="fileName"/>
+		<result column="file_ext" property="fileExt"/>
+		<result column="file_size" property="fileSize"/>
+	</resultMap>
+	
+	<!-- MovieAndMovieFile 맵 -->
 	<resultMap type="ksmart.project.test26.movie.service.MovieAndMovieFile"
 			   id="MovieJoinMovieFileMap">
 			   <id column="movie_id" property="movieId"/>
@@ -14,6 +24,25 @@
 			   		<result column="file_size" property="fileSize"/>
 			   </collection>
 	</resultMap>
+	
+	
+
+	<select id="selectMovieFileByMovieId"  parameterType="Integer" resultMap="SelectMovieFileMap">
+		SELECT 
+			movie_file_id
+			,movie_id
+			,file_name
+			,file_ext
+			,file_size
+		FROM test.movie_file
+		WHERE movie_id = #{id}
+	</select>
+
+	<delete id="deleteMovieFile" parameterType="Integer">
+		DELETE 
+		FROM test.movie_file
+		WHERE movie_id = #{id}
+	</delete>
 
 	<!-- movie테이블 기본키를 참조해 movie_file 테이블 조회 -->
 	<select id="selectMovieAndMovieFile" parameterType="Integer"  resultMap="MovieJoinMovieFileMap">
@@ -73,7 +102,7 @@
 	</update>
 	
 	<!-- 조건에 맞는 movie 테이블의 컬럼 삭제를 위한 쿼리문 -->
-	<delete id="deleteMovie" parameterType="ksmart.project.test26.movie.service.Movie">
+	<delete id="deleteMovie" parameterType="Integer">
 		DELETE 
 		FROM test.movie
 		WHERE movie_id = #{movieId}	

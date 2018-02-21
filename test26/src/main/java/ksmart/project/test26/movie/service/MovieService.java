@@ -132,11 +132,35 @@ public class MovieService {
 		movieDao.updateMovie(movie);
 	}
 	
-	public void removeMovie(Movie movie) {
+	// movie_file 테이블 삭제 및 파일삭제후 movie 테이블 삭제
+	public void removeMovie(int movieId, String path) {
 		// 매개변수 movie 값 확인
-		logger.debug("removeMovie(Movie movie) 메서드 movie is {}",movie);
+		logger.debug("removeMovie(int movieId, String path) 메서드 movieId is {}",movieId);
+		// 매개변수 Path 값 확인
+		logger.debug("removeMovie(int movieId, String path) 메서드 path is {}",path);
+		// movieId에 맞는 movie_file 테이블 조회
+		List<MovieFile> list = movieDao.selectMovieFileByMovieId(movieId);
+		// 조회결과가 null이 아니면 if블록 실행
+		if(list != null) {
+			for(MovieFile movieFile : list) {
+				// 경로에 조회 결과로 얻은 파일이름을 결합 
+				File temp = new File(path+movieFile.getFileName());
+				// 파일이 있다면 if블록 실행
+				if(temp.exists()) {
+					// 파일이 삭제되면 if블록 실행 아니면 else 블록 실행
+					if(temp.delete()) {
+						// 파일 삭제 성공 debug 메시지
+						logger.debug("removeMovie(int movieId, String path) 메서드 {} 파일 삭제 성공!",temp);
+					}else {
+						// 파일 삭제 실패 debug 메시지
+						logger.debug("removeMovie(int movieId, String path) 메서드 {} 파일 삭제 실패!",temp);
+					}
+				}
+			}			
+			movieDao.deleteMovieFile(movieId);
+		}
 		// 영화 삭제 메서드 호출
-		movieDao.deleteMovie(movie);
+		movieDao.deleteMovie(movieId);
 	}
 	
 	public Map<String,Object> getListByPage(int currentPage, int rowPerPage, String searchWord){
