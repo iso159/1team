@@ -33,7 +33,7 @@
 						<td>${c.movieFileId}</td>
 						<td>${c.fileName}</td>
 						<td>${c.fileExt}</td>
-						<td>${c.fileSize}KB</td>
+						<td>${c.fileSize}Byte</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/movie/movieFileDownload?fileName=${c.fileName}&fileExt=${c.fileExt}">다운로드</a>
 						</td>
