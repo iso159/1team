@@ -26,6 +26,14 @@ public class IdolService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
 	
+	/*해당 아이돌 파일 리스트 띄움*/
+	public IdolAndIdolFile selectIdolAndIdolFile(int idolId){
+		logger.debug("selectIdolAndIdolFile(int idolId) 메서드 idolId is {}",idolId);
+		IdolAndIdolFile idolAndIdolFile = idolDao.selectIdolAndIdolFile(idolId);
+		logger.debug("selectIdolAndIdolFile(int idolId) 메서드 idolAndIdolFile is {}",idolAndIdolFile);
+		return idolAndIdolFile;
+	}
+	
 	/*아이돌 전체리스트 띄우고 페이징 작업*/
 	public Map<String, Object> getIdolList(Map<String, Object> map) {
 		// map 객체안에 정보 확인 
@@ -55,13 +63,20 @@ public class IdolService {
 	}
 	
 	/*아이돌 한명정보 띄우는부분*/
-	public List<Idol> getIdolOne(int idolId) {
+	public Map<String, Object> getIdolOne(int idolId) {
 		// idolId 확인
 		logger.debug("getIdolOne(int idolId) 메서드 idolId is {}",idolId);
 		List<Idol> list = idolDao.selectIdolOne(idolId);
 		// list 객체안에 정보 확인
 		logger.debug("getIdolOne(int idolId) 메서드 list is {}",list);
-		return list;
+		// idolId로 해당 파일정보 불러옴
+		IdolAndIdolFile idolAndIdolFile = idolDao.selectIdolAndIdolFile(idolId);
+		logger.debug("selectIdolAndIdolFile(int idolId) 메서드 idolAndIdolFile is {}",idolAndIdolFile);
+		// idol 정보와 idol 파일 정보를 담음
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("file", idolAndIdolFile);
+		return map;
 	}
 	
 	/*아이돌 수정*/
@@ -72,18 +87,18 @@ public class IdolService {
 	}
 	
 	/*아이돌 추가*/
-	public void addIdol(IdolCommand idolCommand) {
+	public void addIdol(IdolCommand idolCommand, String path) {
 		// idolCommand 객체안에 정보 확인
-		logger.debug("addIdol(IdolCommand idolCommand) 메서드 idolCommand is {}",idolCommand);
+		logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 idolCommand is {}",idolCommand);
 		//1.아이돌 추가
 		Idol idol = new Idol();
 		idol.setIdolName(idolCommand.getIdolTitle());
 		// idol 객체안에 정보 확인
-		logger.debug("addIdol(IdolCommand idolCommand) 메서드 idol is {}",idol);
+		logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 idol is {}",idol);
 		idolDao.insertIdol(idol);
 		// lastIdolId 구함
 		int lastIdolId = idolDao.selectLastId();
-		logger.debug("addIdol(IdolCommand idolCommand) 메서드 lastIdolId is {}",lastIdolId);
+		logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 lastIdolId is {}",lastIdolId);
 		//2.들어온 파일 정보 입력
 		for(MultipartFile file : idolCommand.getFile()) {
 			IdolFile idolFile = new IdolFile();
@@ -92,18 +107,20 @@ public class IdolService {
 			//2-1.파일 이름
 			UUID uuid = UUID.randomUUID();
 			String fileName = uuid.toString();
-			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileName is {}",fileName);
+			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileName is {}",fileName);
 			idolFile.setFileName(fileName);
 			//2-2.파일 확장자
 			String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileExt is {}",fileExt);
+			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileExt is {}",fileExt);
 			idolFile.setFileExt(fileExt);
 			//2-3.파일 사이즈
 			long fileSize = file.getSize();
-			logger.debug("addIdol(IdolCommand idolCommand) 메서드 fileSize is {}",fileSize);
+			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileSize is {}",fileSize);
 			idolFile.setFileSize(fileSize);;
 			//2-4.파일 저장
-			File temp = new File("c:\\upload\\"+fileName);
+			//path 확인 
+			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 path is {}",path);
+			File temp = new File(path+"\\uplode\\"+fileName);
 			try {
 				file.transferTo(temp);
 			} catch (IllegalStateException e) {
@@ -116,9 +133,22 @@ public class IdolService {
 	}
 	
 	/*아이돌 삭제부분*/
-	public void removeMovie(int idolId) {
+	public void removeMovie(int idolId, String path) {
 		//idolId 확인
 		logger.debug("removeMovie(int idolId) 메서드 idolId is {}",idolId);
+		//삭제하기 전에 파일 있는지 확인
+		if(idolDao.selectIdolAndIdolFile(idolId) != null) {
+			IdolAndIdolFile idolAndIdolFile = idolDao.selectIdolAndIdolFile(idolId);
+			List<IdolFile> list = idolAndIdolFile.getFile();
+			for(IdolFile i : list) {
+				String fileName = i.getFileName();
+	    		File file = new File(path+"\\uplode\\"+fileName);
+	    			if(file.exists() == true){
+	    			file.delete();
+	    		}
+			}
+			idolDao.deleteIdolFile(idolId);
+		}
 		idolDao.deleteIdol(idolId);
 	}
 }

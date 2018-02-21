@@ -28,6 +28,14 @@ public class IdolDao {
 		return list;
 	}
 	
+	/*해당 아이돌 파일 정보를 띄움*/
+	public IdolAndIdolFile selectIdolAndIdolFile(int idolId) {
+		logger.debug("selectIdolAndIdolFile(int idolId) 메서드 idolId is {}",idolId);
+		IdolAndIdolFile idolAndIdolFile = sqlSessionTemplate.selectOne(nameSpace + "selectIdolAndIdolFile", idolId);
+		logger.debug("selectIdolAndIdolFile(int idolId) 메서드 map idolAndIdolFile {}",idolAndIdolFile);
+		return idolAndIdolFile;
+	}
+	
 	/*아이돌 한명정보 띄우는부분*/
 	public List<Idol> selectIdolOne(int idolId) {
 		// 받아온 idolId 출력
@@ -74,6 +82,12 @@ public class IdolDao {
 		logger.debug("deleteIdol(int idolId) 메서드 idolId is {}",idolId);
 		// idolId 확인하고 해당 정보 삭제
 		sqlSessionTemplate.delete(nameSpace + "deleteIdol", idolId);
+	}
+	
+	/*아이돌 파일 삭제부분*/
+	public void deleteIdolFile(int idolId) {
+		logger.debug("deleteIdolFile(int idolId) 메서드 idolId is {}",idolId);
+		sqlSessionTemplate.delete(nameSpace + "deleteIdolFile", idolId);
 	}
 	
 	/*아이돌 페이징 작업*/

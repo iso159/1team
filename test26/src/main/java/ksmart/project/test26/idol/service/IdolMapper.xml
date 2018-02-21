@@ -3,8 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.idol.service.IdolMapper">
+	<!-- idol파일 리스트 띄우는 맵퍼 -->
+	<resultMap id="selectIdolAndIdolFileMap" type="ksmart.project.test26.idol.service.IdolAndIdolFile">
+		<id column="idol_id" property="idolId"/>
+		<result column="idol_name" property="idolName"/>
+		<collection property="file" ofType="ksmart.project.test26.idol.service.IdolFile">
+			<id column="idol_file_id" property="idolFileId"/>
+			<result column="file_name" property="fileName"/>
+			<result column="file_ext" property="fileExt"/>
+			<result column="file_size" property="fileSize"/>
+		</collection>
+	</resultMap>
+	
+	<!-- idol한명 -->
 
-	<!-- idol 전체 리스트를 띄움 -->
+	<!-- idol 한명 파일 목록 전체 띄움 -->
+	<select id="selectIdolAndIdolFile"  parameterType="int" resultMap="selectIdolAndIdolFileMap">
+		SELECT 
+			i.idol_id
+			,i.idol_name
+			,f.idol_file_id
+			,f.file_name
+			,f.file_ext
+			,f.file_size
+		FROM 
+			idol i INNER JOIN idol_file f 
+		ON i.idol_id = f.idol_id 
+		WHERE i.idol_id = #{idolId}
+		ORDER BY i.idol_id DESC
+	</select>
+	
+	<!-- idol 인원 구함 -->
 	<select id="selectIdolList" parameterType="java.util.Map" resultType="ksmart.project.test26.idol.service.Idol">
 		SELECT 
 			idol_id as idolId,
@@ -62,7 +91,14 @@
 			idol_id=#{idelId}
 	</delete>
 	
-	<!-- idol selectListPerPage 페이지당 보여줄 개수  -->
+	<!-- idol 삭제할때 해당 아이돌 파일도 삭제 -->
+	<delete id="deleteIdolFile" parameterType="int">
+		DELETE FROM idol_file 
+		WHERE 
+			idol_id=#{idolId}
+	</delete>
+	
+	<!-- idol 띄우는데 페이지당 보여줌  -->
 	<select id="selectListPerPage" parameterType="java.util.Map" resultType="ksmart.project.test26.idol.service.Idol">
 		SELECT 
 			idol_id as idolId,
@@ -71,8 +107,8 @@
 		<if test= "idolSearchWord != null">
 			WHERE idol_name LIKE CONCAT('%',#{idolSearchWord},'%')
 		</if>
-		ORDER BY idol_id asc
-		limit #{startRow},#{rowPerPage}
+		ORDER BY idol_id DESC
+		LIMIT #{startRow},#{rowPerPage}
 	</select>
 	
 	<!-- selectTotalCount(총개수) -->

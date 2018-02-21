@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.idol.service.Idol;
+import ksmart.project.test26.idol.service.IdolAndIdolFile;
 import ksmart.project.test26.idol.service.IdolCommand;
 import ksmart.project.test26.idol.service.IdolService;
 
@@ -83,11 +84,11 @@ public class IdolController {
 			return "redirect:/member/login";
 		}
 		//idolId 값 확인
-		logger.debug("(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
-		List<Idol> list = idolService.getIdolOne(idolId);
+		logger.debug("idolModify(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
+		Map<String, Object> map = idolService.getIdolOne(idolId);
 		//list 객체 안에 있는 정보 확인
-		logger.debug("(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 list is {}",list);
-		model.addAttribute("list", list);
+		logger.debug("idolModify(Model model,HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 map is {}",map);
+		model.addAttribute("map", map);
 		return "/idol/idolModify";
 	}
 	
@@ -124,7 +125,11 @@ public class IdolController {
 		}
 		// idolCommand 객체 안에 정보 확인
 		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 idolCommand is {}",idolCommand);
-		idolService.addIdol(idolCommand);
+		//session이용해서 리소스 폴더 절대경로 찾음
+		String path = session.getServletContext().getRealPath("/resources");
+		// path 확인
+		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 path is {}",path);
+		idolService.addIdol(idolCommand,path);
 		return "redirect:/idol/idolList";
 	}
 	
@@ -137,8 +142,24 @@ public class IdolController {
 		}
 		// idolId 정보 확인
 		logger.debug("idolRemove(HttpSession session ,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
-		idolService.removeMovie(idolId);
+		String path = session.getServletContext().getRealPath("/resources");
+		idolService.removeMovie(idolId,path);
 		return "redirect:/idol/idolList";
 	}
 	
+	/*idol 파일 리스트 부분*/
+	@RequestMapping(value="/idol/idolFileList",method = RequestMethod.GET)
+	public String idolFileList(Model model,HttpSession session,@RequestParam(value="idolId", required=true) int idolId) {
+		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
+		if(session.getAttribute("loginMember") == null) {
+			return "redirect:/member/login";
+		}
+		logger.debug("idolFileList(HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
+		// 가져온 아이디 값으로 파일 목록 검색
+		IdolAndIdolFile idolAndIdolFile = idolService.selectIdolAndIdolFile(idolId);
+		// 가져온 map 객체 확인
+		logger.debug("idolFileList(HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolAndIdolFile) 메서드 idolId is {}",idolAndIdolFile);
+		model.addAttribute("idolAndIdolFile", idolAndIdolFile);
+		return "/idol/idolFileList";
+	}
 }
