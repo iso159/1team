@@ -74,7 +74,7 @@ public class MovieService {
 		return list;
 	}
 	
-	public void addMovie(MovieCommand movieCommand, String path) {
+	public void addMovie(MovieCommand movieCommand, String path,MultipartFile multiPartFile) {
 		// 매개변수 movie 값 확인
 		logger.debug("addMovie(MovieCommand movieCommand) 메서드 movieCommand is {}",movieCommand);
 		// Movie 생성자로 객체 생성
@@ -87,63 +87,64 @@ public class MovieService {
 		int movieId = movieDao.selectLastId();
 		// lastId값 확인
 		logger.debug("addMovie(MovieCommand movieCommand) 메서드 movieId is {}",movieId);
-		
 		// 폼에서 파일이 있을 경우 반복문을 실행  
-		for(MultipartFile file : movieCommand.getFile()) {
-			// MovieFile 객체 생성
-			MovieFile movieFile = new MovieFile();
-			// 중복되지 않을 random 파일이름 생성
-			UUID uuid = UUID.randomUUID();
-			// String타입으로 입력 받음
-			String fileName = uuid.toString();
-			// 확장자명까지 포함된 오리지널 파일 이름을 입력 받은후 콘솔창에 출력
-			String originalFileName = file.getOriginalFilename();
-			logger.debug("addMovie(MovieCommand movieCommand) 메서드 originalFileName is {}",originalFileName);
-			// 마지막 .의 위치값을 pos에 입력하고 콘솔창에 출력
-			int pos = originalFileName.lastIndexOf(".");
-			logger.debug("addMovie(MovieCommand movieCommand) 메서드 pos is {}",pos);
-			// 오리지널 파일이름의 마지막 .뒤 문자열을 가져와 fileExt에 입력후 콘솔창에 출력
-			String fileExt = originalFileName.substring(pos+1);
-			logger.debug("addMovie(MovieCommand movieCommand) 메서드 fileExt is {}",fileExt);
-			// 파일의 크기를 fileSize에 입력후 콘솔창에 출력
-			long fileSize = file.getSize();
-			logger.debug("addMovie(MovieCommand movieCommand) 메서드 fileSize is {}",fileSize);
-			
-			// movieFile 객체에 필드를 셋팅해준후 insertMovieFile 메서드 호출
-			movieFile.setMovieId(movieId);
-			movieFile.setFileName(fileName);
-			movieFile.setFileExt(fileExt);
-			movieFile.setFileSize(fileSize);
-			movieDao.insertMovieFile(movieFile);
-			
-			// 파일을 하드디스크에 저장할 경로 설정
-			File temp = new File(path + fileName);
-			
-			// 빈 파일에 등록한 파일을 이동시킴
-			try {
-				file.transferTo(temp);
-			} catch (IllegalStateException e) {
-				// IllegalStateException 예외 발생시 처리
-				e.printStackTrace();
-				// temp 파일이 존재할경우 if 블록 실행
-				if(temp.exists()) {
-					// temp 파일 삭제 및 콘솔창으로 확인
-					if(temp.delete()) {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
-					}else {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+		if(!multiPartFile.isEmpty()) {
+			for(MultipartFile file : movieCommand.getFile()) {
+				// MovieFile 객체 생성
+				MovieFile movieFile = new MovieFile();
+				// 중복되지 않을 random 파일이름 생성
+				UUID uuid = UUID.randomUUID();
+				// String타입으로 입력 받음
+				String fileName = uuid.toString();
+				// 확장자명까지 포함된 오리지널 파일 이름을 입력 받은후 콘솔창에 출력
+				String originalFileName = file.getOriginalFilename();
+				logger.debug("addMovie(MovieCommand movieCommand) 메서드 originalFileName is {}",originalFileName);
+				// 마지막 .의 위치값을 pos에 입력하고 콘솔창에 출력
+				int pos = originalFileName.lastIndexOf(".");
+				logger.debug("addMovie(MovieCommand movieCommand) 메서드 pos is {}",pos);
+				// 오리지널 파일이름의 마지막 .뒤 문자열을 가져와 fileExt에 입력후 콘솔창에 출력
+				String fileExt = originalFileName.substring(pos+1);
+				logger.debug("addMovie(MovieCommand movieCommand) 메서드 fileExt is {}",fileExt);
+				// 파일의 크기를 fileSize에 입력후 콘솔창에 출력
+				long fileSize = file.getSize();
+				logger.debug("addMovie(MovieCommand movieCommand) 메서드 fileSize is {}",fileSize);
+				
+				// movieFile 객체에 필드를 셋팅해준후 insertMovieFile 메서드 호출
+				movieFile.setMovieId(movieId);
+				movieFile.setFileName(fileName);
+				movieFile.setFileExt(fileExt);
+				movieFile.setFileSize(fileSize);
+				movieDao.insertMovieFile(movieFile);
+				
+				// 파일을 하드디스크에 저장할 경로 설정
+				File temp = new File(path + fileName);
+				
+				// 빈 파일에 등록한 파일을 이동시킴
+				try {
+					file.transferTo(temp);
+				} catch (IllegalStateException e) {
+					// IllegalStateException 예외 발생시 처리
+					e.printStackTrace();
+					// temp 파일이 존재할경우 if 블록 실행
+					if(temp.exists()) {
+						// temp 파일 삭제 및 콘솔창으로 확인
+						if(temp.delete()) {
+							logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+						}else {
+							logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+						}
 					}
-				}
-			} catch (IOException e) {
-				// IOException 에외 발생시 처리
-				e.printStackTrace();
-				// temp 파일이 존재할경우 if 블록 실행
-				if(temp.exists()) {
-					// temp 파일 삭제 및 콘솔창으로 확인
-					if(temp.delete()) {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
-					}else {
-						logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+				} catch (IOException e) {
+					// IOException 에외 발생시 처리
+					e.printStackTrace();
+					// temp 파일이 존재할경우 if 블록 실행
+					if(temp.exists()) {
+						// temp 파일 삭제 및 콘솔창으로 확인
+						if(temp.delete()) {
+							logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 성공",temp);
+						}else {
+							logger.debug("addMovie(MovieCommand movieCommand) 메서드 {} 파일 삭제 실패",temp);
+						}
 					}
 				}
 			}

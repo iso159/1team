@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.movie.service.Movie;
@@ -91,7 +92,8 @@ public class MovieController {
 	
 	// /movie/movieAdd post방식으로 요청시 movieAdd(Movie movie)메서드 호출됨
 	@RequestMapping(value="/movie/movieAdd", method = RequestMethod.POST)
-	public String movieAdd(MovieCommand movieCommand, HttpSession session) {
+	public String movieAdd(MovieCommand movieCommand, HttpSession session
+							,@RequestParam(value="file") MultipartFile multiPartFile) {
 		// 로그인 세션이 널이면 홈으로 리다이렉트 시킴
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
@@ -103,7 +105,7 @@ public class MovieController {
 		path += "resources/upload/";
 		logger.debug("movieAdd(MovieCommand movieCommand, HttpSession session) 메서드 path is {}",path);
 		// 입력 서비스 메서드 호출
-		movieService.addMovie(movieCommand,path);
+		movieService.addMovie(movieCommand,path,multiPartFile);
 		return "redirect:/movie/movieList";
 	}
 	
