@@ -18,6 +18,11 @@ public class MovieDao {
 	// 쿼리 경로를 상수로 입력 
 	private final String nameSpace = "ksmart.project.test26.movie.service.MovieMapper.";
 	
+	// controller -> service -> dao 규칙을 맞추기위해 생성
+	public void movieFileDownload() {
+		logger.debug("movieFileDownload() 메서드 실행");
+	}
+	
 	// movie_file 테이블 하나 조회
 	public List<MovieFile> selectMovieFileByMovieId(int movieId) {
 		logger.debug("selectMovieFileOne(int movieId) 메서드 movieId is {}",movieId);

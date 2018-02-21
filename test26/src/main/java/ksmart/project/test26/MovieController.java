@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.movie.service.Movie;
 import ksmart.project.test26.movie.service.MovieAndMovieFile;
@@ -152,5 +155,17 @@ public class MovieController {
 		// 영화 삭제 서비스 메서드 호출
 		movieService.removeMovie(movieId,realPath);
 		return "redirect:/movie/movieList";
+	}
+	
+	@RequestMapping(value = "/movie/movieFileDownload")
+	public ModelAndView movieFileDownload(HttpServletRequest request, HttpServletResponse reponse
+										,HttpSession session
+										,@RequestParam(value="fileName") String fileName
+										,@RequestParam(value="fileExt") String fileExt) {
+		logger.debug("movieFileDownload(...) 메서드 fileName is {}");
+		// controller -> service -> dao 규칙을 맞추기위해 호출
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/upload/";
+		return movieService.movieFileDownload(request,realPath,fileName,fileExt);
 	}
 }

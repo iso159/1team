@@ -24,6 +24,7 @@
 					<th>파일 이름</th>
 					<th>파일 확장자</th>
 					<th>파일 사이즈</th>
+					<th>첨부 파일</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,6 +34,9 @@
 						<td>${c.fileName}</td>
 						<td>${c.fileExt}</td>
 						<td>${c.fileSize}KB</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/movie/movieFileDownload?fileName=${c.fileName}&fileExt=${c.fileExt}">다운로드</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
