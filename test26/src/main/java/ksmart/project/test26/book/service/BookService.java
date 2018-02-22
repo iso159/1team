@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.BookController;
 
@@ -70,6 +73,39 @@ public class BookService {
 		BookAndBookFile bookAndBookFile = bookDao.selectBookAndBookFile(bookId);
 		logger.debug("getBookFileList(int bookId) bookAndBookFile is {}",bookAndBookFile);
 		return bookAndBookFile;
+	}
+	// 파일 다운로드
+	public ModelAndView bookFileDownload(HttpServletRequest request,String path, String fileName, String fileExt) {
+		logger.debug("bookFileDownload(String path, String fileName) 메서드 실행 paht is {}", path);
+		logger.debug("bookFileDownload(String path, String fileName) 메서드 실행 fileName is {}", fileName);
+		bookDao.bookFileDownload();
+		// 경로 + 다운받을 파일이름을 file에 입력
+		File file = new File(path+fileName);
+		logger.debug("bookFileDownload(String path, String fileName) 메서드 실행 file is {}", file);
+	
+		// 입력한 파일을 읽을수 없다면 if블록실행
+			if(!file.canRead()) {
+				logger.debug("{} 파일을 찾지 못했습니다.",file);
+				return new ModelAndView("fileDownloadView", "file",file);
+			}
+			// 원본 파일명 request에 셋팅
+			request.setAttribute("fileName", fileName);
+			// 확장자명을 더해서 파일 셋팅
+			File reFile = new File(path+fileName+"."+fileExt);
+			logger.debug("bookFileDownload(String path, String fileName) 메서드 실행 reFile is {}", reFile);
+			try {
+				// 파일이 있다면 if블록실행
+				if(file.exists()) {
+					// 확장자명을 더한 파일명으로 수정
+					file.renameTo(reFile);
+					// 확장자명을 더한 파일을 request에 셋팅
+					request.setAttribute("reFile", reFile);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+		return new ModelAndView("fileDownloadView", "file",reFile);
 	}
 	
 	// 입력

@@ -3,6 +3,8 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.book.service.Book;
 import ksmart.project.test26.book.service.BookAndBookFile;
@@ -62,7 +65,7 @@ public class BookController {
 	}
 	// Book 파일리스트
 	@RequestMapping(value="/book/bookFileList")
-	public String BookFile(@RequestParam(value="bookId", required=true) int bookId,HttpSession session, Model model) {
+	public String BookFile(@RequestParam(value="bookId", required=true) int bookId, HttpSession session, Model model) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
@@ -72,6 +75,19 @@ public class BookController {
 		logger.debug("BookFile 메서드 bookAndBookFile is {}",bookAndBookFile);
 		model.addAttribute("bookAndBookFile", bookAndBookFile);
 		return "/book/bookFileList";
+	}
+	// 파일 다운로드 요청
+	@RequestMapping(value="/book/bookFileDownload")
+	public ModelAndView BookFileDownload(@RequestParam(value="fileName") String fileName, 
+									@RequestParam(value="fileExt") String fileExt,
+									HttpSession session,
+									HttpServletRequest request,
+									HttpServletResponse response) {
+		logger.debug("BookFileDownload 메서드 fileName is {}",fileName);
+		// resource 폴더경로
+		String path = session.getServletContext().getRealPath("/");
+		path += "resources/upload/";
+		return bookService.bookFileDownload(request,path,fileName,fileExt);
 	}
 	
 	// 입력페이지요청

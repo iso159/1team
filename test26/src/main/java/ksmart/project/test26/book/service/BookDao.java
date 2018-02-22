@@ -59,6 +59,10 @@ public class BookDao {
 		logger.debug("insertBookFile(BookFile bookFile) 메서드 bookFile is {}",bookFile);
 		return sqlSessionTemplate.insert(nameSpace + "insertBookFile", bookFile);
 	}
+	// 파일다운로드 메소드
+	public void bookFileDownload() {
+		logger.debug("bookFileDownload() 메서드 실행");
+	}
 	
 	// BookFile 조회 메소드
 	public List<BookFile> selectBookFileByBookId(int bookId) {

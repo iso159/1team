@@ -37,7 +37,9 @@
 				<td>${b.fileName}</td>
 				<td>${b.fileExt}</td>
 				<td>${b.fileSize}</td>
-				<td><a href="${path}"></td>
+				<td>
+					<a href="${pageContext.request.contextPath}/book/bookFileDownload?fileName=${b.fileName}&fileExt=${b.fileExt}">다운로드</a>
+				</td>
 			</tr>
 			</c:forEach>
 		</tbody>
