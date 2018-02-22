@@ -36,8 +36,7 @@
 						<td>${C.fileName}</td>
 						<td>${C.fileExt}</td>
 						<td>${C.fileSize}</td>
-
-						<td><a href="/resources/upload?fileName=${C.fileName}">다운로드</a></td>
+						<td><a href="${pageContext.request.contextPath}/country/countryFileDownload?fileName=${C.fileName}&fileExt=${C.fileExt}">다운로드</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

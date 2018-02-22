@@ -26,7 +26,7 @@ public class CountryDao {
 	public List<Country> selectCountryList() {
 		// selectCountryList 쿼리문 실행후 결과를 List<Country> 타입으로 리턴
 		logger.debug("selectCountryList() 메서드 list is {}");
-		return sqlSessionTemplate.selectList(nameSpace + "selectCountryList");
+		return sqlSessionTemplate.selectList(nameSpace + "selectCountryList");																	
 	}
 
 	// country insert
@@ -60,15 +60,7 @@ public class CountryDao {
 		logger.debug("selectCountryOne(Country country) 메서드 country is {}", country);
 		return getCountry;
 	}
-	
-/*	
-	// countryFile one update
-	public CountryFile selectCountryFileOne(CountryFile countrtFile) {
-		CountryFile getCountryFile = sqlSessionTemplate.selectOne(nameSpace + "selectOneCountyFile", countrtFile);
-		logger.debug("selectCountryFileOne(CountryFile countrtFile) 메서드 country is {}", countrtFile);
-		return getCountryFile;
-	}
-*/
+
 	
 	// country selectListByPerPage (페이지당 보여줄 개수)
 	public List<Country> selectListByPerPage(Map<?, ?> map) {
@@ -102,7 +94,6 @@ public class CountryDao {
 	// 국가 파일 리스트
 	public CountryAndCountryFile selectCountryAndCountryFile(int countryId) {
 		CountryAndCountryFile countryAndCountry = sqlSessionTemplate.selectOne(nameSpace + "selectCountryAndCountryFile", countryId);
-		// TODO Auto-generated method stub
 		return countryAndCountry;
 	}
 	// country_file 테이블 하나 조회
@@ -118,4 +109,9 @@ public class CountryDao {
  		logger.debug("deleteCountryFile(int countryId) 메서드 countryId is {}",countryId);
  		sqlSessionTemplate.delete(nameSpace + "deleteCountryFile", countryId);
  	}
+ 	
+ 	// controller -> service -> dao 규칙을 맞추기위해 생성
+ 	 public void countryFileDownload() {
+ 	 	logger.debug("countryFileDownload() 메서드 실행");
+ 	 	}
 }

@@ -3,8 +3,10 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+/*import javax.security.auth.message.callback.PrivateKeyCallback.Request;*/
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,12 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.country.service.Country;
 import ksmart.project.test26.country.service.CountryAndCountryFile;
 import ksmart.project.test26.country.service.CountryCommand;
-import ksmart.project.test26.country.service.CountryDao;
-import ksmart.project.test26.country.service.CountryFile;
+/*import ksmart.project.test26.country.service.CountryDao;
+import ksmart.project.test26.country.service.CountryFile;*/
 import ksmart.project.test26.country.service.CountryService;
 
 @Controller
@@ -41,7 +45,7 @@ public class CountryController {
 
 	// insert 입력하기 요청
 	@RequestMapping(value = "/country/countryAdd", method = RequestMethod.GET)
-	public String countryAdd(HttpSession session) {
+	public String countryAdd(CountryCommand countryCommand, HttpSession session) {
 		logger.debug("countryAdd(HttpSession session) 메서드 session is {}", session);
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
@@ -52,7 +56,8 @@ public class CountryController {
 
 	// insert post방식 요청
 	@RequestMapping(value = "/country/countryAdd", method = RequestMethod.POST)
-	public String countryInsert(CountryCommand countryCommand, HttpSession session) {
+	public String countryInsert(CountryCommand countryCommand, HttpSession session
+															 ,@RequestParam(value="file") MultipartFile multiPartFile) {
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if (session.getAttribute("loginMember") == null) {
 			return "redirect:/member/login";
@@ -60,7 +65,7 @@ public class CountryController {
 		String path = session.getServletContext().getRealPath("/");
 		path += "/resources/upload/";
 		logger.debug("countryInsert(CountryCommand countryCommand, HttpSession session) 메서드 path is {}", path);
-		countryService.addCountry(countryCommand, path);
+		countryService.addCountry(countryCommand, path, multiPartFile);
 		logger.debug("countryInsert(Country country,HttpSession session) 메서드 countryCommand is {}", countryCommand);
 		return "redirect:/country/countryList";
 	}
@@ -82,19 +87,6 @@ public class CountryController {
 		return "redirect:/country/countryList";
 	}
 	
-/*	
-	//국가파일 삭제요청
-	@RequestMapping(value = "/countryFile/countryFileDelete", method = RequestMethod.GET)
-	public String countryFileDelete(CountryFile countryFile, HttpSession session) {
-		//세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
-		if (session.getAttribute("loginMember") == null) {
-			return "redirect:/member/login";
-		}
-		countryService.removeCountryFile(countryFile);
-		logger.debug("countryFileDelete(Country country, HttpSession session) 메서드 countryFile, session is {}", countryFile);
-		return "rediret:/countryFile/countryFilelist";
-	}
-*/
 
 	// 국가 수정페이지 요청, 수정할 한 권조회
 	@RequestMapping(value = "/country/countryModify", method = RequestMethod.GET)
@@ -151,7 +143,6 @@ public class CountryController {
 		return "/country/countryList";
 	}
 	
-	
 	@RequestMapping(value="/country/countryFileList")
 	public String countryFile(Model model, HttpSession session
 								,@RequestParam(value="countryId") int countryId) {
@@ -164,9 +155,23 @@ public class CountryController {
 		logger.debug("countryFile(Model model, HttpSession session\\r\\n\" + \",@RequestParam(value=\\\"countryId\\\") int countryId) 메서드 countryFile is {}", countryFile);
 		model.addAttribute("countryFile", countryFile);
 		String realPath = session.getServletContext().getRealPath("/");
-		realPath += "resources/upload/";
+		realPath += "resources\\upload\\";
 		model.addAttribute("realPath", realPath);
 		return "/country/countryFileList";
 	}
 
+	@RequestMapping(value = "/country/countryFileDownload")
+ 	public ModelAndView countryFileDownload(HttpServletRequest request, HttpServletResponse reponse
+ 										,HttpSession session
+ 										,@RequestParam(value="fileName") String fileName
+ 										,@RequestParam(value="fileExt") String fileExt) {
+ 		logger.debug("countryFileDownload(...) 메서드 fileName is {}");
+ 		// controller -> service -> dao 규칙을 맞추기위해 호출
+ 		String realPath = session.getServletContext().getRealPath("/");
+ 		logger.debug("00001countryFileDownload 메서드 is realPath {}", realPath);
+ 		realPath += "resources/upload/";
+ 		logger.debug("00002countryFileDownload 메서드 is realPath {}", realPath);
+ 		return countryService.countryFileDownload(request,realPath,fileName,fileExt);
+ 	}
+	
 }
