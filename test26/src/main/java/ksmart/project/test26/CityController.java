@@ -15,14 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ksmart.project.test26.city.service.City;
+import ksmart.project.test26.city.service.CityAndCityFile;
 import ksmart.project.test26.city.service.CityCommand;
+import ksmart.project.test26.city.service.CityFile;
 import ksmart.project.test26.city.service.CityService;
 
 @Controller
 public class CityController {
 	@Autowired
 	private CityService cityservice;
-	private static final Logger logger = LoggerFactory.getLogger(MovieController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CityController.class);
+	
+	
 	
 	@RequestMapping(value="/city/cityList", method = RequestMethod.GET)
 	public String city(Model model,HttpSession session
@@ -69,11 +73,29 @@ public class CityController {
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
 		}
+		String path = session.getServletContext().getRealPath("/");
+		//현재 웹서비스가 실행되고있는 파일경로를 가져와서 패쓰에 담는다?????
+		path +="/resources/upload/";
 		logger.info("cityAdd(City city,HttpSession session, CityCommand cityCommand)메서드 city is {}", city);
 		logger.debug("fileName :{}",cityCommand);
-		logger.debug("filesize :{}",cityCommand.getFile().size());
-		cityservice.addCity(cityCommand);
+		logger.debug("000000000000000000000000000path:{}",path);
+		cityservice.addCity(cityCommand, path);
 		return "redirect:/city/cityList";
+	}
+	@RequestMapping(value="/city/cityFileList")
+	public String cityFile(Model model, HttpSession session
+								,@RequestParam(value="cityId") int cityId) {
+		//로그인 세션이 녈이면 홈으로 리다이렉트 시킴
+		if(session.getAttribute("loginMember")==null) {
+			return "redirect:/member/login";
+		}
+		logger.debug("cityFile() 메서드 cityId is {}", cityId);
+		CityAndCityFile cityandcityFile = cityservice.getCityAndCityFile(cityId);
+		model.addAttribute("cityandcityFile", cityandcityFile);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources\\upload\\";
+		model.addAttribute("realPath", realPath);
+		return "/city/cityFileList";
 	}
 	
 	@RequestMapping(value="/city/cityUpdate", method = RequestMethod.GET)
@@ -84,7 +106,7 @@ public class CityController {
 		}
 		City city = cityservice.getCityOne(cityId);
 		// 매개변수 city 값 확인
-		logger.debug("cityModify(City , Movie movie, HttpSession session) 메서드 city is {}",city);
+		logger.debug("cityModify(City , city city, HttpSession session) 메서드 city is {}",city);
 		model.addAttribute("city", city);
 		return "city/cityModify";
 	}

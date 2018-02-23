@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ksmart.project.test26.movie.service.Movie;
-import ksmart.project.test26.movie.service.MovieDao;
+import ksmart.project.test26.city.service.CityAndCityFile;
+
 
 @Repository
 public class CityDao {
@@ -75,5 +75,10 @@ public class CityDao {
 		int totalCount = sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount", map);
 		logger.debug("selectTotalCount()메서드 map is {}",map);
 		return totalCount;
+	}
+
+	public CityAndCityFile selectCityAndCityFile(int cityId) {
+		CityAndCityFile cityandcityFile = sqlSessionTemplate.selectOne(nameSpace + "selectCityAndCityFile", cityId);
+		return cityandcityFile;
 	}
 }

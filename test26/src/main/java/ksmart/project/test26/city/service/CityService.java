@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import ksmart.project.test26.country.service.CountryAndCountryFile;
+
 @Service
 @Transactional
 public class CityService {
@@ -42,7 +44,7 @@ public class CityService {
 		citydao.updateCity(city);
 	}
 	//city 추가
-	public void addCity(CityCommand cityCommand) {
+	public void addCity(CityCommand cityCommand, String path) {
 		logger.debug("addCity(CityCommand cityCommand) 메서드 cityCommand is {}",cityCommand);
 		City city = new City();
 		city.setCityName(cityCommand.getCityName());
@@ -69,7 +71,7 @@ public class CityService {
 			citydao.insertCityFile(cityFile);
 			
 			// 2. 하드디스크에 파일저장
-			File temp = new File("c:\\upload\\"+fileName);
+			File temp = new File(path+fileName);
 			try {
 				file.transferTo(temp);
 			} catch (IllegalStateException e) {
@@ -94,6 +96,12 @@ public class CityService {
 				}
 			}
 		}
+	}
+	public CityAndCityFile getCityAndCityFile(int cityId) {
+		logger.debug("getCityAndCityFile(int cityId)메서드 cityId is {}", cityId);
+		CityAndCityFile cityandcityFile = citydao.selectCityAndCityFile(cityId);
+		logger.debug("getCityAndCityFile(int cityId)메서드 cityAndcityFile is {}", cityandcityFile);
+		return cityandcityFile;
 	}
 	//한개도시조회
 	public City getCityOne(int cityId) {

@@ -3,6 +3,38 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ksmart.project.test26.city.service.CityMapper">
+	<!-- CityFile 맵 -->
+	<resultMap type="ksmart.project.test26.city.service.CityFile" id="SelectCityFileMap">
+		<id column="city_file_id" property="cityFileId" />
+		<result column="city_id" property="cityId" />
+		<result column="file_name" property="fileName" />
+		<result column="file_ext" property="fileExt" />
+		<result column="file_size" property="fileSize" />
+	</resultMap>
+	
+	<!-- CityAndCityFile 맵 -->
+	<resultMap type="ksmart.project.test26.city.service.CityAndCityFile"
+			   id="CityJoinCityFileMap">
+	   <id column="city_id" property="cityId"/>
+	   <result column="city_name" property="cityName"/>
+	   <collection property="list" ofType="ksmart.project.test26.city.service.CityFile">
+			<id column="city_file_id" property="cityFileId"/>
+			<result column="file_name" property="fileName"/>
+			<result column="file_ext" property="fileExt"/>
+			<result column="file_size" property="fileSize"/>		   
+	   </collection>
+    </resultMap>
+	
+	<select id="selectCityAndCityFile"  parameterType="Integer" resultMap="CityJoinCityFileMap">
+		SELECT 
+ 			city_file_id
+ 			,city_id
+ 			,file_name
+ 			,file_ext
+ 			,file_size
+ 		FROM test.city_file
+ 		WHERE city_id = #{id}
+ 	</select>
 	<!-- 도시리스트 조회 -->
 	<select id="selectCityList" resultType="ksmart.project.test26.city.service.City">
 		SELECT

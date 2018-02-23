@@ -54,7 +54,7 @@
 				<c:forEach var="i" items="${CityList}">
 				<tr>
 					<td>${i.cityId}</td>
-					<td>${i.cityName}</td>
+					<td><a href="${pageContext.request.contextPath}/city/cityFileList?cityId=${i.cityId}">${i.cityName}</a></td>
 					<td><a href="${pageContext.request.contextPath}/city/cityUpdate?cityId=${i.cityId}">수정</a></td>
 					<td><a href="${pageContext.request.contextPath}/city/cityRemove?cityId=${i.cityId}">삭제</a></td>
 				</tr>
