@@ -30,7 +30,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="C" items="${cityFile.List}">
+				<c:forEach var="C" items="${cityandcityFile.list}">
 					<tr>
 						<td>${C.cityFileId}</td>
 						<td>${C.fileName}</td>
