@@ -44,13 +44,14 @@ public class CityService {
 		citydao.updateCity(city);
 	}
 	//city 추가
-	public void addCity(CityCommand cityCommand, String path) {
+	public void addCity(CityCommand cityCommand, String path, MultipartFile multiPartFile) {
 		logger.debug("addCity(CityCommand cityCommand) 메서드 cityCommand is {}",cityCommand);
 		City city = new City();
 		city.setCityName(cityCommand.getCityName());
 		citydao.insertCity(city);
 		int cityId = citydao.selectLastId();
 		
+	if(!multiPartFile.isEmpty())	
 		for(MultipartFile file : cityCommand.getFile()) {
 			// 1. db에 입력
 			CityFile cityFile = new CityFile();

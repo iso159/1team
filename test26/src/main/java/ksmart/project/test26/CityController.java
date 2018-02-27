@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import ksmart.project.test26.city.service.City;
 import ksmart.project.test26.city.service.CityAndCityFile;
@@ -57,7 +58,7 @@ public class CityController {
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.GET)
-	public String cityAdd(HttpSession session) {
+	public String cityAdd(CityCommand cityCommand, HttpSession session) {
 		// 메서드 확인
 		logger.debug("cityAdd(HttpSession session) 메서드");
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
@@ -68,7 +69,9 @@ public class CityController {
 	}
 	
 	@RequestMapping(value="/city/cityAdd", method = RequestMethod.POST)
-	public String cityAdd(City city,HttpSession session, CityCommand cityCommand) {
+	public String cityAdd(HttpSession session, CityCommand cityCommand 
+			 ,@RequestParam(value="file") MultipartFile multiPartFile) {
+		
 		// 세션에 로그인 값을 확인하고 로그인 정보가 없으면 리다이렉트
 		if(session.getAttribute("loginMember")==null) {
 			return "redirect:/member/login";
@@ -76,10 +79,9 @@ public class CityController {
 		String path = session.getServletContext().getRealPath("/");
 		//현재 웹서비스가 실행되고있는 파일경로를 가져와서 패쓰에 담는다?????
 		path +="/resources/upload/";
-		logger.info("cityAdd(City city,HttpSession session, CityCommand cityCommand)메서드 city is {}", city);
 		logger.debug("fileName :{}",cityCommand);
 		logger.debug("000000000000000000000000000path:{}",path);
-		cityservice.addCity(cityCommand, path);
+		cityservice.addCity(cityCommand, path, multiPartFile);
 		return "redirect:/city/cityList";
 	}
 	@RequestMapping(value="/city/cityFileList")
