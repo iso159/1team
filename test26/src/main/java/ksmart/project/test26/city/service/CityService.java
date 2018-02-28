@@ -41,11 +41,12 @@ public class CityService {
 		if(cityandcityfile != null){
 			List<CityFile> list = cityandcityfile.getList();
 			for(CityFile i : list) {
-				//경로에 조회된 결과로 얻은 파일이름을 결합
+				//path와 파일이름을 결합
 				File temp = new File(path+i.getFileName());
+				//File클래스의 생성자 함수, pathname에 해당되는 파일의 File 객체를 생성한다
 				//파일이 있다면 if블록 실행
 				if(temp.exists()) {
-					if(temp.delete()) {
+					if(temp.delete()) { //파일을 삭제하고 if문 실행
 						logger.debug("removeCity(int cityId, String path) 메서드 temp.delete CLEAR DELETE !{} !", temp);
 					}else {
 						//파일 삭제 실패 debug 메세지
