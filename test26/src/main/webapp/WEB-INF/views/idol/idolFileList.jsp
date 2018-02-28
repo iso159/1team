@@ -26,6 +26,7 @@
 				<th>파일 확장자</th>
 				<th>파일 사이즈</th>
 				<th>삭제</th>
+				<th>다운로드</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -36,6 +37,9 @@
 						<td>${i.fileExt}</td>
 						<td>${i.fileSize}</td>
 						<td><a href="#">삭제</a></td>
+						<td>
+							<a href="${pageContext.request.contextPath}/idol/idloFileDownload?fileName=${i.fileName}&fileExt=${i.fileExt}">다운로드</a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

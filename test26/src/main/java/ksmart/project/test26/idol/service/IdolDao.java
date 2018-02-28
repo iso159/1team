@@ -100,4 +100,9 @@ public class IdolDao {
 	public int selectTotalCount(Map<String, Object> map) {
 		return sqlSessionTemplate.selectOne(nameSpace+"selectTotalCount", map);
 	}
+	
+	// controller -> service -> dao 규칙을 맞추기위해 생성
+	public void idolFileDownload() {
+		logger.debug("idolFileDownload() 메서드 실행");
+	}
 }

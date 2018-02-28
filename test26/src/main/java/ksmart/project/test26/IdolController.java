@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.idol.service.Idol;
 import ksmart.project.test26.idol.service.IdolAndIdolFile;
@@ -126,10 +129,11 @@ public class IdolController {
 		// idolCommand 객체 안에 정보 확인
 		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 idolCommand is {}",idolCommand);
 		//session이용해서 리소스 폴더 절대경로 찾음
-		String path = session.getServletContext().getRealPath("/resources");
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/";
 		// path 확인
-		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 path is {}",path);
-		idolService.addIdol(idolCommand,path);
+		logger.debug("idolAdd(IdolCommand idolCommand,HttpSession session) 메서드 path is {}",realPath);
+		idolService.addIdol(idolCommand,realPath);
 		return "redirect:/idol/idolList";
 	}
 	
@@ -142,8 +146,9 @@ public class IdolController {
 		}
 		// idolId 정보 확인
 		logger.debug("idolRemove(HttpSession session ,@RequestParam(value=\"idolId\", required=true) int idolId) 메서드 idolId is {}",idolId);
-		String path = session.getServletContext().getRealPath("/resources");
-		idolService.removeMovie(idolId,path);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources/";
+		idolService.removeidol(idolId,realPath);
 		return "redirect:/idol/idolList";
 	}
 	
@@ -161,5 +166,19 @@ public class IdolController {
 		logger.debug("idolFileList(HttpSession session,@RequestParam(value=\"idolId\", required=true) int idolAndIdolFile) 메서드 idolId is {}",idolAndIdolFile);
 		model.addAttribute("idolAndIdolFile", idolAndIdolFile);
 		return "/idol/idolFileList";
+	}
+	
+	/*idol 파일 다운로드 부분*/
+	@RequestMapping(value="/idol/idloFileDownload")
+	public ModelAndView idolFileDownload(HttpServletRequest request, HttpServletResponse reponse
+										,HttpSession session
+										,@RequestParam(value="fileName") String fileName
+										,@RequestParam(value="fileExt") String fileExt) {
+		logger.debug("idolFileDownload(...) 메서드 fileName is {}",fileName);
+		logger.debug("idolFileDownload(...) 메서드 fileExt is {}",fileExt);
+		// controller -> service -> dao 규칙을 맞추기위해 호출
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources\\upload\\";
+		return idolService.idolFileDownload(request,realPath,fileName,fileExt);
 	}
 }

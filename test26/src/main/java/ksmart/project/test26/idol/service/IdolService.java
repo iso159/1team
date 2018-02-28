@@ -7,15 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.idol.service.Idol;
-import ksmart.project.test26.movie.service.MovieService;
 
 @Service
 @Transactional
@@ -24,7 +26,7 @@ public class IdolService {
 	@Autowired
 	private IdolDao idolDao;
 	
-	private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
+	private static final Logger logger = LoggerFactory.getLogger(IdolService.class);
 	
 	/*해당 아이돌 파일 리스트 띄움*/
 	public IdolAndIdolFile selectIdolAndIdolFile(int idolId){
@@ -96,53 +98,65 @@ public class IdolService {
 		// idol 객체안에 정보 확인
 		logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 idol is {}",idol);
 		idolDao.insertIdol(idol);
-		// lastIdolId 구함
-		int lastIdolId = idolDao.selectLastId();
-		logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 lastIdolId is {}",lastIdolId);
-		//2.들어온 파일 정보 입력
-		for(MultipartFile file : idolCommand.getFile()) {
-			IdolFile idolFile = new IdolFile();
-			//2-0.마지막에 넣은 아이디 값
-			idolFile.setIdolId(lastIdolId);
-			//2-1.파일 이름
-			UUID uuid = UUID.randomUUID();
-			String fileName = uuid.toString();
-			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileName is {}",fileName);
-			idolFile.setFileName(fileName);
-			//2-2.파일 확장자
-			String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
-			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileExt is {}",fileExt);
-			idolFile.setFileExt(fileExt);
-			//2-3.파일 사이즈
-			long fileSize = file.getSize();
-			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileSize is {}",fileSize);
-			idolFile.setFileSize(fileSize);;
-			//2-4.파일 저장
-			//path 확인 
-			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 path is {}",path);
-			File temp = new File(path+"\\uplode\\"+fileName);
-			try {
-				file.transferTo(temp);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			idolDao.insertIdol(idolFile);
+		// 만약 파일이 안들어 왔을경우 확인
+		boolean isfind = false;
+		for(MultipartFile l : idolCommand.getFile()) {
+			// .isEmpty() 를 통해 파일이 들어왔을경우 false를 대입
+			isfind = l.isEmpty();
 		}
-	}
+		// 파일이 안들어왔을경우 실행하지 않음
+		if(isfind==false) {
+			// lastIdolId 구함
+			int lastIdolId = idolDao.selectLastId();
+			logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 lastIdolId is {}",lastIdolId);
+			//2.들어온 파일 정보 입력
+			for(MultipartFile file : idolCommand.getFile()) {
+				IdolFile idolFile = new IdolFile();
+				//2-0.마지막에 넣은 아이디 값
+				idolFile.setIdolId(lastIdolId);
+				//2-1.파일 이름
+				UUID uuid = UUID.randomUUID();
+				String fileName = uuid.toString();
+				logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileName is {}",fileName);
+				idolFile.setFileName(fileName);
+				//2-2.파일 확장자
+				String fileExt = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+				logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileExt is {}",fileExt);
+				idolFile.setFileExt(fileExt);
+				//2-3.파일 사이즈
+				long fileSize = file.getSize();
+				logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 fileSize is {}",fileSize);
+				idolFile.setFileSize(fileSize);;
+				//2-4.파일 저장
+				
+				//폴더 없을경우 폴더 생성
+				
+				//path 확인 
+				logger.debug("addIdol(IdolCommand idolCommand, String path) 메서드 path is {}",path);
+				File temp = new File(path+"\\upload\\"+fileName);
+				try {
+					file.transferTo(temp);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				idolDao.insertIdol(idolFile);
+				}
+			}
+		}
 	
 	/*아이돌 삭제부분*/
-	public void removeMovie(int idolId, String path) {
+	public void removeidol(int idolId, String path) {
 		//idolId 확인
-		logger.debug("removeMovie(int idolId) 메서드 idolId is {}",idolId);
+		logger.debug("removeidol(int idolId) 메서드 idolId is {}",idolId);
 		//삭제하기 전에 파일 있는지 확인
 		if(idolDao.selectIdolAndIdolFile(idolId) != null) {
 			IdolAndIdolFile idolAndIdolFile = idolDao.selectIdolAndIdolFile(idolId);
 			List<IdolFile> list = idolAndIdolFile.getFile();
 			for(IdolFile i : list) {
 				String fileName = i.getFileName();
-	    		File file = new File(path+"\\uplode\\"+fileName);
+	    		File file = new File(path+"\\upload\\"+fileName);
 	    			if(file.exists() == true){
 	    			file.delete();
 	    		}
@@ -150,5 +164,38 @@ public class IdolService {
 			idolDao.deleteIdolFile(idolId);
 		}
 		idolDao.deleteIdol(idolId);
+	}
+	
+	/*아이돌 파일 다운로드 부분*/
+	public ModelAndView idolFileDownload(HttpServletRequest request,String path, String fileName, String fileExt) {
+		logger.debug("idolFileDownload(String path, String fileName) 메서드 실행 paht is {}", path);
+		logger.debug("idolFileDownload(String path, String fileName) 메서드 실행 fileName is {}", fileName);
+		logger.debug("idolFileDownload(String path, String fileName) 메서드 실행 fileExt is {}", fileExt);
+		idolDao.idolFileDownload();
+		// 경로 + 다운받을 파일이름을 file에 입력
+		File file = new File(path+fileName);
+		logger.debug("idolFileDownload(String path, String fileName) 메서드 실행 file is {}", file);
+		// 입력한 파일을 읽을수 없다면 if블록실행
+		if(!file.canRead()) {
+			logger.debug("{} 파일을 찾지 못했습니다.",file);
+			return new ModelAndView("fileDownloadView", "file",file);
+		}
+		// 원본 파일명 request에 셋팅
+		request.setAttribute("fileName", fileName);
+		// 확장자명을 더해서 파일 셋팅
+		File reFile = new File(path+fileName+fileExt);
+		logger.debug("idolFileDownload(String path, String fileName) 메서드 실행 reFile is {}", reFile);
+		try {
+			// 파일이 있다면 if블록실행
+			if(file.exists()) {
+				// 확장자명을 더한 파일명으로 수정
+				file.renameTo(reFile);
+				// 확장자명을 더한 파일을 request에 셋팅
+				request.setAttribute("reFile", reFile);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("fileDownloadView", "file",reFile);
 	}
 }

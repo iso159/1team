@@ -27,5 +27,10 @@ public class IdolCommand {
 	public void setFile(List<MultipartFile> file) {
 		this.file = file;
 	}
+	@Override
+	public String toString() {
+		return "IdolCommand [idolId=" + idolId + ", idolTitle=" + idolTitle + ", file=" + file + "]";
+	}
+	
 	
 }

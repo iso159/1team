@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>하면 된다</title>
 <script src="${pageContext.request.contextPath}/resources/jquery/jquery-3.3.1.min.js"></script>
 </head>
@@ -36,12 +37,21 @@ $(document).ready(function(){
 		<form id="updateForm" class="form-inline" action="${pageContext.request.contextPath}/idol/idolUpdate" method="post">
 			<div class="row">
 				<div class="col-md-4">
-					<c:forEach var="i" items="${list}">
+					<c:forEach var="i" items="${map.list}">
 						<label for="code">아이돌 코드:</label>
 						<input class="form-control" type="text" name="idolId" readonly="readonly" value="${i.idolId}">
 						<label for="title">아이돌 이름:</label>
 						<input class="form-control" id="inputidolName" type="text" name="idolName" value="${i.idolName}">
 					</c:forEach>
+					<label for="code">파일 목록</label>
+					<table>
+							<c:forEach var="f" items="${map.file.file}">
+							<tr>
+							<td>${f.fileName}${f.fileExt} size:${f.fileSize}</td>
+							<td style="margin-left:10;"><a href="#">삭제</a></td>
+							</tr>
+							</c:forEach>
+					</table>
 					<button type="button" id="updateBtn" class="btn btn-info">수정 완료</button>
 				</div>
 			</div>
