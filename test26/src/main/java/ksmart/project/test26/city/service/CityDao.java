@@ -26,11 +26,16 @@ public class CityDao {
 		logger.debug("selectCityList() 메서드 list is {}",list);
 		return list;
 	}
-	
+	//city삭제
 	public void deleteCity(int cityId) {
 		//int값 받아오는지 확인
 		logger.debug("deleteCityList(int cityId) 메서드 cityId is {}",cityId);
 		sqlSessionTemplate.delete(nameSpace + "deleteCity", cityId);
+	}
+	//city 파일 삭제
+	public void deleteCityFile(int cityId) {
+		logger.debug("deletefilecity(int cityId)메서드", cityId);
+		sqlSessionTemplate.delete(nameSpace+"deleteCityFile",cityId);
 	}
 	
 	public void updateCity(City city) {

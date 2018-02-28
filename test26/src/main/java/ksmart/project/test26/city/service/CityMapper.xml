@@ -35,6 +35,14 @@
  		FROM test.city_file
  		WHERE city_id = #{id}
  	</select>
+ 	
+ 	<!-- 파일삭제 -->
+ 	<delete id="deleteCityFile" parameterType="Integer">
+ 		DELETE
+ 		FROM test.city_file
+ 		WHERE city_id = #{id}
+ 	</delete>
+ 	
 	<!-- 도시리스트 조회 -->
 	<select id="selectCityList" resultType="ksmart.project.test26.city.service.City">
 		SELECT

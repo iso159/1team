@@ -131,7 +131,12 @@ public class CityController {
 			return "redirect:/member/login";
 		}
 		logger.debug("cityRemove(int cityId,HttpSession session) 메서드 cityId is {}",cityId);
-		cityservice.removeCity(cityId);
+		
+		String path = session.getServletContext().getRealPath("/");
+		//현재 웹서비스가 실행되고있는 파일경로를 가져와서 패쓰에 담는다?????
+		path +="\\resources\\upload\\";
+		logger.debug("path:{}",path);
+		cityservice.removeCity(cityId, path);
 		return "redirect:/city/cityList";
 	}
 }

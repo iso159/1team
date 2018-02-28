@@ -31,12 +31,33 @@ public class CityService {
 		logger.debug("checkCityList() 메서드 list is {}",list);
 		return list;
 	}
-	//city 삭제
-	public void removeCity(int cityId) {
-		
-		logger.debug("removeCity(int cityId) 메서드 cityId is {}", cityId);
+	
+	//city, city file삭제
+	public void removeCity(int cityId, String path) {
+		logger.debug("removeCityFile()메서드 cityId is {}", cityId);
+		logger.debug("removeCity(int cityId, String path) 메서드 path is {}", path);
+		//파일이 있는지 확인후 삭제
+		CityAndCityFile cityandcityfile = citydao.selectCityAndCityFile(cityId);
+		if(cityandcityfile != null){
+			List<CityFile> list = cityandcityfile.getList();
+			for(CityFile i : list) {
+				//경로에 조회된 결과로 얻은 파일이름을 결합
+				File temp = new File(path+i.getFileName());
+				//파일이 있다면 if블록 실행
+				if(temp.exists()) {
+					if(temp.delete()) {
+						logger.debug("removeCity(int cityId, String path) 메서드 temp.delete CLEAR DELETE !{} !", temp);
+					}else {
+						//파일 삭제 실패 debug 메세지
+						logger.debug("removeCity(int cityId, String path) 메서드temp.delete FAILURE DELETE ! {}",temp);
+					}
+				}
+			}
+			citydao.deleteCityFile(cityId);
+		}
 		citydao.deleteCity(cityId);
 	}
+	
 	//city 수정
 	public void modifyCity(City city) {
 		
@@ -50,8 +71,8 @@ public class CityService {
 		city.setCityName(cityCommand.getCityName());
 		citydao.insertCity(city);
 		int cityId = citydao.selectLastId();
-		
-	if(!multiPartFile.isEmpty())	
+		//폼에 파일이 있을경우 반복문을 실행
+	if(!multiPartFile.isEmpty()) {	
 		for(MultipartFile file : cityCommand.getFile()) {
 			// 1. db에 입력
 			CityFile cityFile = new CityFile();
@@ -97,6 +118,7 @@ public class CityService {
 				}
 			}
 		}
+	}
 	}
 	public CityAndCityFile getCityAndCityFile(int cityId) {
 		logger.debug("getCityAndCityFile(int cityId)메서드 cityId is {}", cityId);
