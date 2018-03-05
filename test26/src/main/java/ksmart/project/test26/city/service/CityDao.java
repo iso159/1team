@@ -86,4 +86,8 @@ public class CityDao {
 		CityAndCityFile cityandcityFile = sqlSessionTemplate.selectOne(nameSpace + "selectCityAndCityFile", cityId);
 		return cityandcityFile;
 	}
+	//controller -> service -> dao 규칙을 맞추기위해 생성
+	public void cityFileDownload() {
+		logger.debug("cityFileDownload()메서드 실행");
+	}
 }

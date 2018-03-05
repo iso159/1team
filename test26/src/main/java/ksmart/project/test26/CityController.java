@@ -3,6 +3,8 @@ package ksmart.project.test26;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.city.service.City;
 import ksmart.project.test26.city.service.CityAndCityFile;
@@ -139,5 +142,17 @@ public class CityController {
 		logger.debug("cityRemove()메서드 path:{}",path);
 		cityservice.removeCity(cityId, path);
 		return "redirect:/city/cityList";
+	}
+	//city파일 다운로드
+	@RequestMapping(value="/city/cityFileDownload", method=RequestMethod.GET)
+	public ModelAndView cityDownload(HttpServletRequest request, HttpServletResponse response
+									,HttpSession session
+									,@RequestParam(value="fileName") String fileName
+									,@RequestParam(value="fileExt") String fileExt) {
+		logger.debug("cityFileDownload()메서드 fileName is {}",fileName);
+		logger.debug("cityFileDownload()메서드 fileExt is {}",fileExt);
+		String realPath = session.getServletContext().getRealPath("/");
+		realPath += "resources\\upload\\";
+		return cityservice.cityFileDownload(request,realPath,fileName,fileExt); 
 	}
 }

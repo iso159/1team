@@ -7,12 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import ksmart.project.test26.country.service.CountryAndCountryFile;
 
@@ -170,4 +173,36 @@ public class CityService {
 		returnMap.put("totalCount", totalCount);
 		return returnMap;
 	}
+	//city파일 다운로드
+	public ModelAndView cityFileDownload(HttpServletRequest request, String path, String fileName, String fileExt) {
+		logger.debug("cityFileDownload()메서드 실행 path is {}", path);
+		logger.debug("cityFileDownload()메서드 실행 fileName is {}", fileName);
+		logger.debug("cityFileDownload()메서드 실행 fileExt is{}", fileExt);
+		citydao.cityFileDownload();
+		//경로 + 다운받을 파일이름을 file에 입력
+		File file = new File(path+fileName);
+		logger.debug("cityFileDownload()메서드 실행 file is {}", file);
+		//입력한 파일을 읽을 수 없다면 if블록실행
+		if(!file.canRead()) {
+			logger.debug("{} 파일을 찾지못했습니다.", file);
+			return new ModelAndView("fileDownloadView","file",file);
+		}
+		//원본 파일명 request에 셋팅
+		request.setAttribute("fileName",fileName);
+		//확장명을 더해서 파일 셋팅
+		File reFile = new File(path+fileName+"."+fileExt);
+		logger.debug("cityFileDownload()메서드 실행 reFile is {}", reFile);
+		try {
+			//파일이 있다면 if블록 실행
+			if(file.exists()) {
+				//확장자명을 더한 파일명으로 수정
+				file.renameTo(reFile);
+				//확장자명을 더한 파일을 request에 셋팅
+				request.setAttribute("reFile",reFile);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return new ModelAndView("fileDownloadView","file",reFile);
+	}	
 }
